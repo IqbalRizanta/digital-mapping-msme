@@ -1,6 +1,6 @@
 """
 Survey Image Scanner and Intake Utility.
-Scans and registers user-provided offline survey images from data/raw/survei_offline/.
+Scans, catalogs, and labels user-provided offline survey images from SWK Convention Hall & Deles.
 """
 
 from __future__ import annotations
@@ -12,9 +12,28 @@ import pandas as pd
 
 
 class SurveyImageScanner:
-    """Scans and catalogs user-provided offline survey images."""
+    """Scans and catalogs user-provided offline survey images from Sentra Wisata Kuliner (SWK)."""
 
     VALID_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".bmp"}
+
+    # Mapping of folder names to standardized digital maturity labels
+    CLASS_MAPPING = {
+        "kelas_1_konvensional": {
+            "label_id": 0,
+            "label_name": "Konvensional",
+            "description": "Transaksi tunai / manual, belum adopsi QRIS/EDC/Online",
+        },
+        "kelas_2_transisi_digital": {
+            "label_id": 1,
+            "label_name": "Berkembang",
+            "description": "Transisi digital, telah adopsi QRIS / EDC mandiri",
+        },
+        "kelas_3_go_digital_ojol": {
+            "label_id": 2,
+            "label_name": "Maju",
+            "description": "Ekosistem digital terintegrasi (QRIS/EDC + Merchant Online / POS)",
+        },
+    }
 
     def __init__(self, raw_survey_dir: str = "data/raw/survei_offline"):
         self.raw_survey_dir = Path(raw_survey_dir)
@@ -30,11 +49,12 @@ class SurveyImageScanner:
         return hasher.hexdigest()
 
     def scan_images(self) -> Dict[str, Any]:
-        """Scan directory for all valid image files and generate inventory."""
+        """Scan directory for all valid image files and generate inventory with class labels."""
         image_records: List[Dict[str, Any]] = []
         total_bytes = 0
         duplicate_hashes = set()
         seen_hashes = {}
+        class_distribution = {"Konvensional": 0, "Berkembang": 0, "Maju": 0, "Unclassified": 0}
 
         all_files = [
             f for f in self.raw_survey_dir.rglob("*")
@@ -53,20 +73,30 @@ class SurveyImageScanner:
             else:
                 seen_hashes[file_hash] = file_path
 
-            # Attempt to infer subdistrict / merchant name from directory structure
-            rel_parts = file_path.relative_to(self.raw_survey_dir).parts
-            inferred_kecamatan = rel_parts[0] if len(rel_parts) > 1 else "Unspecified"
-            inferred_merchant = rel_parts[1] if len(rel_parts) > 2 else "Unspecified"
+            # Infer class label from parent folder name
+            parent_folder = file_path.parent.name.lower()
+            mapped = self.CLASS_MAPPING.get(parent_folder)
+            if mapped:
+                label_id = mapped["label_id"]
+                label_name = mapped["label_name"]
+            else:
+                label_id = -1
+                label_name = "Unclassified"
+
+            class_distribution[label_name] = class_distribution.get(label_name, 0) + 1
 
             image_records.append({
                 "file_name": file_path.name,
-                "relative_path": str(file_path.relative_to(Path.cwd())),
+                "relative_path": str(file_path.resolve().relative_to(Path.cwd().resolve())).replace("\\", "/"),
+                "folder_class": file_path.parent.name,
+                "label_id": label_id,
+                "label_ground_truth": label_name,
+                "target_focus": "SWK (Sentra Wisata Kuliner)",
+                "kecamatan_focus": "Sukolilo",
                 "file_size_bytes": file_size,
-                "file_size_kb": round(file_size / 1024, 2),
+                "file_size_mb": round(file_size / (1024 * 1024), 2),
                 "sha256": file_hash,
                 "is_duplicate": is_duplicate,
-                "inferred_kecamatan": inferred_kecamatan,
-                "inferred_merchant": inferred_merchant,
                 "extension": file_path.suffix.lower(),
             })
 
@@ -81,7 +111,7 @@ class SurveyImageScanner:
             "unique_images": len(seen_hashes),
             "duplicates_count": len(duplicate_hashes),
             "total_size_mb": total_mb,
-            "gate_200mb_passed": total_mb >= 200.0,
+            "class_distribution": class_distribution,
             "inventory_csv": str(inventory_csv) if not df_inventory.empty else None,
         }
         return summary
