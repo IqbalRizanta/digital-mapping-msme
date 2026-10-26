@@ -1,0 +1,54 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.msme/
+.venv/
+venv/
+env/
+ENV/
+
+# Secrets & Environment variables
+.env
+*.env
+*.key
+credentials.json
+service-account*.json
+
+# Data files (keep folder structure via .gitkeep)
+data/raw/*
+!data/raw/.gitkeep
+data/clean/*
+!data/clean/.gitkeep
+data/gold/*
+!data/gold/.gitkeep
+
+# Large models & checkpoints
+models/*
+!models/.gitkeep
+*.pt
+*.pth
+*.onnx
+*.bin
+runs/
+mlruns/
+
+# IDE & Editor caches
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporary outputs
+reports/eda/*.html
+reports/eda/*.png
+reports/figures/*
+!reports/figures/.gitkeep

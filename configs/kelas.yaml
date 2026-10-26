@@ -1,0 +1,38 @@
+# Definisi Kelas & Indikator Kematangan Digital UMKM Kuliner
+
+indikator:
+  - id: qris
+    nama: "QRIS (Quick Response Code Indonesian Standard)"
+    deskripsi: "Kode QR statis atau dinamis untuk pembayaran nontunai"
+    tipe: "pembayaran_digital"
+  - id: pos
+    nama: "Point of Sale (POS)"
+    deskripsi: "Aplikasi kasir berbasis tablet/smartphone/desktop (mis. Moka, Pawoon, Olsera)"
+    tipe: "sistem_pencatatan"
+  - id: edc
+    nama: "Electronic Data Capture (EDC)"
+    deskripsi: "Mesin gesek kartu debit/kredit perbankan"
+    tipe: "pembayaran_digital"
+  - id: merchant_online
+    nama: "Merchant Online Delivery"
+    deskripsi: "Kemitraan aktif dengan platform pesan-antar (GoFood, GrabFood, ShopeeFood)"
+    tipe: "penjualan_digital"
+
+kelas_kematangan:
+  - id: 0
+    kode: "konvensional"
+    label: "Konvensional"
+    deskripsi: "Transaksi tunai murni / manual, tidak memiliki indikator pembayaran/penjualan digital"
+    aturan: "qris == 0 and pos == 0 and edc == 0 and merchant_online == 0"
+
+  - id: 1
+    kode: "berkembang"
+    label: "Berkembang"
+    deskripsi: "Memiliki minimal satu instrumen pembayaran/penjualan digital tanpa sistem terintegrasi lengkap"
+    aturan: "(qris == 1 or edc == 1 or merchant_online == 1) and not (qris == 1 and pos == 1 and (edc == 1 or merchant_online == 1))"
+
+  - id: 2
+    kode: "maju"
+    label: "Maju"
+    deskripsi: "Ekosistem digital matang: QRIS + POS terintegrasi + (EDC atau Merchant Online)"
+    aturan: "qris == 1 and pos == 1 and (edc == 1 or merchant_online == 1)"

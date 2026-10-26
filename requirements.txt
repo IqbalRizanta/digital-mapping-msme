@@ -1,0 +1,55 @@
+# Core Data Manipulation & Storage
+pandas>=2.2.0
+numpy>=1.26.0
+pyarrow>=15.0.0
+duckdb>=0.10.0
+scipy>=1.12.0
+scikit-learn>=1.4.0
+
+# Computer Vision & Image Processing
+opencv-python-headless>=4.9.0
+Pillow>=10.2.0
+albumentations>=1.4.0
+imagehash>=4.3.1
+ultralytics>=8.1.0
+
+# NLP & Deep Learning
+torch>=2.2.0
+torchvision>=0.17.0
+transformers>=4.38.0
+nltk>=3.8.1
+
+# Document Processing & OCR
+PyMuPDF>=1.23.0
+pytesseract>=0.3.10
+
+# Spatial Analysis & BDA
+geopandas>=0.14.3
+folium>=0.16.0
+shapely>=2.0.3
+pysal>=24.1
+statsmodels>=0.14.1
+
+# Visualization & EDA
+matplotlib>=3.8.3
+seaborn>=0.13.2
+plotly>=5.19.0
+ydata-profiling>=4.6.4
+
+# Modeling, Explainability & MLOps
+xgboost>=2.0.3
+optuna>=3.5.0
+shap>=0.45.0
+mlflow>=2.11.0
+
+# Serving & Web Application
+fastapi>=0.110.0
+uvicorn>=0.28.0
+streamlit>=1.32.0
+requests>=2.31.0
+python-dotenv>=1.0.1
+pyyaml>=6.0.1
+
+# Development & Testing
+pytest>=8.1.0
+ruff>=0.3.0

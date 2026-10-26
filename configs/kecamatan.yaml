@@ -1,0 +1,59 @@
+# Konfigurasi Wilayah Surabaya Timur
+wilayah: Surabaya Timur
+provinsi: Jawa Timur
+kota: Surabaya
+
+kecamatan:
+  - nama: Gubeng
+    kode_kemendagri: "35.78.07"
+    prioritas_survei: 1
+    bounding_box:
+      min_lat: -7.285
+      max_lat: -7.255
+      min_lon: 112.740
+      max_lon: 112.775
+
+  - nama: Rungkut
+    kode_kemendagri: "35.78.08"
+    prioritas_survei: 1
+    bounding_box:
+      min_lat: -7.340
+      max_lat: -7.300
+      min_lon: 112.760
+      max_lon: 112.810
+
+  - nama: Tenggilis Mejoyo
+    kode_kemendagri: "35.78.23"
+    prioritas_survei: 1
+    bounding_box:
+      min_lat: -7.330
+      max_lat: -7.305
+      min_lon: 112.745
+      max_lon: 112.775
+
+  - nama: Gunung Anyar
+    kode_kemendagri: "35.78.24"
+    prioritas_survei: 2
+    bounding_box:
+      min_lat: -7.355
+      max_lat: -7.325
+      min_lon: 112.770
+      max_lon: 112.825
+
+  - nama: Sukolilo
+    kode_kemendagri: "35.78.14"
+    prioritas_survei: 1
+    bounding_box:
+      min_lat: -7.305
+      max_lat: -7.265
+      min_lon: 112.765
+      max_lon: 112.820
+
+  - nama: Mulyorejo
+    kode_kemendagri: "35.78.22"
+    prioritas_survei: 2
+    bounding_box:
+      min_lat: -7.275
+      max_lat: -7.240
+      min_lon: 112.775
+      max_lon: 112.820
