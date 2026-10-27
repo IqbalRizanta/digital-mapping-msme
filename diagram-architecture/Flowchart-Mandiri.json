@@ -1,0 +1,674 @@
+{
+  "version": "32.6.4",
+  "pages": [
+    {
+      "id": "p1",
+      "name": "flowchart-mandiri-gmaps-realworld",
+      "cells": [
+        {
+          "id": "1",
+          "type": "layer"
+        },
+        {
+          "id": "B1",
+          "type": "node",
+          "parent": "1",
+          "label": "1. PENGUMPULAN DATA (Google Maps  |  Real World)"
+        },
+        {
+          "id": "S",
+          "type": "node",
+          "parent": "B1",
+          "label": "Start"
+        },
+        {
+          "id": "g1",
+          "type": "node",
+          "parent": "B1",
+          "label": "Tentukan kueri\n& grid per kecamatan",
+          "html": "Tentukan kueri<br>& grid per kecamatan"
+        },
+        {
+          "id": "g2",
+          "type": "node",
+          "parent": "B1",
+          "label": "Ambil data tempat\n(Places API)",
+          "html": "Ambil data tempat<br>(Places API)"
+        },
+        {
+          "id": "g3",
+          "type": "node",
+          "parent": "B1",
+          "label": "Ambil ulasan\n& foto",
+          "html": "Ambil ulasan<br>& foto"
+        },
+        {
+          "id": "r1",
+          "type": "node",
+          "parent": "B1",
+          "label": "Susun form survei\n& pedoman foto",
+          "html": "Susun form survei<br>& pedoman foto"
+        },
+        {
+          "id": "r2",
+          "type": "node",
+          "parent": "B1",
+          "label": "Survei lapangan\nSWK Surabaya Timur",
+          "html": "Survei lapangan<br>SWK Surabaya Timur"
+        },
+        {
+          "id": "r3",
+          "type": "node",
+          "parent": "B1",
+          "label": "Foto kasir, etalase,\nQRIS, EDC, POS",
+          "html": "Foto kasir, etalase,<br>QRIS, EDC, POS"
+        },
+        {
+          "id": "g4",
+          "type": "node",
+          "parent": "B1",
+          "label": "Kuota & batas\nAPI cukup?",
+          "html": "Kuota & batas<br>API cukup?"
+        },
+        {
+          "id": "r4",
+          "type": "node",
+          "parent": "B1",
+          "label": "Izin & form\nlengkap?",
+          "html": "Izin & form<br>lengkap?"
+        },
+        {
+          "id": "g5",
+          "type": "node",
+          "parent": "B1",
+          "label": "Tambah kueri\n/ grid",
+          "html": "Tambah kueri<br>/ grid"
+        },
+        {
+          "id": "r5",
+          "type": "node",
+          "parent": "B1",
+          "label": "Lengkapi form\n/ ulangi survei",
+          "html": "Lengkapi form<br>/ ulangi survei"
+        },
+        {
+          "id": "g6",
+          "type": "node",
+          "parent": "B1",
+          "label": "Simpan JSON & foto\nGoogle Drive (Raw)",
+          "html": "Simpan JSON & foto<br>Google Drive (Raw)"
+        },
+        {
+          "id": "r6",
+          "type": "node",
+          "parent": "B1",
+          "label": "Unggah foto & form\nGoogle Drive (Raw)",
+          "html": "Unggah foto & form<br>Google Drive (Raw)"
+        },
+        {
+          "id": "e1",
+          "type": "edge",
+          "parent": "1",
+          "source": "S",
+          "target": "g1"
+        },
+        {
+          "id": "e2",
+          "type": "edge",
+          "parent": "1",
+          "source": "S",
+          "target": "r1"
+        },
+        {
+          "id": "e3",
+          "type": "edge",
+          "parent": "1",
+          "source": "g1",
+          "target": "g2"
+        },
+        {
+          "id": "e4",
+          "type": "edge",
+          "parent": "1",
+          "source": "g2",
+          "target": "g3"
+        },
+        {
+          "id": "e5",
+          "type": "edge",
+          "parent": "1",
+          "source": "g3",
+          "target": "g4"
+        },
+        {
+          "id": "e6",
+          "type": "edge",
+          "parent": "1",
+          "source": "g4",
+          "target": "g6",
+          "label": "Ya"
+        },
+        {
+          "id": "e7",
+          "type": "edge",
+          "parent": "1",
+          "source": "r1",
+          "target": "r2"
+        },
+        {
+          "id": "e8",
+          "type": "edge",
+          "parent": "1",
+          "source": "r2",
+          "target": "r3"
+        },
+        {
+          "id": "e9",
+          "type": "edge",
+          "parent": "1",
+          "source": "r3",
+          "target": "r4"
+        },
+        {
+          "id": "e10",
+          "type": "edge",
+          "parent": "1",
+          "source": "r4",
+          "target": "r6",
+          "label": "Ya"
+        },
+        {
+          "id": "e11",
+          "type": "edge",
+          "parent": "1",
+          "source": "g4",
+          "target": "g5",
+          "label": "Tidak"
+        },
+        {
+          "id": "e12",
+          "type": "edge",
+          "parent": "1",
+          "source": "g5",
+          "target": "g2"
+        },
+        {
+          "id": "e13",
+          "type": "edge",
+          "parent": "1",
+          "source": "r4",
+          "target": "r5",
+          "label": "Tidak"
+        },
+        {
+          "id": "e14",
+          "type": "edge",
+          "parent": "1",
+          "source": "r5",
+          "target": "r2"
+        },
+        {
+          "id": "B2",
+          "type": "node",
+          "parent": "1",
+          "label": "2. VALIDASI & EDA (data mandiri)"
+        },
+        {
+          "id": "m1",
+          "type": "node",
+          "parent": "B2",
+          "label": "Gabung sumber\n& beri umkm_id",
+          "html": "Gabung sumber<br>& beri umkm_id"
+        },
+        {
+          "id": "m2",
+          "type": "node",
+          "parent": "B2",
+          "label": "Cek format\n& duplikat",
+          "html": "Cek format<br>& duplikat"
+        },
+        {
+          "id": "m3",
+          "type": "node",
+          "parent": "B2",
+          "label": "Anonimisasi\n(blur wajah)",
+          "html": "Anonimisasi<br>(blur wajah)"
+        },
+        {
+          "id": "m4",
+          "type": "node",
+          "parent": "B2",
+          "label": "EDA\nMaps vs lapangan",
+          "html": "EDA<br>Maps vs lapangan"
+        },
+        {
+          "id": "m5",
+          "type": "node",
+          "parent": "B2",
+          "label": "Missing /\noutlier?",
+          "html": "Missing /<br>outlier?"
+        },
+        {
+          "id": "m6",
+          "type": "node",
+          "parent": "B2",
+          "label": "Simpan Clean\n(Parquet)",
+          "html": "Simpan Clean<br>(Parquet)"
+        },
+        {
+          "id": "mL",
+          "type": "node",
+          "parent": "B2",
+          "label": "Cleaning\n(imputasi/hapus)",
+          "html": "Cleaning<br>(imputasi/hapus)"
+        },
+        {
+          "id": "e15",
+          "type": "edge",
+          "parent": "1",
+          "source": "m1",
+          "target": "m2"
+        },
+        {
+          "id": "e16",
+          "type": "edge",
+          "parent": "1",
+          "source": "m2",
+          "target": "m3"
+        },
+        {
+          "id": "e17",
+          "type": "edge",
+          "parent": "1",
+          "source": "m3",
+          "target": "m4"
+        },
+        {
+          "id": "e18",
+          "type": "edge",
+          "parent": "1",
+          "source": "m4",
+          "target": "m5"
+        },
+        {
+          "id": "e19",
+          "type": "edge",
+          "parent": "1",
+          "source": "m5",
+          "target": "m6"
+        },
+        {
+          "id": "M8CXh5usdj5j55Ekwwrm-3",
+          "type": "node",
+          "parent": "e19",
+          "label": "Tidak"
+        },
+        {
+          "id": "e20",
+          "type": "edge",
+          "parent": "1",
+          "source": "m5",
+          "target": "mL",
+          "label": "Ya"
+        },
+        {
+          "id": "e21",
+          "type": "edge",
+          "parent": "1",
+          "source": "mL",
+          "target": "m6"
+        },
+        {
+          "id": "e22",
+          "type": "edge",
+          "parent": "1",
+          "source": "g6",
+          "target": "m1"
+        },
+        {
+          "id": "e23",
+          "type": "edge",
+          "parent": "1",
+          "source": "r6",
+          "target": "m1"
+        },
+        {
+          "id": "B3",
+          "type": "node",
+          "parent": "1",
+          "label": "3. PREPROCESSING & FITUR"
+        },
+        {
+          "id": "p1",
+          "type": "node",
+          "parent": "B3",
+          "label": "Preprocessing\nfoto & teks",
+          "html": "Preprocessing<br>foto & teks"
+        },
+        {
+          "id": "p2",
+          "type": "node",
+          "parent": "B3",
+          "label": "Anotasi foto\n(Label Studio)",
+          "html": "Anotasi foto<br>(Label Studio)"
+        },
+        {
+          "id": "p3",
+          "type": "node",
+          "parent": "B3",
+          "label": "Latih detektor\n(YOLO)",
+          "html": "Latih detektor<br>(YOLO)"
+        },
+        {
+          "id": "p4",
+          "type": "node",
+          "parent": "B3",
+          "label": "mAP ≥\ntarget?",
+          "html": "mAP ≥<br>target?"
+        },
+        {
+          "id": "p5",
+          "type": "node",
+          "parent": "B3",
+          "label": "Deteksi indikator\nQRIS·POS·EDC·Online",
+          "html": "Deteksi indikator<br>QRIS·POS·EDC·Online"
+        },
+        {
+          "id": "p6",
+          "type": "node",
+          "parent": "B3",
+          "label": "Embedding ulasan\n(IndoBERT)",
+          "html": "Embedding ulasan<br>(IndoBERT)"
+        },
+        {
+          "id": "pL",
+          "type": "node",
+          "parent": "B3",
+          "label": "Tambah anotasi\n/ tuning",
+          "html": "Tambah anotasi<br>/ tuning"
+        },
+        {
+          "id": "e24",
+          "type": "edge",
+          "parent": "1",
+          "source": "p1",
+          "target": "p2"
+        },
+        {
+          "id": "e25",
+          "type": "edge",
+          "parent": "1",
+          "source": "p2",
+          "target": "p3"
+        },
+        {
+          "id": "e26",
+          "type": "edge",
+          "parent": "1",
+          "source": "p3",
+          "target": "p4"
+        },
+        {
+          "id": "e27",
+          "type": "edge",
+          "parent": "1",
+          "source": "p4",
+          "target": "p5"
+        },
+        {
+          "id": "e28",
+          "type": "edge",
+          "parent": "1",
+          "source": "p5",
+          "target": "p6"
+        },
+        {
+          "id": "e29",
+          "type": "edge",
+          "parent": "1",
+          "source": "p4",
+          "target": "pL",
+          "label": "Tidak"
+        },
+        {
+          "id": "e30",
+          "type": "edge",
+          "parent": "1",
+          "source": "pL",
+          "target": "p2"
+        },
+        {
+          "id": "e31",
+          "type": "edge",
+          "parent": "1",
+          "source": "m6",
+          "target": "p1"
+        },
+        {
+          "id": "B4",
+          "type": "node",
+          "parent": "1",
+          "label": "4. ANALISIS MANDIRI & EVALUASI"
+        },
+        {
+          "id": "q1",
+          "type": "node",
+          "parent": "B4",
+          "label": "Fitur numerik Maps\nrating · jumlah ulasan",
+          "html": "Fitur numerik Maps<br>rating · jumlah ulasan"
+        },
+        {
+          "id": "q2",
+          "type": "node",
+          "parent": "B4",
+          "label": "Indikator foto\nMaps vs lapangan",
+          "html": "Indikator foto<br>Maps vs lapangan"
+        },
+        {
+          "id": "q3",
+          "type": "node",
+          "parent": "B4",
+          "label": "Hitung kesepakatan\n(Cohen's kappa)",
+          "html": "Hitung kesepakatan<br>(Cohen's kappa)"
+        },
+        {
+          "id": "q4",
+          "type": "node",
+          "parent": "B4",
+          "label": "Kesepakatan\ncukup?",
+          "html": "Kesepakatan<br>cukup?"
+        },
+        {
+          "id": "q5",
+          "type": "node",
+          "parent": "B4",
+          "label": "Label kelas dari\nsurvei lapangan",
+          "html": "Label kelas dari<br>survei lapangan"
+        },
+        {
+          "id": "q6",
+          "type": "node",
+          "parent": "B4",
+          "label": "Analisis bias\ncakupan Maps",
+          "html": "Analisis bias<br>cakupan Maps"
+        },
+        {
+          "id": "qL",
+          "type": "node",
+          "parent": "B4",
+          "label": "Tinjau kasus\nyang berbeda",
+          "html": "Tinjau kasus<br>yang berbeda"
+        },
+        {
+          "id": "e32",
+          "type": "edge",
+          "parent": "1",
+          "source": "q1",
+          "target": "q2"
+        },
+        {
+          "id": "e33",
+          "type": "edge",
+          "parent": "1",
+          "source": "q2",
+          "target": "q3"
+        },
+        {
+          "id": "e34",
+          "type": "edge",
+          "parent": "1",
+          "source": "q3",
+          "target": "q4"
+        },
+        {
+          "id": "e35",
+          "type": "edge",
+          "parent": "1",
+          "source": "q4",
+          "target": "q5"
+        },
+        {
+          "id": "e36",
+          "type": "edge",
+          "parent": "1",
+          "source": "q5",
+          "target": "q6"
+        },
+        {
+          "id": "e37",
+          "type": "edge",
+          "parent": "1",
+          "source": "q4",
+          "target": "qL",
+          "label": "Tidak"
+        },
+        {
+          "id": "e38",
+          "type": "edge",
+          "parent": "1",
+          "source": "qL",
+          "target": "q2"
+        },
+        {
+          "id": "e39",
+          "type": "edge",
+          "parent": "1",
+          "source": "p6",
+          "target": "q1"
+        },
+        {
+          "id": "B5",
+          "type": "node",
+          "parent": "1",
+          "label": "5. SERAH-TERIMA KE KELOMPOK"
+        },
+        {
+          "id": "s1",
+          "type": "node",
+          "parent": "B5",
+          "label": "Gabung fitur\n& label mandiri",
+          "html": "Gabung fitur<br>& label mandiri"
+        },
+        {
+          "id": "s2",
+          "type": "node",
+          "parent": "B5",
+          "label": "Cek skema\nGold kelompok",
+          "html": "Cek skema<br>Gold kelompok"
+        },
+        {
+          "id": "s3",
+          "type": "node",
+          "parent": "B5",
+          "label": "Skema\ncocok?",
+          "html": "Skema<br>cocok?"
+        },
+        {
+          "id": "s4",
+          "type": "node",
+          "parent": "B5",
+          "label": "Simpan fitur & label\n(Parquet)",
+          "html": "Simpan fitur & label<br>(Parquet)"
+        },
+        {
+          "id": "s5",
+          "type": "node",
+          "parent": "B5",
+          "label": "Kirim ke Fusi Fitur\nkelompok",
+          "html": "Kirim ke Fusi Fitur<br>kelompok"
+        },
+        {
+          "id": "s6",
+          "type": "node",
+          "parent": "B5",
+          "label": "End"
+        },
+        {
+          "id": "sL",
+          "type": "node",
+          "parent": "B5",
+          "label": "Perbaiki kolom\n& tipe data",
+          "html": "Perbaiki kolom<br>& tipe data"
+        },
+        {
+          "id": "e40",
+          "type": "edge",
+          "parent": "1",
+          "source": "s1",
+          "target": "s2"
+        },
+        {
+          "id": "e41",
+          "type": "edge",
+          "parent": "1",
+          "source": "s2",
+          "target": "s3"
+        },
+        {
+          "id": "e42",
+          "type": "edge",
+          "parent": "1",
+          "source": "s3",
+          "target": "s4",
+          "label": "Ya"
+        },
+        {
+          "id": "e43",
+          "type": "edge",
+          "parent": "1",
+          "source": "s4",
+          "target": "s5"
+        },
+        {
+          "id": "e44",
+          "type": "edge",
+          "parent": "1",
+          "source": "s5",
+          "target": "s6"
+        },
+        {
+          "id": "e45",
+          "type": "edge",
+          "parent": "1",
+          "source": "s3",
+          "target": "sL",
+          "label": "Tidak"
+        },
+        {
+          "id": "e46",
+          "type": "edge",
+          "parent": "1",
+          "source": "sL",
+          "target": "s2"
+        },
+        {
+          "id": "e47",
+          "type": "edge",
+          "parent": "1",
+          "source": "q6",
+          "target": "s1"
+        }
+      ]
+    }
+  ]
+}

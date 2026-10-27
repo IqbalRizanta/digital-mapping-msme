@@ -1,0 +1,1658 @@
+{
+  "version": "32.6.4",
+  "pages": [
+    {
+      "id": "QgWYUeKOEdKkQQ6mHvhA",
+      "name": "bd-ai-archi",
+      "cells": [
+        {
+          "id": "1",
+          "type": "layer"
+        },
+        {
+          "id": "DS",
+          "type": "node",
+          "parent": "1",
+          "label": "DataSource"
+        },
+        {
+          "id": "s1",
+          "type": "node",
+          "parent": "DS",
+          "label": "Google Maps",
+          "html": "<b>Google Maps</b>"
+        },
+        {
+          "id": "s2",
+          "type": "node",
+          "parent": "DS",
+          "label": "Kaggle",
+          "html": "<b>Kaggle</b>"
+        },
+        {
+          "id": "s3",
+          "type": "node",
+          "parent": "DS",
+          "label": "ScienceDirect",
+          "html": "<b>ScienceDirect</b>"
+        },
+        {
+          "id": "s4",
+          "type": "node",
+          "parent": "DS",
+          "label": "Opendata",
+          "html": "<b>Opendata</b>"
+        },
+        {
+          "id": "s5",
+          "type": "node",
+          "parent": "DS",
+          "label": "Mendeley Data",
+          "html": "<b>Mendeley Data</b>"
+        },
+        {
+          "id": "s6",
+          "type": "node",
+          "parent": "DS",
+          "label": "Dinasti Publisher",
+          "html": "<b>Dinasti Publisher</b>"
+        },
+        {
+          "id": "s7",
+          "type": "node",
+          "parent": "DS",
+          "label": "Real World",
+          "html": "<b>Real World</b>"
+        },
+        {
+          "id": "ING",
+          "type": "node",
+          "parent": "1",
+          "label": "Ingestion\n(ETL)",
+          "html": "Ingestion<br>(ETL)"
+        },
+        {
+          "id": "API",
+          "type": "node",
+          "parent": "ING",
+          "label": "API\nrequests · Places API · kagglehub",
+          "html": "<b>API</b><br>requests · Places API · kagglehub"
+        },
+        {
+          "id": "APP",
+          "type": "node",
+          "parent": "ING",
+          "label": "Application\nrequests · BeautifulSoup",
+          "html": "<b>Application</b><br>requests · BeautifulSoup"
+        },
+        {
+          "id": "SRV",
+          "type": "node",
+          "parent": "ING",
+          "label": "Survei\nManual Foto · Drive Upload",
+          "html": "<b>Survei</b><br>Manual Foto · Drive Upload"
+        },
+        {
+          "id": "BAT",
+          "type": "node",
+          "parent": "ING",
+          "label": "Batch/Streaming\nPandas · DuckDB · PySpark",
+          "html": "<b>Batch/Streaming</b><br>Pandas · DuckDB · PySpark"
+        },
+        {
+          "id": "SCH",
+          "type": "node",
+          "parent": "ING",
+          "label": "Data Collection Schema\nGoogle Sheets",
+          "html": "<b>Data Collection Schema</b><br>Google Sheets"
+        },
+        {
+          "id": "RAW",
+          "type": "node",
+          "parent": "ING",
+          "label": "Raw Data\nGoogle Drive\nGambar ≥ 200 MB\nTeks/Numerik ≥ 2.000 baris",
+          "html": "<b>Raw Data</b><br>Google Drive<br>Gambar ≥ 200 MB<br>Teks/Numerik ≥ 2.000 baris"
+        },
+        {
+          "id": "bde8",
+          "type": "edge",
+          "parent": "ING",
+          "source": "API",
+          "target": "BAT"
+        },
+        {
+          "id": "bde9",
+          "type": "edge",
+          "parent": "ING",
+          "source": "APP",
+          "target": "BAT"
+        },
+        {
+          "id": "bde10",
+          "type": "edge",
+          "parent": "ING",
+          "source": "SRV",
+          "target": "BAT"
+        },
+        {
+          "id": "bde11",
+          "type": "edge",
+          "parent": "ING",
+          "source": "BAT",
+          "target": "SCH"
+        },
+        {
+          "id": "bde12",
+          "type": "edge",
+          "parent": "ING",
+          "source": "SCH",
+          "target": "RAW"
+        },
+        {
+          "id": "DP",
+          "type": "node",
+          "parent": "1",
+          "label": "Data Processing"
+        },
+        {
+          "id": "p1",
+          "type": "node",
+          "parent": "DP",
+          "label": "EDA\nPandas · ydata-profiling · Seaborn",
+          "html": "<b>EDA</b><br>Pandas · ydata-profiling · Seaborn"
+        },
+        {
+          "id": "p2",
+          "type": "node",
+          "parent": "DP",
+          "label": "Data Cleaning\nscikit-learn · SciPy",
+          "html": "<b>Data Cleaning</b><br>scikit-learn · SciPy"
+        },
+        {
+          "id": "p3",
+          "type": "node",
+          "parent": "DP",
+          "label": "Anonymization\nregex · OpenCV (blur wajah)",
+          "html": "<b>Anonymization</b><br>regex · OpenCV (blur wajah)"
+        },
+        {
+          "id": "p4",
+          "type": "node",
+          "parent": "DP",
+          "label": "Preprocessing\nOpenCV · Albumentations · PyMuPDF · Tesseract OCR · NLTK",
+          "html": "<b>Preprocessing</b><br>OpenCV · Albumentations · PyMuPDF · Tesseract OCR · NLTK"
+        },
+        {
+          "id": "p5",
+          "type": "node",
+          "parent": "DP",
+          "label": "Indicator Detection\nLabel Studio · Ultralytics YOLO",
+          "html": "<b>Indicator Detection</b><br>Label Studio · Ultralytics YOLO"
+        },
+        {
+          "id": "p6",
+          "type": "node",
+          "parent": "DP",
+          "label": "Feature Engineering\nIndoBERT · ResNet-50 · TF-IDF",
+          "html": "<b>Feature Engineering</b><br>IndoBERT · ResNet-50 · TF-IDF"
+        },
+        {
+          "id": "p7",
+          "type": "node",
+          "parent": "DP",
+          "label": "Fusi Fitur & Scaling\nscikit-learn Pipeline · StandardScaler · PCA",
+          "html": "<b>Fusi Fitur &amp; Scaling</b><br>scikit-learn Pipeline · StandardScaler · PCA"
+        },
+        {
+          "id": "p8",
+          "type": "node",
+          "parent": "DP",
+          "label": "Gold Data\nParquet · PyArrow · DuckDB",
+          "html": "<b>Gold Data</b><br>Parquet · PyArrow · DuckDB"
+        },
+        {
+          "id": "bde14",
+          "type": "edge",
+          "parent": "DP",
+          "source": "p1",
+          "target": "p2"
+        },
+        {
+          "id": "bde15",
+          "type": "edge",
+          "parent": "DP",
+          "source": "p2",
+          "target": "p3"
+        },
+        {
+          "id": "bde16",
+          "type": "edge",
+          "parent": "DP",
+          "source": "p3",
+          "target": "p4"
+        },
+        {
+          "id": "bde17",
+          "type": "edge",
+          "parent": "DP",
+          "source": "p4",
+          "target": "p5"
+        },
+        {
+          "id": "bde18",
+          "type": "edge",
+          "parent": "DP",
+          "source": "p5",
+          "target": "p6"
+        },
+        {
+          "id": "bde19",
+          "type": "edge",
+          "parent": "DP",
+          "source": "p6",
+          "target": "p7"
+        },
+        {
+          "id": "bde20",
+          "type": "edge",
+          "parent": "DP",
+          "source": "p7",
+          "target": "p8"
+        },
+        {
+          "id": "MD",
+          "type": "node",
+          "parent": "1",
+          "label": "Modeling"
+        },
+        {
+          "id": "m1",
+          "type": "node",
+          "parent": "MD",
+          "label": "Clustering\nK-Means · K-Prototypes · ACO",
+          "html": "<b>Clustering</b><br>K-Means · K-Prototypes · ACO"
+        },
+        {
+          "id": "lb",
+          "type": "node",
+          "parent": "MD",
+          "label": "Label Ground Truth\nGoogle Sheets (survei lapangan)",
+          "html": "<b>Label Ground Truth</b><br>Google Sheets (survei lapangan)"
+        },
+        {
+          "id": "m3",
+          "type": "node",
+          "parent": "MD",
+          "label": "Classification\nLogistic Regression · Random Forest · XGBoost",
+          "html": "<b>Classification</b><br>Logistic Regression · Random Forest · XGBoost"
+        },
+        {
+          "id": "hp",
+          "type": "node",
+          "parent": "MD",
+          "label": "Hyperparameter Tuning\nOptuna · GridSearchCV",
+          "html": "<b>Hyperparameter Tuning</b><br>Optuna · GridSearchCV"
+        },
+        {
+          "id": "bde23",
+          "type": "edge",
+          "parent": "MD",
+          "source": "lb",
+          "target": "m3"
+        },
+        {
+          "id": "bde38",
+          "type": "edge",
+          "parent": "MD",
+          "source": "hp",
+          "target": "m1"
+        },
+        {
+          "id": "bde39",
+          "type": "edge",
+          "parent": "MD",
+          "source": "hp",
+          "target": "m3"
+        },
+        {
+          "id": "EV",
+          "type": "node",
+          "parent": "1",
+          "label": "Evaluation\n& Serving",
+          "html": "Evaluation<br>& Serving"
+        },
+        {
+          "id": "ev",
+          "type": "node",
+          "parent": "EV",
+          "label": "Evaluation\nSilhouette · DBI · macro-F1 · mAP · GroupKFold",
+          "html": "<b>Evaluation</b><br>Silhouette · DBI · macro-F1 · mAP · GroupKFold"
+        },
+        {
+          "id": "dc",
+          "type": "node",
+          "parent": "EV",
+          "label": "Metrik ≥\ntarget?",
+          "html": "<b>Metrik ≥</b><br>target?"
+        },
+        {
+          "id": "xp",
+          "type": "node",
+          "parent": "EV",
+          "label": "Explainability\nSHAP · Grad-CAM",
+          "html": "<b>Explainability</b><br>SHAP · Grad-CAM"
+        },
+        {
+          "id": "r1",
+          "type": "node",
+          "parent": "EV",
+          "label": "Model Registry\nMLflow · ONNX",
+          "html": "<b>Model Registry</b><br>MLflow · ONNX"
+        },
+        {
+          "id": "r2",
+          "type": "node",
+          "parent": "EV",
+          "label": "Inference API\nFastAPI · ONNX Runtime",
+          "html": "<b>Inference API</b><br>FastAPI · ONNX Runtime"
+        },
+        {
+          "id": "bde26",
+          "type": "edge",
+          "parent": "EV",
+          "source": "ev",
+          "target": "dc"
+        },
+        {
+          "id": "bde27",
+          "type": "edge",
+          "parent": "EV",
+          "source": "xp",
+          "target": "r1"
+        },
+        {
+          "id": "bde28",
+          "type": "edge",
+          "parent": "EV",
+          "source": "r1",
+          "target": "r2"
+        },
+        {
+          "id": "bde36",
+          "type": "edge",
+          "parent": "EV",
+          "source": "dc",
+          "target": "xp",
+          "label": "Yes"
+        },
+        {
+          "id": "BD",
+          "type": "node",
+          "parent": "1",
+          "label": "BDA"
+        },
+        {
+          "id": "b1",
+          "type": "node",
+          "parent": "BD",
+          "label": "Aggregation\nDuckDB · Pandas · PySpark",
+          "html": "<b>Aggregation</b><br>DuckDB · Pandas · PySpark"
+        },
+        {
+          "id": "b2",
+          "type": "node",
+          "parent": "BD",
+          "label": "Spatial Analysis\nGeoPandas · Folium",
+          "html": "<b>Spatial Analysis</b><br>GeoPandas · Folium"
+        },
+        {
+          "id": "b3",
+          "type": "node",
+          "parent": "BD",
+          "label": "Spatial Statistics\nPySAL · SciPy · statsmodels",
+          "html": "<b>Spatial Statistics</b><br>PySAL · SciPy · statsmodels"
+        },
+        {
+          "id": "b4",
+          "type": "node",
+          "parent": "BD",
+          "label": "Dashboard\nPlotly · Streamlit",
+          "html": "<b>Dashboard</b><br>Plotly · Streamlit"
+        },
+        {
+          "id": "bde30",
+          "type": "edge",
+          "parent": "BD",
+          "source": "b1",
+          "target": "b2"
+        },
+        {
+          "id": "bde31",
+          "type": "edge",
+          "parent": "BD",
+          "source": "b2",
+          "target": "b3"
+        },
+        {
+          "id": "bde32",
+          "type": "edge",
+          "parent": "BD",
+          "source": "b3",
+          "target": "b4"
+        },
+        {
+          "id": "AP",
+          "type": "node",
+          "parent": "1",
+          "label": "AI Application"
+        },
+        {
+          "id": "a1",
+          "type": "node",
+          "parent": "AP",
+          "label": "Search & Recommendation (opsional)\nLangChain · FAISS",
+          "html": "<b>Search &amp; Recommendation (opsional)</b><br>LangChain · FAISS"
+        },
+        {
+          "id": "a2",
+          "type": "node",
+          "parent": "AP",
+          "label": "Web App\nStreamlit · FastAPI",
+          "html": "<b>Web App</b><br>Streamlit · FastAPI"
+        },
+        {
+          "id": "a3",
+          "type": "node",
+          "parent": "AP",
+          "label": "Report\nGoogle Docs",
+          "html": "<b>Report</b><br>Google Docs"
+        },
+        {
+          "id": "bde34",
+          "type": "edge",
+          "parent": "AP",
+          "source": "a1",
+          "target": "a2"
+        },
+        {
+          "id": "bde35",
+          "type": "edge",
+          "parent": "AP",
+          "source": "a2",
+          "target": "a3"
+        },
+        {
+          "id": "bde1",
+          "type": "edge",
+          "parent": "1",
+          "source": "s1",
+          "target": "API"
+        },
+        {
+          "id": "bde2",
+          "type": "edge",
+          "parent": "1",
+          "source": "s2",
+          "target": "API"
+        },
+        {
+          "id": "bde3",
+          "type": "edge",
+          "parent": "1",
+          "source": "s4",
+          "target": "API"
+        },
+        {
+          "id": "bde5",
+          "type": "edge",
+          "parent": "1",
+          "source": "s5",
+          "target": "APP"
+        },
+        {
+          "id": "bde6",
+          "type": "edge",
+          "parent": "1",
+          "source": "s6",
+          "target": "APP"
+        },
+        {
+          "id": "bde7",
+          "type": "edge",
+          "parent": "1",
+          "source": "s7",
+          "target": "SRV"
+        },
+        {
+          "id": "bde13",
+          "type": "edge",
+          "parent": "1",
+          "source": "RAW",
+          "target": "p1"
+        },
+        {
+          "id": "bde21",
+          "type": "edge",
+          "parent": "1",
+          "source": "p8",
+          "target": "m1"
+        },
+        {
+          "id": "bde22",
+          "type": "edge",
+          "parent": "1",
+          "source": "p8",
+          "target": "m3"
+        },
+        {
+          "id": "bde24",
+          "type": "edge",
+          "parent": "1",
+          "source": "m1",
+          "target": "ev"
+        },
+        {
+          "id": "bde25",
+          "type": "edge",
+          "parent": "1",
+          "source": "m3",
+          "target": "ev"
+        },
+        {
+          "id": "bde29",
+          "type": "edge",
+          "parent": "1",
+          "source": "r2",
+          "target": "b1"
+        },
+        {
+          "id": "bde33",
+          "type": "edge",
+          "parent": "1",
+          "source": "b4",
+          "target": "a2"
+        },
+        {
+          "id": "bde37",
+          "type": "edge",
+          "parent": "1",
+          "source": "dc",
+          "target": "hp",
+          "label": "No"
+        },
+        {
+          "id": "X1",
+          "type": "node",
+          "parent": "1",
+          "label": "Dev Environment"
+        },
+        {
+          "id": "X10",
+          "type": "node",
+          "parent": "X1",
+          "label": "Google Colab",
+          "html": "<b>Google Colab</b>"
+        },
+        {
+          "id": "X11",
+          "type": "node",
+          "parent": "X1",
+          "label": "VS Code",
+          "html": "<b>VS Code</b>"
+        },
+        {
+          "id": "X12",
+          "type": "node",
+          "parent": "X1",
+          "label": "Python 3.10+",
+          "html": "<b>Python 3.10+</b>"
+        },
+        {
+          "id": "X13",
+          "type": "node",
+          "parent": "X1",
+          "label": "PyTorch",
+          "html": "<b>PyTorch</b>"
+        },
+        {
+          "id": "X14",
+          "type": "node",
+          "parent": "X1",
+          "label": "scikit-learn",
+          "html": "<b>scikit-learn</b>"
+        },
+        {
+          "id": "X15",
+          "type": "node",
+          "parent": "X1",
+          "label": "Hugging Face",
+          "html": "<b>Hugging Face</b>"
+        },
+        {
+          "id": "X2",
+          "type": "node",
+          "parent": "1",
+          "label": "MLOps & Monitoring"
+        },
+        {
+          "id": "X20",
+          "type": "node",
+          "parent": "X2",
+          "label": "Google Sheets",
+          "html": "<b>Google Sheets</b>"
+        },
+        {
+          "id": "X21",
+          "type": "node",
+          "parent": "X2",
+          "label": "Git / GitHub",
+          "html": "<b>Git / GitHub</b>"
+        },
+        {
+          "id": "X22",
+          "type": "node",
+          "parent": "X2",
+          "label": "MLflow",
+          "html": "<b>MLflow</b>"
+        },
+        {
+          "id": "X23",
+          "type": "node",
+          "parent": "X2",
+          "label": "DVC (opsional)",
+          "html": "<b>DVC (opsional)</b>"
+        },
+        {
+          "id": "X3",
+          "type": "node",
+          "parent": "1",
+          "label": "Governance & Security"
+        },
+        {
+          "id": "X30",
+          "type": "node",
+          "parent": "X3",
+          "label": "python-dotenv",
+          "html": "<b>python-dotenv</b>"
+        },
+        {
+          "id": "X31",
+          "type": "node",
+          "parent": "X3",
+          "label": "regex anonimisasi",
+          "html": "<b>regex anonimisasi</b>"
+        },
+        {
+          "id": "X32",
+          "type": "node",
+          "parent": "X3",
+          "label": "OpenCV blur wajah",
+          "html": "<b>OpenCV blur wajah</b>"
+        },
+        {
+          "id": "X33",
+          "type": "node",
+          "parent": "X3",
+          "label": "Google Drive Access Control",
+          "html": "<b>Google Drive Access Control</b>"
+        },
+        {
+          "id": "X4",
+          "type": "node",
+          "parent": "1",
+          "label": "Assessment Framework"
+        },
+        {
+          "id": "X40",
+          "type": "node",
+          "parent": "X4",
+          "label": "scikit-learn Metrics",
+          "html": "<b>scikit-learn Metrics</b>"
+        },
+        {
+          "id": "X41",
+          "type": "node",
+          "parent": "X4",
+          "label": "Ultralytics (mAP)",
+          "html": "<b>Ultralytics (mAP)</b>"
+        },
+        {
+          "id": "X42",
+          "type": "node",
+          "parent": "X4",
+          "label": "Matplotlib",
+          "html": "<b>Matplotlib</b>"
+        },
+        {
+          "id": "X43",
+          "type": "node",
+          "parent": "X4",
+          "label": "Seaborn",
+          "html": "<b>Seaborn</b>"
+        },
+        {
+          "id": "E5KYjD76-ptbFmaVJccU-1",
+          "type": "edge",
+          "parent": "1",
+          "source": "s3",
+          "target": "APP"
+        },
+        {
+          "id": "E5KYjD76-ptbFmaVJccU-4",
+          "type": "node",
+          "parent": "1"
+        },
+        {
+          "id": "E5KYjD76-ptbFmaVJccU-7",
+          "type": "node",
+          "parent": "1"
+        },
+        {
+          "id": "E5KYjD76-ptbFmaVJccU-8",
+          "type": "node",
+          "parent": "1"
+        },
+        {
+          "id": "E5KYjD76-ptbFmaVJccU-9",
+          "type": "node",
+          "parent": "1"
+        },
+        {
+          "id": "E5KYjD76-ptbFmaVJccU-10",
+          "type": "node",
+          "parent": "1"
+        },
+        {
+          "id": "E5KYjD76-ptbFmaVJccU-11",
+          "type": "node",
+          "parent": "1"
+        }
+      ]
+    },
+    {
+      "id": "qa4I9BeyCSPUWgafzy72",
+      "name": "flowchart-bd-ai",
+      "cells": [
+        {
+          "id": "1",
+          "type": "layer"
+        },
+        {
+          "id": "B1",
+          "type": "node",
+          "parent": "1",
+          "label": "1. INGESTION (ETL)"
+        },
+        {
+          "id": "a0",
+          "type": "node",
+          "parent": "B1",
+          "label": "Start"
+        },
+        {
+          "id": "a1",
+          "type": "node",
+          "parent": "B1",
+          "label": "Tentukan kelas\n& indikator",
+          "html": "Tentukan kelas<br>& indikator"
+        },
+        {
+          "id": "a2",
+          "type": "node",
+          "parent": "B1",
+          "label": "Ambil data\nAPI",
+          "html": "Ambil data<br>API"
+        },
+        {
+          "id": "a3",
+          "type": "node",
+          "parent": "B1",
+          "label": "Unduh\ndokumen",
+          "html": "Unduh<br>dokumen"
+        },
+        {
+          "id": "a4",
+          "type": "node",
+          "parent": "B1",
+          "label": "Survei & foto\nlapangan",
+          "html": "Survei & foto<br>lapangan"
+        },
+        {
+          "id": "a5",
+          "type": "node",
+          "parent": "B1",
+          "label": "Gabung data\n(Batch)",
+          "html": "Gabung data<br>(Batch)"
+        },
+        {
+          "id": "a6",
+          "type": "node",
+          "parent": "B1",
+          "label": "Catat\nData Schema",
+          "html": "Catat<br>Data Schema"
+        },
+        {
+          "id": "a7",
+          "type": "node",
+          "parent": "B1",
+          "label": "Simpan\nRaw Data",
+          "html": "Simpan<br>Raw Data"
+        },
+        {
+          "id": "e1",
+          "type": "edge",
+          "parent": "1",
+          "source": "a0",
+          "target": "a1"
+        },
+        {
+          "id": "e2",
+          "type": "edge",
+          "parent": "1",
+          "source": "a1",
+          "target": "a2"
+        },
+        {
+          "id": "e3",
+          "type": "edge",
+          "parent": "1",
+          "source": "a2",
+          "target": "a3"
+        },
+        {
+          "id": "e4",
+          "type": "edge",
+          "parent": "1",
+          "source": "a3",
+          "target": "a4"
+        },
+        {
+          "id": "e5",
+          "type": "edge",
+          "parent": "1",
+          "source": "a4",
+          "target": "a5"
+        },
+        {
+          "id": "e6",
+          "type": "edge",
+          "parent": "1",
+          "source": "a5",
+          "target": "a6"
+        },
+        {
+          "id": "e7",
+          "type": "edge",
+          "parent": "1",
+          "source": "a6",
+          "target": "a7"
+        },
+        {
+          "id": "B2",
+          "type": "node",
+          "parent": "1",
+          "label": "2. VALIDASI & EDA"
+        },
+        {
+          "id": "b0",
+          "type": "node",
+          "parent": "B2",
+          "label": "Volume\ncukup?",
+          "html": "Volume<br>cukup?"
+        },
+        {
+          "id": "b1",
+          "type": "node",
+          "parent": "B2",
+          "label": "Cek format\nfile",
+          "html": "Cek format<br>file"
+        },
+        {
+          "id": "b2",
+          "type": "node",
+          "parent": "B2",
+          "label": "Hapus\nduplikat",
+          "html": "Hapus<br>duplikat"
+        },
+        {
+          "id": "b3",
+          "type": "node",
+          "parent": "B2",
+          "label": "Anonimisasi\n(blur wajah)",
+          "html": "Anonimisasi<br>(blur wajah)"
+        },
+        {
+          "id": "b4",
+          "type": "node",
+          "parent": "B2",
+          "label": "EDA\nstatistik",
+          "html": "EDA<br>statistik"
+        },
+        {
+          "id": "b5",
+          "type": "node",
+          "parent": "B2",
+          "label": "EDA\nvisualisasi",
+          "html": "EDA<br>visualisasi"
+        },
+        {
+          "id": "b6",
+          "type": "node",
+          "parent": "B2",
+          "label": "Ada missing /\noutlier?",
+          "html": "Ada missing /<br>outlier?"
+        },
+        {
+          "id": "b7",
+          "type": "node",
+          "parent": "B2",
+          "label": "Simpan Clean\n(Parquet)",
+          "html": "Simpan Clean<br>(Parquet)"
+        },
+        {
+          "id": "bL1",
+          "type": "node",
+          "parent": "B2",
+          "label": "Tambah data ≥200 MB\n& ≥2.000 baris",
+          "html": "Tambah data ≥200 MB<br>& ≥2.000 baris"
+        },
+        {
+          "id": "bL2",
+          "type": "node",
+          "parent": "B2",
+          "label": "Cleaning\n(imputasi/hapus)",
+          "html": "Cleaning<br>(imputasi/hapus)"
+        },
+        {
+          "id": "e8",
+          "type": "edge",
+          "parent": "1",
+          "source": "b0",
+          "target": "b1",
+          "label": "Ya"
+        },
+        {
+          "id": "e9",
+          "type": "edge",
+          "parent": "1",
+          "source": "b1",
+          "target": "b2"
+        },
+        {
+          "id": "e10",
+          "type": "edge",
+          "parent": "1",
+          "source": "b2",
+          "target": "b3"
+        },
+        {
+          "id": "e11",
+          "type": "edge",
+          "parent": "1",
+          "source": "b3",
+          "target": "b4"
+        },
+        {
+          "id": "e12",
+          "type": "edge",
+          "parent": "1",
+          "source": "b4",
+          "target": "b5"
+        },
+        {
+          "id": "e13",
+          "type": "edge",
+          "parent": "1",
+          "source": "b5",
+          "target": "b6"
+        },
+        {
+          "id": "e14",
+          "type": "edge",
+          "parent": "1",
+          "source": "b6",
+          "target": "b7",
+          "label": "Tidak"
+        },
+        {
+          "id": "e15",
+          "type": "edge",
+          "parent": "1",
+          "source": "a7",
+          "target": "b0"
+        },
+        {
+          "id": "e16",
+          "type": "edge",
+          "parent": "1",
+          "source": "b0",
+          "target": "bL1",
+          "label": "Tidak"
+        },
+        {
+          "id": "e17",
+          "type": "edge",
+          "parent": "1",
+          "source": "bL1",
+          "target": "a2"
+        },
+        {
+          "id": "e18",
+          "type": "edge",
+          "parent": "1",
+          "source": "b6",
+          "target": "bL2",
+          "label": "Ya"
+        },
+        {
+          "id": "e19",
+          "type": "edge",
+          "parent": "1",
+          "source": "bL2",
+          "target": "b7"
+        },
+        {
+          "id": "B3",
+          "type": "node",
+          "parent": "1",
+          "label": "3. PREPROCESSING\n & FITUR",
+          "html": "3. PREPROCESSING<div>&nbsp;&amp; FITUR</div>"
+        },
+        {
+          "id": "c0",
+          "type": "node",
+          "parent": "B3",
+          "label": "Preprocessing\n3 format",
+          "html": "Preprocessing<br>3 format"
+        },
+        {
+          "id": "c1",
+          "type": "node",
+          "parent": "B3",
+          "label": "Anotasi foto\n(Label Studio)",
+          "html": "Anotasi foto<br>(Label Studio)"
+        },
+        {
+          "id": "c2",
+          "type": "node",
+          "parent": "B3",
+          "label": "Latih deteksi\n(YOLO)",
+          "html": "Latih deteksi<br>(YOLO)"
+        },
+        {
+          "id": "c3",
+          "type": "node",
+          "parent": "B3",
+          "label": "mAP ≥\ntarget?",
+          "html": "mAP ≥<br>target?"
+        },
+        {
+          "id": "c4",
+          "type": "node",
+          "parent": "B3",
+          "label": "Deteksi indikator\npada semua foto",
+          "html": "Deteksi indikator<br>pada semua foto"
+        },
+        {
+          "id": "c5",
+          "type": "node",
+          "parent": "B3",
+          "label": "Embedding teks\n& gambar",
+          "html": "Embedding teks<br>& gambar"
+        },
+        {
+          "id": "c6",
+          "type": "node",
+          "parent": "B3",
+          "label": "Fusi fitur\n& scaling",
+          "html": "Fusi fitur<br>& scaling"
+        },
+        {
+          "id": "c7",
+          "type": "node",
+          "parent": "B3",
+          "label": "Simpan Gold\n(Parquet)",
+          "html": "Simpan Gold<br>(Parquet)"
+        },
+        {
+          "id": "cL",
+          "type": "node",
+          "parent": "B3",
+          "label": "Tambah anotasi\n/ tuning",
+          "html": "Tambah anotasi<br>/ tuning"
+        },
+        {
+          "id": "e20",
+          "type": "edge",
+          "parent": "1",
+          "source": "c0",
+          "target": "c1"
+        },
+        {
+          "id": "e21",
+          "type": "edge",
+          "parent": "1",
+          "source": "c1",
+          "target": "c2"
+        },
+        {
+          "id": "e22",
+          "type": "edge",
+          "parent": "1",
+          "source": "c2",
+          "target": "c3"
+        },
+        {
+          "id": "e23",
+          "type": "edge",
+          "parent": "1",
+          "source": "c3",
+          "target": "c4",
+          "label": "Ya"
+        },
+        {
+          "id": "e24",
+          "type": "edge",
+          "parent": "1",
+          "source": "c4",
+          "target": "c5"
+        },
+        {
+          "id": "e25",
+          "type": "edge",
+          "parent": "1",
+          "source": "c5",
+          "target": "c6"
+        },
+        {
+          "id": "e26",
+          "type": "edge",
+          "parent": "1",
+          "source": "c6",
+          "target": "c7"
+        },
+        {
+          "id": "e27",
+          "type": "edge",
+          "parent": "1",
+          "source": "b7",
+          "target": "c0"
+        },
+        {
+          "id": "e28",
+          "type": "edge",
+          "parent": "1",
+          "source": "c3",
+          "target": "cL",
+          "label": "Tidak"
+        },
+        {
+          "id": "e29",
+          "type": "edge",
+          "parent": "1",
+          "source": "cL",
+          "target": "c1"
+        },
+        {
+          "id": "B4",
+          "type": "node",
+          "parent": "1",
+          "label": "4. MODELING & EVALUASI"
+        },
+        {
+          "id": "m0",
+          "type": "node",
+          "parent": "B4",
+          "label": "Split data\nper UMKM",
+          "html": "Split data<br>per UMKM"
+        },
+        {
+          "id": "d0",
+          "type": "node",
+          "parent": "B4",
+          "label": "Klaster\nK-Means / ACO",
+          "html": "Klaster<br>K-Means / ACO"
+        },
+        {
+          "id": "d1",
+          "type": "node",
+          "parent": "B4",
+          "label": "Hitung\nSilhouette",
+          "html": "Hitung<br>Silhouette"
+        },
+        {
+          "id": "d2",
+          "type": "node",
+          "parent": "B4",
+          "label": "k optimal?"
+        },
+        {
+          "id": "d3",
+          "type": "node",
+          "parent": "B4",
+          "label": "Profil\nklaster",
+          "html": "Profil<br>klaster"
+        },
+        {
+          "id": "f0",
+          "type": "node",
+          "parent": "B4",
+          "label": "Ambil label\nsurvei",
+          "html": "Ambil label<br>survei"
+        },
+        {
+          "id": "f1",
+          "type": "node",
+          "parent": "B4",
+          "label": "Latih model\nRF / XGBoost",
+          "html": "Latih model<br>RF / XGBoost"
+        },
+        {
+          "id": "f2",
+          "type": "node",
+          "parent": "B4",
+          "label": "Hitung\nmacro-F1",
+          "html": "Hitung<br>macro-F1"
+        },
+        {
+          "id": "f3",
+          "type": "node",
+          "parent": "B4",
+          "label": "F1 ≥ 70%?"
+        },
+        {
+          "id": "f4",
+          "type": "node",
+          "parent": "B4",
+          "label": "Jelaskan model\n(SHAP)",
+          "html": "Jelaskan model<br>(SHAP)"
+        },
+        {
+          "id": "dL",
+          "type": "node",
+          "parent": "B4",
+          "label": "Atur k / ACO"
+        },
+        {
+          "id": "fL",
+          "type": "node",
+          "parent": "B4",
+          "label": "Atur\nparameter",
+          "html": "Atur<br>parameter"
+        },
+        {
+          "id": "e30",
+          "type": "edge",
+          "parent": "1",
+          "source": "d0",
+          "target": "d1"
+        },
+        {
+          "id": "e31",
+          "type": "edge",
+          "parent": "1",
+          "source": "d1",
+          "target": "d2"
+        },
+        {
+          "id": "e32",
+          "type": "edge",
+          "parent": "1",
+          "source": "d2",
+          "target": "d3",
+          "label": "Ya"
+        },
+        {
+          "id": "e33",
+          "type": "edge",
+          "parent": "1",
+          "source": "f0",
+          "target": "f1"
+        },
+        {
+          "id": "e34",
+          "type": "edge",
+          "parent": "1",
+          "source": "f1",
+          "target": "f2"
+        },
+        {
+          "id": "e35",
+          "type": "edge",
+          "parent": "1",
+          "source": "f2",
+          "target": "f3"
+        },
+        {
+          "id": "e36",
+          "type": "edge",
+          "parent": "1",
+          "source": "f3",
+          "target": "f4",
+          "label": "Ya"
+        },
+        {
+          "id": "e37",
+          "type": "edge",
+          "parent": "1",
+          "source": "c7",
+          "target": "m0"
+        },
+        {
+          "id": "e38",
+          "type": "edge",
+          "parent": "1",
+          "source": "m0",
+          "target": "d0"
+        },
+        {
+          "id": "e39",
+          "type": "edge",
+          "parent": "1",
+          "source": "m0",
+          "target": "f0"
+        },
+        {
+          "id": "e40",
+          "type": "edge",
+          "parent": "1",
+          "source": "d2",
+          "target": "dL",
+          "label": "Tidak"
+        },
+        {
+          "id": "e41",
+          "type": "edge",
+          "parent": "1",
+          "source": "dL",
+          "target": "d0"
+        },
+        {
+          "id": "e42",
+          "type": "edge",
+          "parent": "1",
+          "source": "f3",
+          "target": "fL",
+          "label": "Tidak"
+        },
+        {
+          "id": "e43",
+          "type": "edge",
+          "parent": "1",
+          "source": "fL",
+          "target": "f1"
+        },
+        {
+          "id": "B5",
+          "type": "node",
+          "parent": "1",
+          "label": "5. SERVING \n& BDA",
+          "html": "5. SERVING <br>&amp; BDA"
+        },
+        {
+          "id": "g0",
+          "type": "node",
+          "parent": "B5",
+          "label": "Simpan model\n& hasil",
+          "html": "Simpan model<br>& hasil"
+        },
+        {
+          "id": "g1",
+          "type": "node",
+          "parent": "B5",
+          "label": "Buat\nInference API",
+          "html": "Buat<br>Inference API"
+        },
+        {
+          "id": "g2",
+          "type": "node",
+          "parent": "B5",
+          "label": "Agregasi per\nkecamatan",
+          "html": "Agregasi per<br>kecamatan"
+        },
+        {
+          "id": "g3",
+          "type": "node",
+          "parent": "B5",
+          "label": "Analisis spasial\n(peta)",
+          "html": "Analisis spasial<br>(peta)"
+        },
+        {
+          "id": "g4",
+          "type": "node",
+          "parent": "B5",
+          "label": "Statistik\nspasial",
+          "html": "Statistik<br>spasial"
+        },
+        {
+          "id": "g5",
+          "type": "node",
+          "parent": "B5",
+          "label": "Cari gap\nper wilayah",
+          "html": "Cari gap<br>per wilayah"
+        },
+        {
+          "id": "g6",
+          "type": "node",
+          "parent": "B5",
+          "label": "Buat\ndashboard",
+          "html": "Buat<br>dashboard"
+        },
+        {
+          "id": "g7",
+          "type": "node",
+          "parent": "B5",
+          "label": "Rekomendasi\nintervensi",
+          "html": "Rekomendasi<br>intervensi"
+        },
+        {
+          "id": "e44",
+          "type": "edge",
+          "parent": "1",
+          "source": "g0",
+          "target": "g1"
+        },
+        {
+          "id": "e45",
+          "type": "edge",
+          "parent": "1",
+          "source": "g1",
+          "target": "g2"
+        },
+        {
+          "id": "e46",
+          "type": "edge",
+          "parent": "1",
+          "source": "g2",
+          "target": "g3"
+        },
+        {
+          "id": "e47",
+          "type": "edge",
+          "parent": "1",
+          "source": "g3",
+          "target": "g4"
+        },
+        {
+          "id": "e48",
+          "type": "edge",
+          "parent": "1",
+          "source": "g4",
+          "target": "g5"
+        },
+        {
+          "id": "e49",
+          "type": "edge",
+          "parent": "1",
+          "source": "g5",
+          "target": "g6"
+        },
+        {
+          "id": "e50",
+          "type": "edge",
+          "parent": "1",
+          "source": "g6",
+          "target": "g7"
+        },
+        {
+          "id": "e51",
+          "type": "edge",
+          "parent": "1",
+          "source": "d3",
+          "target": "g0"
+        },
+        {
+          "id": "e52",
+          "type": "edge",
+          "parent": "1",
+          "source": "f4",
+          "target": "g0"
+        },
+        {
+          "id": "B6",
+          "type": "node",
+          "parent": "1",
+          "label": "6. AI APPLICATION"
+        },
+        {
+          "id": "h0",
+          "type": "node",
+          "parent": "B6",
+          "label": "Bangun\nweb app",
+          "html": "Bangun<br>web app"
+        },
+        {
+          "id": "h1",
+          "type": "node",
+          "parent": "B6",
+          "label": "Hubungkan API\n& dashboard",
+          "html": "Hubungkan API<br>& dashboard"
+        },
+        {
+          "id": "h2",
+          "type": "node",
+          "parent": "B6",
+          "label": "Fitur pencarian\n(opsional)",
+          "html": "Fitur pencarian<br>(opsional)"
+        },
+        {
+          "id": "h3",
+          "type": "node",
+          "parent": "B6",
+          "label": "Uji\naplikasi",
+          "html": "Uji<br>aplikasi"
+        },
+        {
+          "id": "h4",
+          "type": "node",
+          "parent": "B6",
+          "label": "Lolos uji?"
+        },
+        {
+          "id": "h5",
+          "type": "node",
+          "parent": "B6",
+          "label": "Tulis\nlaporan",
+          "html": "Tulis<br>laporan"
+        },
+        {
+          "id": "h6",
+          "type": "node",
+          "parent": "B6",
+          "label": "End"
+        },
+        {
+          "id": "hL",
+          "type": "node",
+          "parent": "B6",
+          "label": "Perbaiki"
+        },
+        {
+          "id": "e53",
+          "type": "edge",
+          "parent": "1",
+          "source": "h0",
+          "target": "h1"
+        },
+        {
+          "id": "e54",
+          "type": "edge",
+          "parent": "1",
+          "source": "h1",
+          "target": "h2"
+        },
+        {
+          "id": "e55",
+          "type": "edge",
+          "parent": "1",
+          "source": "h2",
+          "target": "h3"
+        },
+        {
+          "id": "e56",
+          "type": "edge",
+          "parent": "1",
+          "source": "h3",
+          "target": "h4"
+        },
+        {
+          "id": "e57",
+          "type": "edge",
+          "parent": "1",
+          "source": "h4",
+          "target": "h5",
+          "label": "Ya"
+        },
+        {
+          "id": "e58",
+          "type": "edge",
+          "parent": "1",
+          "source": "h5",
+          "target": "h6"
+        },
+        {
+          "id": "e59",
+          "type": "edge",
+          "parent": "1",
+          "source": "g7",
+          "target": "h0"
+        },
+        {
+          "id": "e60",
+          "type": "edge",
+          "parent": "1",
+          "source": "h4",
+          "target": "hL",
+          "label": "Tidak"
+        },
+        {
+          "id": "e61",
+          "type": "edge",
+          "parent": "1",
+          "source": "hL",
+          "target": "h1"
+        }
+      ]
+    },
+    {
+      "id": "uRZ6g9DMb4bVr2Y-tN1I",
+      "name": "app-ai-archi",
+      "cells": [
+        {
+          "id": "1",
+          "type": "layer"
+        }
+      ]
+    },
+    {
+      "id": "ORSdlJQlpO6KPxS__W_m",
+      "name": "flowchart-app-ai",
+      "cells": [
+        {
+          "id": "1",
+          "type": "layer"
+        }
+      ]
+    }
+  ]
+}

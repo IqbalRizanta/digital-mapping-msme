@@ -52,3 +52,6 @@ reports/eda/*.html
 reports/eda/*.png
 reports/figures/*
 !reports/figures/.gitkeep
+data/*.zip
+data/yolo/
+reports/yolo_runs/
