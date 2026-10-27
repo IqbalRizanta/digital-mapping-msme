@@ -54,4 +54,7 @@ reports/figures/*
 !reports/figures/.gitkeep
 data/*.zip
 data/yolo/
+data/yolo_cls/
+reports/yolo/
 reports/yolo_runs/
+reports/*.log
