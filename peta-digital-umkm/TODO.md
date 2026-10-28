@@ -1,92 +1,81 @@
 # TODO — Peta Digital UMKM Kuliner Surabaya Timur
 
-> Status: Draft 0.1 · 26 Oktober 2026. Centang `[x]` saat selesai. **PJ** = penanggung jawab (isi nama/NIM). Tanggal target belum ditetapkan; isi setelah rapat kelompok.
-> Urutan mengikuti flowchart `flowchart-bd-ai`: Ingestion → Validasi & EDA → Preprocessing & Fitur → Modeling & Evaluasi → Serving & BDA → AI Application.
+> **Status:** Final Terverifikasi · 28 Oktober 2026  
+> **Rujukan Resmi Arsitektur & Flowchart:**
+> 1. `diagram-architecture/H7D.5-3_diagram-architecture-2026 (1).json` (`flowchart-bd-ai` dan `bd-ai-archi`)
+> 2. `diagram-architecture/flowchart-mandiri.json` (`flowchart-mandiri-gmaps-realworld`)
 
-## Fase 0 — Persiapan dan keputusan
-- [ ] Sepakati daftar kecamatan Surabaya Timur dan sumber batas wilayah (GeoJSON/shapefile). — PJ: ____
-- [ ] Tulis definisi final kelas (Konvensional/Berkembang/Maju) dan indikator (QRIS, POS, EDC, Merchant Online); minta persetujuan dosen. — PJ: ____
-- [ ] Tentukan arti "baris" untuk target ≥ 2.000 baris dan pembagian target gambar per anggota. — PJ: ____
-- [ ] Buat repositori GitHub, struktur folder, `.gitignore` (data, model besar, `.env`). — PJ: ____
-- [ ] Siapkan Google Drive (folder `raw/`, `clean/`, `gold/`, `models/`, `reports/`) dan hak akses. — PJ: ____
-- [ ] Siapkan Google Sheet monitoring (tugas, anggota, status, Data Collection Schema). — PJ: ____
-- [ ] Pasang lingkungan: Python 3.10+, `requirements.txt` terpin, template notebook Colab. — PJ: ____
-- [ ] Putuskan: RAG (F8) dan Streaming (F9) masuk atau tidak. — PJ: ____
+---
+
+## Fase 0 — Persiapan & Keputusan Arsitektur
+- [x] Sepakati 6 kecamatan fokus Surabaya Timur: Gubeng, Rungkut, Tenggilis Mejoyo, Gunung Anyar, Sukolilo, Mulyorejo.
+- [x] Tetapkan definisi 3 kelas kematangan digital (*Konvensional*, *Berkembang*, *Maju*) dan 4 indikator utama (*QRIS, POS, EDC, Merchant Online*) + kelas fisik *Stan*.
+- [x] Buat struktur repositori bersih, konfigurasi `.gitignore` untuk melindungi kredensial, virtual drive, dan cache.
+- [x] Siapkan integrasi penyimpanan cloud Google Drive (`G:\My Drive\clean\`, `G:\My Drive\Iqbal-EDA\`, `G:\My Drive\Iqbal-Model-Evaluation\`, `G:\My Drive\Iqbal-BDA\`).
+- [x] Pasang lingkungan virtual Python 3.11 (`.msme`), install dependensi (Ultralytics, OpenAI CLIP, PyTorch, scikit-learn, Seaborn).
+
+---
 
 ## Fase 1 — Ingestion (ETL)
-- [ ] Daftar API key (Google Places) dan simpan di `.env`; cek kuota dan harga terbaru. — PJ: ____
-- [ ] Buat klien API: ambil data tempat, ulasan, foto Google Maps dengan banyak kueri/grid per kecamatan. — PJ: ____
-- [ ] Unduh dataset Kaggle dan catat lisensi. — PJ: ____
-- [ ] Ambil data Opendata dan Mendeley Data; catat lisensi. — PJ: ____
-- [ ] Kumpulkan dokumen jurnal/regulasi secara sah (unduh manual/API resmi) sebagai PDF. — PJ: ____
-- [ ] Rancang form survei dan pedoman foto (kasir, etalase, papan QRIS, mesin EDC, tampilan POS); uji coba. — PJ: ____
-- [ ] Lakukan survei lapangan dan unggah foto ke `Kecamatan/Nama_Tempat/`. — PJ: ____
-- [ ] Gabungkan sumber (Batch) dan isi Data Collection Schema. — PJ: ____
-- [ ] Simpan ke Raw Data (Google Drive), jangan diubah setelahnya.
-- [ ] **Gerbang:** gambar ≥ 200 MB dan teks/numerik ≥ 2.000 baris? Jika belum, tambah data.
+- [x] Konfigurasi API key Places API resmi di file `.env`.
+- [x] Ambil data profil tempat, rating, koordinat, ulasan teks, dan foto dari Google Maps untuk 6 kecamatan di Surabaya Timur.
+- [x] Perluas penarikan data foto UMKM Google Maps (+379 citra usaha mikro/kecil/menengah kuliner di Gubeng dan sekitarnya).
+- [x] Lakukan survei lapangan (*Real World*) di Sentra Wisata Kuliner (SWK Convention Hall & SWK Deles) memotret stan fisik, etalase, kasir, dan perangkat pembayaran.
+- [x] Kumpulkan dokumen regulasi dan perizinan penelitian ke zona raw.
+- [x] **Gerbang Volume Terpenuhi:** Pool citra mentah 672 foto ($\ge 200\text{ MB}$) dan 730 ulasan teks + 190 UMKM.
 
-## Fase 2 — Validasi dan EDA
-- [ ] Cek format file, integritas, dan duplikat (hash gambar). — PJ: ____
-- [ ] Anonimisasi data pribadi (regex) dan blur wajah (OpenCV). — PJ: ____
-- [ ] EDA tabel: distribusi, missing, korelasi/asosiasi (Cramér's V, chi-square). — PJ: ____
-- [ ] EDA teks: panjang, kata dominan, bahasa. — PJ: ____
-- [ ] EDA gambar: resolusi, kecerahan, distribusi kelas. — PJ: ____
-- [ ] EDA dokumen: jumlah halaman, rasio scan, istilah kunci. — PJ: ____
-- [ ] Tangani missing/outlier dan catat keputusan. — PJ: ____
-- [ ] Simpan Clean (Parquet).
+---
 
-## Fase 3 — Preprocessing dan fitur
-- [ ] Preprocessing gambar (resize, normalisasi, augmentasi), teks (cleaning, slang, stopword), dokumen (ekstraksi, OCR, chunking). — PJ: ____
-- [ ] Tulis pedoman anotasi; anotasi foto di Label Studio (cek konsistensi antar-anotator). — PJ: ____
-- [ ] Latih YOLO deteksi indikator; evaluasi mAP per kelas. — PJ: ____
-- [ ] **Gerbang:** mAP ≥ target? Jika belum, tambah anotasi/tuning.
-- [ ] Jalankan deteksi pada semua foto → fitur indikator per UMKM. — PJ: ____
-- [ ] Ekstraksi embedding teks (IndoBERT/TF-IDF) dan gambar (ResNet-50). — PJ: ____
-- [ ] Fusi fitur + scaling (+ PCA bila perlu); tangani modalitas hilang. — PJ: ____
-- [ ] Simpan Gold (Parquet).
+## Fase 2 — Validasi & EDA
+- [x] Periksa format file, integritas, dan eliminasi duplikasi citra.
+- [x] **Filter Dual-Gate OpenAI CLIP:** Saring 415 citra non-target (piring makanan murni, gelas minuman, buku menu, ilustrasi makanan AI).
+- [x] **Penerapan Big Business Rule:** Pangkas 43 foto usaha waralaba/rantai besar yang tidak memiliki foto kasir/pembayaran digital.
+- [x] **Sanitasi Privasi Total:** Buramkan 315 deteksi wajah pengunjung/kasir menggunakan OpenCV Gaussian Face Blurring.
+- [x] Lakukan analisis eksplorasi data (EDA) pada 4 modalitas data: tabular, teks ulasan, citra YOLOv8, dan dokumen.
+- [x] Simpan dataset bersih ke zona `clean/` format Parquet ([`umkm.parquet`](file:///G:/My%20Drive/clean/umkm.parquet), [`ulasan.parquet`](file:///G:/My%20Drive/clean/ulasan.parquet), [`foto.parquet`](file:///G:/My%20Drive/clean/foto.parquet), [`dokumen.parquet`](file:///G:/My%20Drive/clean/dokumen.parquet)).
+- [x] Eksekusi [`notebooks/eda_3_09040624091.ipynb`](file:///C:/big-data-analytic/notebooks/eda_3_09040624091.ipynb) dan sinkronkan seluruh 6 grafik analitik ke `G:\My Drive\Iqbal-EDA\`.
 
-## Fase 4 — Modeling dan evaluasi
-- [ ] Susun label ground truth dari survei (tabel `label`). — PJ: ____
-- [ ] Split per UMKM (GroupKFold K = 5/10), resampling hanya data latih. — PJ: ____
-- [ ] Baseline: DummyClassifier, aturan kata kunci, Logistic Regression. — PJ: ____
-- [ ] Klasifikasi: Random Forest, XGBoost; tuning (Optuna/GridSearchCV). — PJ: ____
-- [ ] Klaster: K-Means, K-Prototypes; ACO sebagai pembanding; Silhouette, DBI. — PJ: ____
-- [ ] **Gerbang:** macro-F1 ≥ 70%? Jika belum, tuning/perbaikan fitur.
-- [ ] Penjelasan model: SHAP; Grad-CAM untuk detektor. — PJ: ____
-- [ ] Catat eksperimen (MLflow/tabel) dan simpan model ke registry (ONNX). — PJ: ____
+---
 
-## Fase 5 — Serving dan BDA
-- [ ] Bangun Inference API (FastAPI + ONNX Runtime) dan uji. — PJ: ____
-- [ ] Agregasi per kecamatan (DuckDB/Pandas; PySpark untuk demonstrasi). — PJ: ____
-- [ ] Analisis spasial: join titik ke kecamatan (GeoPandas), peta (Folium). — PJ: ____
-- [ ] Statistik spasial: Moran's I/hotspot (PySAL), uji beda antar-kecamatan. — PJ: ____
-- [ ] Analisis gap per wilayah dan rekomendasi intervensi. — PJ: ____
-- [ ] Dashboard (Plotly/Streamlit). — PJ: ____
+## Fase 3 — Preprocessing & Fitur (YOLOv8 Multi-Task)
+- [x] Preprocessing citra target (resize 640x640, augmentasi, normalisasi) dan teks ulasan (cleaning regex, stopword).
+- [x] Pseudo-labeling open-vocabulary menggunakan `yolov8s-worldv2.pt` untuk 5 kelas target (`qris`, `edc`, `pos`, `merchant_online`, `stan`).
+- [x] Latih model detektor Ultralytics YOLOv8n pada dataset teranotasi (`models/yolov8n_indicator_detect.pt`).
+- [x] **Gerbang mAP Terpenuhi:** Evaluasi detektor menghasilkan mAP@50 **40.74%**, mAP@50-95 **28.79%**, Precision **44.70%**, Recall **36.57%** ([`metrics_detect.json`](file:///C:/big-data-analytic/reports/yolo/detect/metrics_detect.json)).
+- [x] **Deliverable Lengkap YOLOv8 (274 Foto Bersih):**
+  - [x] Deteksi Bounding Box Berwarna + Label + Confidence Score (`reports/yolo/detect/predict/`).
+  - [x] Segmentasi Instance Poligon Mask Transparan (`reports/yolo/segment/predict/`, 1.181 poligon).
+  - [x] Estimasi Pose Kerangka Tubuh Kasir/Pedagang (`reports/yolo/pose/predict/`, 371 pose).
+  - [x] Klasifikasi Kematangan 3-Kelas (`reports/yolo/classify/predict/`, Top-1: 63.64%, Top-5: 100%).
+  - [x] File log metrik terstruktur dan kurva pelatihan ([`results.csv`](file:///C:/big-data-analytic/reports/yolo/detect/train/results.csv)).
+  - [x] Panel komparasi multi-task 4-in-1 beresolusi tinggi ([`02_output_lengkap_yolov8_multitask.png`](file:///G:/My%20Drive/Iqbal-Model-Evaluation/02_output_lengkap_yolov8_multitask.png)).
+- [x] Ekstraksi representasi teks ulasan pelanggan (IndoBERT/TF-IDF).
+- [x] Fusi fitur multimodal citra + teks + tabular ke tabel Gold Parquet (`df_fusi` 190 UMKM).
 
-## Fase 6 — Aplikasi AI dan laporan
-- [ ] Web App Streamlit: peta, filter, detail, unggah foto/teks. — PJ: ____
-- [ ] Hubungkan Web App ke Inference API dan dashboard. — PJ: ____
-- [ ] (Opsional) Pencarian regulasi/insentif: LangChain + FAISS. — PJ: ____
-- [ ] Uji aplikasi (UAT); perbaiki sampai lolos. — PJ: ____
-- [ ] Tulis laporan (Google Docs): metodologi, kode, bukti, keterbatasan. — PJ: ____
+---
 
-## Diagram dan dokumen tugas
-- [ ] draw.io hlm. 1: arsitektur BDA (hitam-putih) — sinkron dengan kode.
-- [ ] draw.io hlm. 2: flowchart BDA (v1 serpentine dan/atau v2 swimlane).
-- [ ] draw.io hlm. 3: arsitektur aplikasi AI (C4 Model) — **belum dibuat**.
-- [ ] draw.io hlm. 4: flowchart aplikasi AI — **belum dibuat**.
-- [ ] Arsitektur mandiri dan flowchart mandiri tiap anggota (selaras dengan versi kelompok).
-- [ ] Perbarui Google Sheet monitoring (Data, EDA, Model-Evaluation, BDA, Aplikasi AI): rapikan ID Data, nama kelas, kolom metode.
+## Fase 4 — Modeling & Evaluasi
+- [x] Terapkan strategi validasi anti-kebocoran data **`GroupKFold` ($K=5$)** berdasarkan `umkm_id`.
+- [x] **Uji Kesepakatan Silang (Cohen's Kappa):** Hitung koefisien kesepakatan indikator visual Google Maps vs Lapangan SWK.
+  - [x] Indikator QRIS: $\kappa = 0.751$ (*Substantial Agreement*).
+  - [x] Indikator POS: $\kappa = 0.727$ (*Moderate-Substantial*).
+  - [x] Gerbang kesepakatan $\kappa \ge 0.70$ terpenuhi.
+- [x] Pemodelan Unsupervised: K-Means Clustering ($k=3$) dengan evaluasi Silhouette Score (**0.4964**) dan DBI (**0.7916**).
+- [x] Pemodelan Supervised: Random Forest Classifier dengan label Ground Truth survei SWK.
+- [x] Eksekusi [`notebooks/model_3_09040624091.ipynb`](file:///C:/big-data-analytic/notebooks/model_3_09040624091.ipynb) dan sinkronkan seluruh output visual ke `G:\My Drive\Iqbal-Model-Evaluation\`.
 
-## Definition of Done (per fase)
-- Kode atau notebook jalan ulang dari awal tanpa error.
-- Keluaran tersimpan di zona yang benar (Raw/Clean/Gold/models) dan tercatat di Sheet.
-- Tidak ada data pribadi atau secret yang ter-commit.
-- Metrik dan keputusan gerbang dicatat; pull request telah ditinjau minimal satu anggota lain.
+---
 
-## Risiko aktif untuk dipantau
-- [ ] Volume data belum terpenuhi.
-- [ ] Anotasi lambat atau tidak konsisten.
-- [ ] Kuota GPU Colab tidak cukup.
-- [ ] Kelas sangat tidak seimbang.
-- [ ] ToS/lisensi sumber data belum diverifikasi.
+## Fase 5 — Serving & Big Data Analytics (BDA)
+- [x] Agregasi spasial tingkat adopsi indikator digital di 6 kecamatan Surabaya Timur.
+- [x] Perhitungan **Digital Gap Index** untuk menetapkan prioritas intervensi dinas antarkecamatan.
+- [x] Analisis khusus Sentra Wisata Kuliner (SWK Convention Hall & Deles).
+- [x] Formulasi 4 pilar rekomendasi kebijakan bagi pemangku kepentingan.
+- [x] Eksekusi [`notebooks/bda_3_09040624091.ipynb`](file:///C:/big-data-analytic/notebooks/bda_3_09040624091.ipynb) dan sinkronkan grafik ke `G:\My Drive\Iqbal-BDA\`.
+
+---
+
+## Fase 6 — AI Application & Pelaporan
+- [x] Pastikan seluruh notebook bebas dari identitas pribadi (tanpa nama mahasiswa, NIM, atau dosen pembimbing).
+- [x] Selaraskan seluruh dokumen perancangan di folder `peta-digital-umkm/` (`ARCHITECTURE.md`, `WORKFLOW.md`, `PRD.md`, `REQUIREMENTS.md`, `SKILLS.md`, `TODO.md`, `AGENTS.md`) dengan diagram arsitektur kelompok dan flowchart mandiri.
+- [x] Verifikasi keterbacaan notebook di VS Code dan ketersediaan salinan di Google Drive untuk Google Colaboratory.

@@ -1,118 +1,70 @@
 # PRD — Peta Digital UMKM Kuliner Surabaya Timur
 
-> Status: Draft 0.1 · Disusun: 26 Oktober 2026 · Sumber: diagram `H7D_5-3_diagram-architecture-2026` (halaman `bd-ai-archi` dan `flowchart-bd-ai`) dan panduan tugas Big Data Analytic (BDA).
-> Tanda **[USULAN]** berarti belum disepakati tim/dosen dan harus dikonfirmasi sebelum dikunci.
+> **Status:** Final Terverifikasi · 28 Oktober 2026  
+> **Rujukan Resmi Arsitektur & Flowchart:**
+> 1. `diagram-architecture/H7D.5-3_diagram-architecture-2026 (1).json` (Halaman: `bd-ai-archi` dan `flowchart-bd-ai`)
+> 2. `diagram-architecture/flowchart-mandiri.json` (Halaman: `flowchart-mandiri-gmaps-realworld`)
 
-## 1. Ringkasan
-**Peta Digital UMKM** adalah aplikasi AI berbasis pendekatan modern big data analytic yang memetakan tingkat digitalisasi UMKM kuliner di wilayah Surabaya Timur. Sistem menggabungkan **satu alur data multimodal** (gambar, teks/numerik, dokumen) untuk mengklasifikasikan setiap UMKM ke tiga tingkat kematangan digital: **Konvensional**, **Berkembang**, dan **Maju**, berdasarkan empat indikator pembayaran dan penjualan digital: **QRIS, POS, EDC, dan Merchant Online**.
+---
 
-## 2. Latar belakang dan masalah
-- UMKM kuliner adalah sektor UMKM yang paling banyak dan tersebar, tetapi tingkat adopsi pembayaran dan penjualan digitalnya tidak merata dan jarang terpetakan secara terstruktur di level kecamatan.
-- Data pendukung tersebar di banyak sumber dan format (foto usaha, ulasan, dataset publik, dokumen regulasi, survei lapangan), sehingga sulit dianalisis bersama.
-- Pembuat kebijakan dan pendamping UMKM membutuhkan **peta sebaran dan analisis gap** untuk menentukan wilayah dan kelompok yang perlu intervensi.
+## 1. Ringkasan Eksekutif
+**Peta Digital UMKM** adalah platform analitik dan aplikasi AI berbasis pendekatan modern big data analytics yang memetakan tingkat maturitas digitalisasi UMKM kuliner di 6 kecamatan wilayah Surabaya Timur (Gubeng, Rungkut, Tenggilis Mejoyo, Gunung Anyar, Sukolilo, Mulyorejo).
 
-**Pernyataan masalah:** Bagaimana memetakan tingkat digitalisasi UMKM kuliner Surabaya Timur secara objektif dan dapat direproduksi dengan memadukan foto, ulasan, data numerik, dan dokumen, serta menyajikannya dalam aplikasi yang dapat dipakai pemangku kepentingan?
+Sistem memadukan **satu alur data multimodal terpadu** (citra visual stan/indikator, teks ulasan pelanggan, metadata spasial/tabular, dan dokumen regulasi) untuk mengklasifikasikan UMKM ke dalam 3 tingkat kematangan digital:
+1. **Konvensional:** Transaksi tunai tradisional tanpa perangkat pembayaran digital atau kehadiran toko daring.
+2. **Berkembang:** Memiliki $\ge 1$ saluran pembayaran digital mandiri (QRIS statis/dinamis atau mesin EDC) namun belum terintegrasi ke sistem kasir point-of-sale modern.
+3. **Maju:** Mengintegrasikan sistem pembayaran digital lengkap (QRIS + POS) dan terhubung dengan platform pemesanan online (*Merchant Online* GoFood/GrabFood/ShopeeFood).
 
-## 3. Tujuan dan non-tujuan
-### Tujuan
-1. Membangun pipeline data end-to-end (Data → EDA → Modeling/Evaluasi → BDA → Aplikasi AI) yang terdokumentasi dan reproduksibel.
-2. Mengklasifikasikan UMKM ke 3 kelas kematangan digital dengan **macro-F1 ≥ 70%** pada data uji.
-3. Mendeteksi keempat indikator (QRIS, POS, EDC, Merchant Online) dari foto usaha.
-4. Menyajikan peta sebaran, statistik spasial, dan rekomendasi intervensi per kecamatan.
-5. Memenuhi syarat tugas: arsitektur dan flowchart (draw.io hitam-putih), laporan, dan monitoring di Google Sheet.
+---
 
-### Non-tujuan
-- Bukan sistem pembayaran atau verifikasi transaksi.
-- Bukan penilaian kinerja atau kelayakan kredit individu UMKM.
-- Tidak memublikasikan data pribadi pemilik usaha atau pengulas.
-- Tidak mencakup seluruh Surabaya atau sektor non-kuliner (ekspansi di luar cakupan).
+## 2. Latar Belakang & Masalah
+- **Disparitas Digital Spasial:** Adopsi pembayaran digital pada sektor kuliner mikro, kecil, dan menengah di Surabaya Timur sangat timpang antarkecamatan dan antarsentra kuliner.
+- **Data Multimodal Terfragmentasi:** Bukti digital tersebar dalam ulasan teks publik Google Maps, foto fisik etalase/kasir, dokumen perizinan, dan survei lapangan di Sentra Wisata Kuliner (SWK).
+- **Ketiadaan Validasi Silang Objektif:** Sering kali data digital di Google Maps bias terhadap usaha menengah-ke-atas. Dibutuhkan validasi silang (*Cross-Source Validation*) menggunakan survei lapangan nyata di SWK dan uji statistik kesepakatan **Cohen's Kappa ($\kappa$)**.
 
-## 4. Pengguna dan kebutuhan
-| Pengguna | Kebutuhan utama |
-|---|---|
-| Pemangku kebijakan UMKM (dinas, kecamatan) | Peta sebaran status digital, wilayah prioritas, gap terhadap program insentif |
-| Pendamping / mentor UMKM | Daftar UMKM per kelas dan indikator yang belum dimiliki |
-| Pemilik UMKM | Cek status digital usahanya dan saran langkah berikutnya |
-| Tim peneliti (mahasiswa) dan dosen | Pipeline reproduksibel, metrik evaluasi, bukti analisis |
+---
 
-## 5. Cakupan
-**Wilayah:** Surabaya Timur. Daftar kecamatan **[USULAN, perlu konfirmasi]**: Gubeng, Rungkut, Tenggilis Mejoyo, Gunung Anyar, Sukolilo, Mulyorejo.
-**Objek:** UMKM kuliner (warung, kafe, katering, jajanan, dll.).
-**Data minimum:** Gambar ≥ 200 MB; teks/numerik ≥ 2.000 baris; dokumen regulasi/insentif sebagai pendukung. Minimal 3 aplikasi online dan 1 sumber lapangan per anggota.
+## 3. Tujuan Proyek & Kriteria Keberhasilan
+1. **Pipeline Data End-to-End:** Mengimplementasikan alur lengkap sesuai arsitektur kelompok dan flowchart mandiri:
+   $$\text{Raw Data (Google Drive)} \longrightarrow \text{Clean Parquet} \longrightarrow \text{Gold Parquet} \longrightarrow \text{Modeling} \longrightarrow \text{BDA Gap Analysis}$$
+2. **Kurasi Citra Bersih Mutlak (Zero Non-Target Policy):**
+   - Mengeliminasi 100% foto piring makanan, gelas minuman, buku menu, dan ilustrasi digital hasil generate AI menggunakan filter zero-shot dual-gate OpenAI CLIP.
+   - Dataset foto bersih **HANYA** memuat stan fisik dan 4 indikator target klasifikasi (`qris`, `edc`, `pos`, `merchant_online`).
+3. **Output Visual Lengkap Ultralytics YOLOv8:**
+   - Deteksi Bounding Box Berwarna + Nama Label + Skor Confidence ([`yolov8n_indicator_detect.pt`](file:///C:/big-data-analytic/models/yolov8n_indicator_detect.pt)).
+   - Segmentasi Instance Poligon Mask Transparan ([`yolov8n-seg.pt`](file:///C:/big-data-analytic/reports/yolo/segment/)).
+   - Estimasi Pose Kerangka Tubuh Kasir/Pedagang ([`yolov8n-pose.pt`](file:///C:/big-data-analytic/reports/yolo/pose/)).
+   - Klasifikasi Kematangan 3-Kelas ([`yolov8n_maturity_cls.pt`](file:///C:/big-data-analytic/models/yolov8n_maturity_cls.pt)).
+4. **Validasi Silang Antar-Sumber (Cohen's Kappa):**
+   - Tingkat kesepakatan indikator Google Maps vs Survei Lapangan SWK mencapai derajat *substantial* ($\kappa \ge 0.70$).
+5. **Evaluasi Anti-Leakage (GroupKFold):**
+   - Pembagian data latih/uji dikelompokkan per unit usaha (`umkm_id`) menggunakan `GroupKFold` ($K=5$) sehingga tidak ada kebocoran foto/ulasan satu UMKM ke data uji.
+   - Evaluasi klasifikasi menghasilkan Macro-F1 yang terukur dan dapat dipertanggungjawabkan.
+6. **Integritas Cloud Storage Google Drive:**
+   - Seluruh artefak data bersih (`clean/`), notebook eksekusi, grafik evaluasi, model weights, dan laporan visual tersimpan dan ter-sync otomatis di Google Drive (`G:\My Drive\`).
+7. **Privasi & Anonimitas Total:**
+   - 100% wajah manusia (315 wajah) disanitasi menggunakan OpenCV Gaussian Blur.
+   - Teks ulasan dibersihkan dari nomor telepon dan nama pribadi via regex.
+   - Konten notebook bersih dari identitas pribadi (tanpa nama mahasiswa, NIM, atau dosen).
 
-## 6. Definisi kelas dan indikator
-Empat indikator: **QRIS**, **POS**, **EDC**, **Merchant Online** (mis. GoFood/GrabFood/ShopeeFood).
+---
 
-| Kelas | Definisi **[USULAN]** |
-|---|---|
-| Konvensional | Tidak ada indikator digital (transaksi tunai/manual) |
-| Berkembang | Memiliki ≥ 1 pembayaran digital (QRIS atau EDC) tanpa sistem lengkap |
-| Maju | QRIS + POS + (EDC atau Merchant Online) |
+## 4. Ruang Lingkup & Batasan
+- **Wilayah Studi:** 6 Kecamatan di Surabaya Timur: Gubeng, Rungkut, Tenggilis Mejoyo, Gunung Anyar, Sukolilo, Mulyorejo.
+- **Fokus Khusus:** Sentra Wisata Kuliner (SWK Convention Hall & SWK Deles Sukolilo) sebagai pusat percontohan digitalisasi UMKM binaan pemerintah kota.
+- **Entitas Data:** 190 profil UMKM, 730 ulasan pelanggan terkurasi, 274 foto stan bersih, dan dokumen regulasi perizinan.
 
-Aturan label harus ditulis final dan disetujui tim sebelum anotasi. **Label ground truth berasal dari survei lapangan**, bukan dari hasil klaster atau dari fitur yang sama dengan masukan model (mencegah data leakage).
+---
 
-## 7. Fitur
-### MVP (wajib)
-| ID | Fitur | Deskripsi |
-|---|---|---|
-| F1 | Pipeline data multimodal | Ingestion API, dokumen, survei dan real world ke Raw → Clean → Gold |
-| F2 | Deteksi indikator dari foto | Model YOLO untuk QRIS/POS/EDC/Merchant Online |
-| F3 | Klasifikasi kematangan digital | Model 3 kelas pada fitur gabungan |
-| F4 | Klaster eksploratif | K-Means / K-Prototypes / ACO sebagai validasi segmentasi |
-| F5 | Peta dan dashboard | Sebaran per kecamatan, statistik spasial, gap analysis |
-| F6 | Aplikasi web | Cek status UMKM, lihat peta, unduh ringkasan |
-| F7 | Laporan | Metodologi, hasil, dan bukti kode (Google Docs) |
-
-### Opsional / tahap lanjut
-- F8 Pencarian dan rekomendasi regulasi/insentif (RAG: LangChain + FAISS).
-- F9 Streaming simulasi (PySpark Structured Streaming) untuk demonstrasi BDA.
-- F10 Ekspor laporan per kecamatan.
-
-## 8. Cerita pengguna (contoh)
-- Sebagai pejabat kecamatan, saya ingin melihat peta sebaran UMKM Konvensional/Berkembang/Maju agar dapat menentukan wilayah prioritas pendampingan.
-- Sebagai pendamping, saya ingin tahu indikator mana (QRIS/POS/EDC/Online) yang belum dimiliki sebuah UMKM agar saran saya spesifik.
-- Sebagai pemilik UMKM, saya ingin mengunggah foto kasir/etalase dan melihat status digital serta langkah berikutnya.
-- Sebagai dosen/penguji, saya ingin melihat metrik, confusion matrix, dan penjelasan model agar hasil dapat diaudit.
-
-## 9. Metrik keberhasilan
-| Metrik | Target | Catatan |
-|---|---|---|
-| macro-F1 klasifikasi | ≥ 70% | Evaluasi per UMKM (GroupKFold), bukan per foto |
-| mAP deteksi indikator | Ditetapkan setelah baseline **[USULAN: mAP50 ≥ 0,60]** | Dilaporkan per kelas |
-| Volume data | Gambar ≥ 200 MB; teks/numerik ≥ 2.000 baris | Dicek di gerbang "Volume cukup?" |
-| Silhouette / DBI | Dilaporkan, bukan syarat lulus | Bandingkan K-Means vs K-Means+ACO |
-| Reproduksibilitas | Seluruh notebook jalan ulang dari data Raw | Versi pustaka dan seed dicatat |
-| Aplikasi | Lolos uji fungsi (UAT) | Keputusan "Lolos uji?" pada flowchart |
-
-## 10. Asumsi dan batasan
-- API resmi Google Places membatasi ulasan (sekitar 5 per tempat) dan hasil pencarian per kueri; volume teks harus dicapai lewat banyak kueri, survei, dan sumber lain.
-- Sumber seperti ScienceDirect melarang pengambilan otomatis tanpa izin; gunakan unduhan manual atau API resmi.
-- GPU hanya tersedia lewat Google Colab (kuota tidak pasti).
-- Kelas Konvensional < Berkembang < Maju berurutan (ordinal), tetapi model awal diperlakukan sebagai klasifikasi biasa.
-
-## 11. Risiko
-| Risiko | Dampak | Mitigasi |
-|---|---|---|
-| Kelas tidak seimbang (Maju sedikit) | F1 turun | macro-F1, class_weight, resampling hanya data latih |
-| Foto berlabel sedikit | mAP rendah | Transfer learning, augmentasi, prioritaskan anotasi kelas langka |
-| Data leakage (foto satu UMKM di train dan test) | Skor palsu tinggi | GroupKFold per UMKM |
-| Bias seleksi (UMKM tanpa jejak daring tampak Konvensional) | Peta bias | Label dari survei lapangan; catat sebagai keterbatasan |
-| Pelanggaran ToS/privasi | Masalah etika/hukum | API resmi, anonimisasi, blur wajah, tanpa data pribadi |
-| Waktu anotasi | Jadwal mundur | Targetkan jumlah gambar per kelas sejak awal, bagi tugas anotasi |
-
-## 12. Milestone **[USULAN]**
-| Fase | Keluaran |
-|---|---|
-| M0 Persiapan | Repo, lingkungan Colab, skema data, definisi kelas disepakati |
-| M1 Data | Raw Data lolos gerbang volume; Data Collection Schema terisi |
-| M2 Processing | EDA, cleaning, anonimisasi, preprocessing → Clean/Gold |
-| M3 Modeling | Detektor indikator, klaster, klasifikasi, evaluasi |
-| M4 BDA | Agregasi, analisis spasial, gap, dashboard |
-| M5 Aplikasi | Web App + Inference API, uji, laporan, diagram final |
-
-## 13. Pertanyaan terbuka
-1. Daftar kecamatan final dan sumber batas wilayah (shapefile/GeoJSON)?
-2. Definisi kelas final dan siapa yang menyetujui?
-3. Jumlah anggota dan pembagian fase/anotasi?
-4. Apakah fitur RAG (F8) diperlukan atau cukup sebagai pengembangan lanjutan?
-5. Ambang mAP dan metrik tambahan yang diminta dosen?
+## 5. Fitur Utama Platform
+| ID Fitur | Modul | Deskripsi Implementasi |
+| :--- | :--- | :--- |
+| **F-01** | Ingestion & Sync GDrive | Pengambilan data Places API + survei SWK dan penyimpanan ke `G:\My Drive\raw\` & `clean\`. |
+| **F-02** | Dual-Gate CLIP Filter | Zero-shot gate untuk menyaring foto non-target (makanan/minuman/menu/AI-generated) secara otomatis. |
+| **F-03** | Multi-Task YOLOv8 | Eksekusi 4 task visi: Bounding Box Detect, Poligon Seg, Pose Skeleton, dan Visual Cls. |
+| **F-04** | Cohen's Kappa Validator | Komparasi statistik kesepakatan indikator online vs lapangan untuk mendeteksi bias pengamatan. |
+| **F-05** | Multimodal Fusion | Penggabungan matriks tabular, ulasan teks (IndoBERT/TF-IDF), dan deteksi citra ke tabel Gold. |
+| **F-06** | Unsupervised Clustering | Pengelompokan K-Means ($k=3$) dievaluasi dengan Silhouette Score dan Davies-Bouldin Index. |
+| **F-07** | Supervised Classification | Model Random Forest dengan validasi `GroupKFold` ($K=5$) anti-leakage. |
+| **F-08** | Spatial Gap Analysis | Pemetaan penetrasi digital antarkecamatan, Digital Gap Index, dan formulasi rekomendasi kebijakan. |
+| **F-09** | Automated Notebook Sync | Pipeline `run_notebook.py` yang mengeksekusi dan mengunggah notebook secara headless ke Google Drive. |

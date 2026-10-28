@@ -1,0 +1,352 @@
+# Analysis of diagram-architecture/H7D.5-3_diagram-architecture-2026 (1).json
+
+## PAGE: bd-ai-archi (ID: QgWYUeKOEdKkQQ6mHvhA) - 1 layers, 67 nodes, 40 edges
+
+### NODES & CONTAINERS:
+- [DS] (parent: 1) : Data Source
+- [s1] (parent: DS) : Google Maps
+- [s2] (parent: DS) : Kaggle
+- [s3] (parent: DS) : ScienceDirect
+- [s4] (parent: DS) : Opendata
+- [s5] (parent: DS) : Mendeley Data
+- [s6] (parent: DS) : Dinasti Publisher
+- [s7] (parent: DS) : Real World
+- [ING] (parent: 1) : Ingestion
+- [i1] (parent: ING) : Places API | requests
+- [i2] (parent: ING) : kagglehub | BeautifulSoup
+- [i3] (parent: ING) : Google Form | Google Drive
+- [i4] (parent: ING) : Pandas | DuckDB / PySpark
+- [i5] (parent: ING) : Google Sheets
+- [i6] (parent: ING) : Google Drive
+- [DP] (parent: 1) : Processing
+- [p1] (parent: DP) : Pandas | ydata-profiling
+- [p2] (parent: DP) : Seaborn | Matplotlib
+- [p3] (parent: DP) : scikit-learn | SciPy
+- [p4] (parent: DP) : regex | OpenCV
+- [p5] (parent: DP) : Albumentations | NLTK
+- [p6] (parent: DP) : PyMuPDF | Tesseract OCR
+- [p7] (parent: DP) : Label Studio | Ultralytics YOLO
+- [p8] (parent: DP) : IndoBERT | ResNet-50 / TF-IDF
+- [p9] (parent: DP) : scikit-learn Pipeline | StandardScaler / PCA
+- [p10] (parent: DP) : Parquet | PyArrow / DuckDB
+- [MD] (parent: 1) : Modeling
+- [m1] (parent: MD) : K-Means | K-Prototypes / NumPy (ACO)
+- [m3] (parent: MD) : Logistic Regression | Random Forest / XGBoost
+- [lb] (parent: MD) : Google Sheets
+- [hp] (parent: MD) : Optuna | GridSearchCV
+- [EV] (parent: 1) : Evaluation & Serving
+- [e1] (parent: EV) : scikit-learn Metrics | Ultralytics / GroupKFold
+- [e2] (parent: EV) : SHAP | Grad-CAM
+- [e3] (parent: EV) : MLflow | ONNX
+- [e4] (parent: EV) : FastAPI | ONNX Runtime
+- [BD] (parent: 1) : Analytics (BDA)
+- [b1] (parent: BD) : DuckDB | Pandas / PySpark
+- [b2] (parent: BD) : GeoPandas | Shapely
+- [b3] (parent: BD) : PySAL | SciPy / statsmodels
+- [b4] (parent: BD) : Folium | Plotly
+- [AP] (parent: 1) : Application
+- [a1] (parent: AP) : LangChain | FAISS
+- [a2] (parent: AP) : Streamlit | FastAPI
+- [a3] (parent: AP) : Google Docs
+- [X1] (parent: 1) : Dev Environment
+- [X10] (parent: X1) : Google Colab
+- [X11] (parent: X1) : VS Code
+- [X12] (parent: X1) : Python 3.10+
+- [X13] (parent: X1) : PyTorch
+- [X14] (parent: X1) : scikit-learn
+- [X15] (parent: X1) : Hugging Face
+- [X2] (parent: 1) : MLOps
+- [X20] (parent: X2) : Google Sheets
+- [X21] (parent: X2) : Git / GitHub
+- [X22] (parent: X2) : MLflow
+- [X23] (parent: X2) : DVC
+- [X3] (parent: 1) : Security
+- [X30] (parent: X3) : python-dotenv
+- [X31] (parent: X3) : regex
+- [X32] (parent: X3) : OpenCV
+- [X33] (parent: X3) : Google Drive Access Control
+- [X4] (parent: 1) : Evaluation Tools
+- [X40] (parent: X4) : scikit-learn Metrics
+- [X41] (parent: X4) : Ultralytics
+- [X42] (parent: X4) : Matplotlib
+- [X43] (parent: X4) : Seaborn
+
+### EDGES / CONNECTIONS:
+- (i1 -> i4)
+- (i2 -> i4)
+- (i3 -> i4)
+- (i4 -> i5)
+- (i5 -> i6)
+- (p1 -> p2)
+- (p2 -> p3)
+- (p3 -> p4)
+- (p4 -> p5)
+- (p5 -> p6)
+- (p6 -> p7)
+- (p7 -> p8)
+- (p8 -> p9)
+- (p9 -> p10)
+- (lb -> m3)
+- (hp -> m1)
+- (hp -> m3)
+- (e1 -> e2)
+- (e2 -> e3)
+- (e3 -> e4)
+- (b1 -> b2)
+- (b2 -> b3)
+- (b3 -> b4)
+- (a1 -> a2)
+- (a2 -> a3)
+- (s1 -> i1)
+- (s4 -> i1)
+- (s2 -> i2)
+- (s3 -> i2)
+- (s5 -> i2)
+- (s6 -> i2)
+- (s7 -> i3)
+- (i6 -> p1)
+- (p10 -> m1)
+- (p10 -> m3)
+- (m1 -> e1)
+- (m3 -> e1)
+- (e4 -> b1)
+- (b4 -> a2)
+- (e1 -> hp)
+
+## PAGE: flowchart-bd-ai (ID: qa4I9BeyCSPUWgafzy72) - 1 layers, 61 nodes, 61 edges
+
+### NODES & CONTAINERS:
+- [B1] (parent: 1) : 1. INGESTION (ETL)
+- [a0] (parent: B1) : Start
+- [a1] (parent: B1) : Tentukan kelas | & indikator
+- [a2] (parent: B1) : Ambil data | API
+- [a3] (parent: B1) : Unduh | dokumen
+- [a4] (parent: B1) : Survei & foto | lapangan
+- [a5] (parent: B1) : Gabung data | (Batch)
+- [a6] (parent: B1) : Catat | Data Schema
+- [a7] (parent: B1) : Simpan | Raw Data
+- [B2] (parent: 1) : 2. VALIDASI & EDA
+- [b0] (parent: B2) : Volume | cukup?
+- [b1] (parent: B2) : Cek format | file
+- [b2] (parent: B2) : Hapus | duplikat
+- [b3] (parent: B2) : Anonimisasi | (blur wajah)
+- [b4] (parent: B2) : EDA | statistik
+- [b5] (parent: B2) : EDA | visualisasi
+- [b6] (parent: B2) : Ada missing / | outlier?
+- [b7] (parent: B2) : Simpan Clean | (Parquet)
+- [bL1] (parent: B2) : Tambah data ≥200 MB | & ≥2.000 baris
+- [bL2] (parent: B2) : Cleaning | (imputasi/hapus)
+- [B3] (parent: 1) : 3. PREPROCESSING & FITUR
+- [c0] (parent: B3) : Preprocessing | 3 format
+- [c1] (parent: B3) : Anotasi foto | (Label Studio)
+- [c2] (parent: B3) : Latih deteksi | (YOLO)
+- [c3] (parent: B3) : mAP ≥ | target?
+- [c4] (parent: B3) : Deteksi indikator | pada semua foto
+- [c5] (parent: B3) : Embedding teks | & gambar
+- [c6] (parent: B3) : Fusi fitur | & scaling
+- [c7] (parent: B3) : Simpan Gold | (Parquet)
+- [cL] (parent: B3) : Tambah anotasi | / tuning
+- [B4] (parent: 1) : 4. MODELING & EVALUASI
+- [m0] (parent: B4) : Split data | per UMKM
+- [d0] (parent: B4) : Klaster | K-Means / ACO
+- [d1] (parent: B4) : Hitung | Silhouette
+- [d2] (parent: B4) : k optimal?
+- [d3] (parent: B4) : Profil | klaster
+- [f0] (parent: B4) : Ambil label | survei
+- [f1] (parent: B4) : Latih model | RF / XGBoost
+- [f2] (parent: B4) : Hitung | macro-F1
+- [f3] (parent: B4) : F1 ≥ 70%?
+- [f4] (parent: B4) : Jelaskan model | (SHAP)
+- [dL] (parent: B4) : Atur k / ACO
+- [fL] (parent: B4) : Atur | parameter
+- [B5] (parent: 1) : 5. SERVING | & BDA
+- [g0] (parent: B5) : Simpan model | & hasil
+- [g1] (parent: B5) : Buat | Inference API
+- [g2] (parent: B5) : Agregasi per | kecamatan
+- [g3] (parent: B5) : Analisis spasial | (peta)
+- [g4] (parent: B5) : Statistik | spasial
+- [g5] (parent: B5) : Cari gap | per wilayah
+- [g6] (parent: B5) : Buat | dashboard
+- [g7] (parent: B5) : Rekomendasi | intervensi
+- [B6] (parent: 1) : 6. AI APPLICATION
+- [h0] (parent: B6) : Bangun | web app
+- [h1] (parent: B6) : Hubungkan API | & dashboard
+- [h2] (parent: B6) : Fitur pencarian | (opsional)
+- [h3] (parent: B6) : Uji | aplikasi
+- [h4] (parent: B6) : Lolos uji?
+- [h5] (parent: B6) : Tulis | laporan
+- [h6] (parent: B6) : End
+- [hL] (parent: B6) : Perbaiki
+
+### EDGES / CONNECTIONS:
+- (a0 -> a1)
+- (a1 -> a2)
+- (a2 -> a3)
+- (a3 -> a4)
+- (a4 -> a5)
+- (a5 -> a6)
+- (a6 -> a7)
+- (b0 -> b1) : Ya
+- (b1 -> b2)
+- (b2 -> b3)
+- (b3 -> b4)
+- (b4 -> b5)
+- (b5 -> b6)
+- (b6 -> b7) : Tidak
+- (a7 -> b0)
+- (b0 -> bL1) : Tidak
+- (bL1 -> a2)
+- (b6 -> bL2) : Ya
+- (bL2 -> b7)
+- (c0 -> c1)
+- (c1 -> c2)
+- (c2 -> c3)
+- (c3 -> c4) : Ya
+- (c4 -> c5)
+- (c5 -> c6)
+- (c6 -> c7)
+- (b7 -> c0)
+- (c3 -> cL) : Tidak
+- (cL -> c1)
+- (d0 -> d1)
+- (d1 -> d2)
+- (d2 -> d3) : Ya
+- (f0 -> f1)
+- (f1 -> f2)
+- (f2 -> f3)
+- (f3 -> f4) : Ya
+- (c7 -> m0)
+- (m0 -> d0)
+- (m0 -> f0)
+- (d2 -> dL) : Tidak
+- (dL -> d0)
+- (f3 -> fL) : Tidak
+- (fL -> f1)
+- (g0 -> g1)
+- (g1 -> g2)
+- (g2 -> g3)
+- (g3 -> g4)
+- (g4 -> g5)
+- (g5 -> g6)
+- (g6 -> g7)
+- (d3 -> g0)
+- (f4 -> g0)
+- (h0 -> h1)
+- (h1 -> h2)
+- (h2 -> h3)
+- (h3 -> h4)
+- (h4 -> h5) : Ya
+- (h5 -> h6)
+- (g7 -> h0)
+- (h4 -> hL) : Tidak
+- (hL -> h1)
+
+## PAGE: app-ai-archi (ID: uRZ6g9DMb4bVr2Y-tN1I) - 1 layers, 0 nodes, 0 edges
+
+### NODES & CONTAINERS:
+
+### EDGES / CONNECTIONS:
+
+## PAGE: flowchart-app-ai (ID: ORSdlJQlpO6KPxS__W_m) - 1 layers, 0 nodes, 0 edges
+
+### NODES & CONTAINERS:
+
+### EDGES / CONNECTIONS:
+
+## PAGE: flowchart-rangga (ID: Hk_Or3roBZT_b_8m5POI) - 1 layers, 46 nodes, 46 edges
+
+### NODES & CONTAINERS:
+- [B1] (parent: 1) : 1. INGESTION (ETL) — DATA INDIVIDU RANGGA (NIM: 09020624045 | DATA-02, DATA-05, DATA-06, DATA-07)
+- [a0] (parent: B1) : Start
+- [a1] (parent: B1) : Ambil Data Kaggle: | MSME, FoodDelivery & / GoFood Sby (DATA-02,05,06)
+- [a2] (parent: B1) : Scraping Ulasan & Survei Foto: | SWK Convention Hall & / Semolowaru (DATA-07)
+- [a3] (parent: B1) : Gabung Batch & Catat Schema: | 3 Kelas (Go-Digital, Berkembang, / Tradisional)
+- [a4] (parent: B1) : Simpan Raw Data | (Google Drive)
+- [B2] (parent: 1) : 2. VALIDASI & EDA (EDA-01 — NIM: 09020624045 | Notebook 1: eda_kelompok3_09020624045.ipynb)
+- [b0] (parent: B2) : Volume & Format | Sesuai?
+- [b1] (parent: B2) : Data Profiling, Hapus Duplikat | & Anonimisasi (Regex)
+- [b2] (parent: B2) : EDA Statistik & Visualisasi: | Mean, Std, Korelasi, Scatter, / Bar, Pie & Histogram
+- [b3] (parent: B2) : Ada Missing / | Outlier (IQR)?
+- [b4] (parent: B2) : Simpan Clean Data | (CSV / Parquet)
+- [bL1] (parent: B2) : Tambah Koleksi Data
+- [bL2] (parent: B2) : Imputasi Median & Filter IQR
+- [B3] (parent: 1) : 3. PREPROCESSING & FITUR MULTIMODAL (EDA-01 & ME-01 — NIM: 09020624045)
+- [c0] (parent: B3) : Transformasi 3 Format: | Manual Mapping, Label / Encoder & Binary Encoding
+- [c1] (parent: B3) : Deteksi Indikator Visual Foto | SWK (QRIS & Kasir POS)
+- [c2] (parent: B3) : Deteksi Indikator | Valid?
+- [c3] (parent: B3) : Feature Engineering, TF-IDF, | StandardScaler & PCA
+- [c4] (parent: B3) : Simpan Gold Data | (Google Drive)
+- [cL] (parent: B3) : Perbaiki Ekstraksi Fitur
+- [B4] (parent: 1) : 4. MODELING & EVALUASI (ME-01 — NIM: 09020624045 | Notebook 2: model_kelompok3_09020624045.ipynb)
+- [m0] (parent: B4) : Split Data UMKM: | 70% Train, 10% Val, / 20% Test
+- [d0] (parent: B4) : Klasterisasi K-Means & | Optimasi ACO (k=2..6)
+- [d1] (parent: B4) : Evaluasi Silhouette Score, | DBI & Elbow Inertia
+- [d2] (parent: B4) : k=3 Optimal?
+- [d3] (parent: B4) : Profil 3 Klaster UMKM: | Go-Digital, Berkembang, / Tradisional
+- [dL] (parent: B4) : Atur k / Centroid ACO
+- [f0] (parent: B4) : Latih Klasifikasi & Regresi: | Random Forest & XGBoost
+- [f1] (parent: B4) : Evaluasi Accuracy, | macro-F1 & Confusion Matrix
+- [f2] (parent: B4) : F1 ≥ 70%?
+- [f3] (parent: B4) : Explainability Model: | SHAP / Feature Importance
+- [fL] (parent: B4) : Hyperparameter Tuning
+- [B5] (parent: 1) : 5. SERVING & BDA (BDA-01 — NIM: 09020624045 | Notebook 3: bda_kelompok3_09020624045.ipynb)
+- [g0] (parent: B5) : Simpan Model & Buat | Layanan Inference API
+- [g1] (parent: B5) : Agregasi Klaster per Kecamatan | & Peta Spasial SWK
+- [g2] (parent: B5) : Statistik Spasial (Chi2/ANOVA) | & Evaluasi Big Data 10V
+- [g3] (parent: B5) : Analisis Gap Digitalisasi | & Visualisasi Dashboard BDA
+- [g4] (parent: B5) : Rekomendasi Intervensi | E-Gov Pemkot Surabaya
+- [B6] (parent: 1) : 6. AI APPLICATION (SISTEM CERDAS PEMETAAN UMKM E-GOVERNMENT)
+- [h0] (parent: B6) : Bangun Web App & | Integrasi Dashboard API
+- [h1] (parent: B6) : Uji Fungsional Aplikasi | & Rekomendasi AI
+- [h2] (parent: B6) : Lolos Uji?
+- [h3] (parent: B6) : Tulis Laporan Akhir | BDA & AI (Google Docs)
+- [h4] (parent: B6) : End
+- [hL] (parent: B6) : Perbaiki Aplikasi
+
+### EDGES / CONNECTIONS:
+- (a0 -> a1)
+- (a1 -> a2)
+- (a2 -> a3)
+- (a3 -> a4)
+- (b0 -> b1) : Ya
+- (b0 -> bL1) : Tidak
+- (b1 -> b2)
+- (b2 -> b3)
+- (b3 -> b4) : Tidak
+- (b3 -> bL2) : Ya
+- (bL2 -> b4)
+- (c0 -> c1)
+- (c1 -> c2)
+- (c2 -> c3) : Ya
+- (c2 -> cL) : Tidak
+- (cL -> c1)
+- (c3 -> c4)
+- (m0 -> d0)
+- (m0 -> f0)
+- (d0 -> d1)
+- (d1 -> d2)
+- (d2 -> d3) : Ya
+- (d2 -> dL) : Tidak
+- (dL -> d0)
+- (f0 -> f1)
+- (f1 -> f2)
+- (f2 -> f3) : Ya
+- (f2 -> fL) : Tidak
+- (fL -> f0)
+- (g0 -> g1)
+- (g1 -> g2)
+- (g2 -> g3)
+- (g3 -> g4)
+- (h0 -> h1)
+- (h1 -> h2)
+- (h2 -> h3) : Ya
+- (h2 -> hL) : Tidak
+- (hL -> h0)
+- (h3 -> h4)
+- (a4 -> b0)
+- (bL1 -> a1)
+- (b4 -> c0)
+- (c4 -> m0)
+- (d3 -> g0)
+- (f3 -> g0)
+- (g4 -> h0)

@@ -295,12 +295,7 @@
           "type": "edge",
           "parent": "1",
           "source": "m5",
-          "target": "m6"
-        },
-        {
-          "id": "M8CXh5usdj5j55Ekwwrm-3",
-          "type": "node",
-          "parent": "e19",
+          "target": "m6",
           "label": "Tidak"
         },
         {
@@ -413,7 +408,8 @@
           "type": "edge",
           "parent": "1",
           "source": "p4",
-          "target": "p5"
+          "target": "p5",
+          "label": "Ya"
         },
         {
           "id": "e28",
@@ -525,7 +521,8 @@
           "type": "edge",
           "parent": "1",
           "source": "q4",
-          "target": "q5"
+          "target": "q5",
+          "label": "Ya"
         },
         {
           "id": "e36",
@@ -560,7 +557,7 @@
           "id": "B5",
           "type": "node",
           "parent": "1",
-          "label": "5. SERAH-TERIMA KE KELOMPOK"
+          "label": "5. GABUNG KE KELOMPOK"
         },
         {
           "id": "s1",

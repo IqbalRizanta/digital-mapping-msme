@@ -1,0 +1,100 @@
+# Analysis of diagram-architecture/flowchart-mandiri.json
+
+## PAGE: flowchart-mandiri-gmaps-realworld (ID: p1) - 1 layers, 46 nodes, 47 edges
+
+### NODES & CONTAINERS:
+- [B1] (parent: 1) : 1. PENGUMPULAN DATA (Google Maps | Real World)
+- [S] (parent: B1) : Start
+- [g1] (parent: B1) : Tentukan kueri | & grid per kecamatan
+- [g2] (parent: B1) : Ambil data tempat | (Places API)
+- [g3] (parent: B1) : Ambil ulasan | & foto
+- [r1] (parent: B1) : Susun form survei | & pedoman foto
+- [r2] (parent: B1) : Survei lapangan | SWK Surabaya Timur
+- [r3] (parent: B1) : Foto kasir, etalase, | QRIS, EDC, POS
+- [g4] (parent: B1) : Kuota & batas | API cukup?
+- [r4] (parent: B1) : Izin & form | lengkap?
+- [g5] (parent: B1) : Tambah kueri | / grid
+- [r5] (parent: B1) : Lengkapi form | / ulangi survei
+- [g6] (parent: B1) : Simpan JSON & foto | Google Drive (Raw)
+- [r6] (parent: B1) : Unggah foto & form | Google Drive (Raw)
+- [B2] (parent: 1) : 2. VALIDASI & EDA (data mandiri)
+- [m1] (parent: B2) : Gabung sumber | & beri umkm_id
+- [m2] (parent: B2) : Cek format | & duplikat
+- [m3] (parent: B2) : Anonimisasi | (blur wajah)
+- [m4] (parent: B2) : EDA | Maps vs lapangan
+- [m5] (parent: B2) : Missing / | outlier?
+- [m6] (parent: B2) : Simpan Clean | (Parquet)
+- [mL] (parent: B2) : Cleaning | (imputasi/hapus)
+- [B3] (parent: 1) : 3. PREPROCESSING & FITUR
+- [p1] (parent: B3) : Preprocessing | foto & teks
+- [p2] (parent: B3) : Anotasi foto | (Label Studio)
+- [p3] (parent: B3) : Latih detektor | (YOLO)
+- [p4] (parent: B3) : mAP ≥ | target?
+- [p5] (parent: B3) : Deteksi indikator | QRIS·POS·EDC·Online
+- [p6] (parent: B3) : Embedding ulasan | (IndoBERT)
+- [pL] (parent: B3) : Tambah anotasi | / tuning
+- [B4] (parent: 1) : 4. ANALISIS MANDIRI & EVALUASI
+- [q1] (parent: B4) : Fitur numerik Maps | rating · jumlah ulasan
+- [q2] (parent: B4) : Indikator foto | Maps vs lapangan
+- [q3] (parent: B4) : Hitung kesepakatan | (Cohen's kappa)
+- [q4] (parent: B4) : Kesepakatan | cukup?
+- [q5] (parent: B4) : Label kelas dari | survei lapangan
+- [q6] (parent: B4) : Analisis bias | cakupan Maps
+- [qL] (parent: B4) : Tinjau kasus | yang berbeda
+- [B5] (parent: 1) : 5. GABUNG KE KELOMPOK
+- [s1] (parent: B5) : Gabung fitur | & label mandiri
+- [s2] (parent: B5) : Cek skema | Gold kelompok
+- [s3] (parent: B5) : Skema | cocok?
+- [s4] (parent: B5) : Simpan fitur & label | (Parquet)
+- [s5] (parent: B5) : Kirim ke Fusi Fitur | kelompok
+- [s6] (parent: B5) : End
+- [sL] (parent: B5) : Perbaiki kolom | & tipe data
+
+### EDGES / CONNECTIONS:
+- (S -> g1)
+- (S -> r1)
+- (g1 -> g2)
+- (g2 -> g3)
+- (g3 -> g4)
+- (g4 -> g6) : Ya
+- (r1 -> r2)
+- (r2 -> r3)
+- (r3 -> r4)
+- (r4 -> r6) : Ya
+- (g4 -> g5) : Tidak
+- (g5 -> g2)
+- (r4 -> r5) : Tidak
+- (r5 -> r2)
+- (m1 -> m2)
+- (m2 -> m3)
+- (m3 -> m4)
+- (m4 -> m5)
+- (m5 -> m6) : Tidak
+- (m5 -> mL) : Ya
+- (mL -> m6)
+- (g6 -> m1)
+- (r6 -> m1)
+- (p1 -> p2)
+- (p2 -> p3)
+- (p3 -> p4)
+- (p4 -> p5) : Ya
+- (p5 -> p6)
+- (p4 -> pL) : Tidak
+- (pL -> p2)
+- (m6 -> p1)
+- (q1 -> q2)
+- (q2 -> q3)
+- (q3 -> q4)
+- (q4 -> q5) : Ya
+- (q5 -> q6)
+- (q4 -> qL) : Tidak
+- (qL -> q2)
+- (p6 -> q1)
+- (s1 -> s2)
+- (s2 -> s3)
+- (s3 -> s4) : Ya
+- (s4 -> s5)
+- (s5 -> s6)
+- (s3 -> sL) : Tidak
+- (sL -> s2)
+- (q6 -> s1)

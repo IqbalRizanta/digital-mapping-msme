@@ -13,251 +13,269 @@
           "id": "DS",
           "type": "node",
           "parent": "1",
-          "label": "DataSource"
+          "label": "Data Source"
         },
         {
           "id": "s1",
           "type": "node",
           "parent": "DS",
-          "label": "Google Maps",
-          "html": "<b>Google Maps</b>"
+          "label": "Google Maps"
         },
         {
           "id": "s2",
           "type": "node",
           "parent": "DS",
-          "label": "Kaggle",
-          "html": "<b>Kaggle</b>"
+          "label": "Kaggle"
         },
         {
           "id": "s3",
           "type": "node",
           "parent": "DS",
-          "label": "ScienceDirect",
-          "html": "<b>ScienceDirect</b>"
+          "label": "ScienceDirect"
         },
         {
           "id": "s4",
           "type": "node",
           "parent": "DS",
-          "label": "Opendata",
-          "html": "<b>Opendata</b>"
+          "label": "Opendata"
         },
         {
           "id": "s5",
           "type": "node",
           "parent": "DS",
-          "label": "Mendeley Data",
-          "html": "<b>Mendeley Data</b>"
+          "label": "Mendeley Data"
         },
         {
           "id": "s6",
           "type": "node",
           "parent": "DS",
-          "label": "Dinasti Publisher",
-          "html": "<b>Dinasti Publisher</b>"
+          "label": "Dinasti Publisher"
         },
         {
           "id": "s7",
           "type": "node",
           "parent": "DS",
-          "label": "Real World",
-          "html": "<b>Real World</b>"
+          "label": "Real World"
         },
         {
           "id": "ING",
           "type": "node",
           "parent": "1",
-          "label": "Ingestion\n(ETL)",
-          "html": "Ingestion<br>(ETL)"
+          "label": "Ingestion"
         },
         {
-          "id": "API",
+          "id": "i1",
           "type": "node",
           "parent": "ING",
-          "label": "API\nrequests · Places API · kagglehub",
-          "html": "<b>API</b><br>requests · Places API · kagglehub"
+          "label": "Places API\nrequests",
+          "html": "Places API<br>requests"
         },
         {
-          "id": "APP",
+          "id": "i2",
           "type": "node",
           "parent": "ING",
-          "label": "Application\nrequests · BeautifulSoup",
-          "html": "<b>Application</b><br>requests · BeautifulSoup"
+          "label": "kagglehub\nBeautifulSoup",
+          "html": "kagglehub<br>BeautifulSoup"
         },
         {
-          "id": "SRV",
+          "id": "i3",
           "type": "node",
           "parent": "ING",
-          "label": "Survei\nManual Foto · Drive Upload",
-          "html": "<b>Survei</b><br>Manual Foto · Drive Upload"
+          "label": "Google Form\nGoogle Drive",
+          "html": "Google Form<br>Google Drive"
         },
         {
-          "id": "BAT",
+          "id": "i4",
           "type": "node",
           "parent": "ING",
-          "label": "Batch/Streaming\nPandas · DuckDB · PySpark",
-          "html": "<b>Batch/Streaming</b><br>Pandas · DuckDB · PySpark"
+          "label": "Pandas\nDuckDB\nPySpark",
+          "html": "Pandas<br>DuckDB<br>PySpark"
         },
         {
-          "id": "SCH",
+          "id": "i5",
           "type": "node",
           "parent": "ING",
-          "label": "Data Collection Schema\nGoogle Sheets",
-          "html": "<b>Data Collection Schema</b><br>Google Sheets"
+          "label": "Google Sheets"
         },
         {
-          "id": "RAW",
+          "id": "i6",
           "type": "node",
           "parent": "ING",
-          "label": "Raw Data\nGoogle Drive\nGambar ≥ 200 MB\nTeks/Numerik ≥ 2.000 baris",
-          "html": "<b>Raw Data</b><br>Google Drive<br>Gambar ≥ 200 MB<br>Teks/Numerik ≥ 2.000 baris"
+          "label": "Google Drive"
         },
         {
-          "id": "bde8",
+          "id": "bd-e8",
           "type": "edge",
           "parent": "ING",
-          "source": "API",
-          "target": "BAT"
+          "source": "i1",
+          "target": "i4"
         },
         {
-          "id": "bde9",
+          "id": "bd-e9",
           "type": "edge",
           "parent": "ING",
-          "source": "APP",
-          "target": "BAT"
+          "source": "i2",
+          "target": "i4"
         },
         {
-          "id": "bde10",
+          "id": "bd-e10",
           "type": "edge",
           "parent": "ING",
-          "source": "SRV",
-          "target": "BAT"
+          "source": "i3",
+          "target": "i4"
         },
         {
-          "id": "bde11",
+          "id": "bd-e11",
           "type": "edge",
           "parent": "ING",
-          "source": "BAT",
-          "target": "SCH"
+          "source": "i4",
+          "target": "i5"
         },
         {
-          "id": "bde12",
+          "id": "bd-e12",
           "type": "edge",
           "parent": "ING",
-          "source": "SCH",
-          "target": "RAW"
+          "source": "i5",
+          "target": "i6"
         },
         {
           "id": "DP",
           "type": "node",
           "parent": "1",
-          "label": "Data Processing"
+          "label": "Processing"
         },
         {
           "id": "p1",
           "type": "node",
           "parent": "DP",
-          "label": "EDA\nPandas · ydata-profiling · Seaborn",
-          "html": "<b>EDA</b><br>Pandas · ydata-profiling · Seaborn"
+          "label": "Pandas\nydata-profiling",
+          "html": "Pandas<br>ydata-profiling"
         },
         {
           "id": "p2",
           "type": "node",
           "parent": "DP",
-          "label": "Data Cleaning\nscikit-learn · SciPy",
-          "html": "<b>Data Cleaning</b><br>scikit-learn · SciPy"
+          "label": "Seaborn\nMatplotlib",
+          "html": "Seaborn<br>Matplotlib"
         },
         {
           "id": "p3",
           "type": "node",
           "parent": "DP",
-          "label": "Anonymization\nregex · OpenCV (blur wajah)",
-          "html": "<b>Anonymization</b><br>regex · OpenCV (blur wajah)"
+          "label": "scikit-learn\nSciPy",
+          "html": "scikit-learn<br>SciPy"
         },
         {
           "id": "p4",
           "type": "node",
           "parent": "DP",
-          "label": "Preprocessing\nOpenCV · Albumentations · PyMuPDF · Tesseract OCR · NLTK",
-          "html": "<b>Preprocessing</b><br>OpenCV · Albumentations · PyMuPDF · Tesseract OCR · NLTK"
+          "label": "regex\nOpenCV",
+          "html": "regex<br>OpenCV"
         },
         {
           "id": "p5",
           "type": "node",
           "parent": "DP",
-          "label": "Indicator Detection\nLabel Studio · Ultralytics YOLO",
-          "html": "<b>Indicator Detection</b><br>Label Studio · Ultralytics YOLO"
+          "label": "Albumentations\nNLTK",
+          "html": "Albumentations<br>NLTK"
         },
         {
           "id": "p6",
           "type": "node",
           "parent": "DP",
-          "label": "Feature Engineering\nIndoBERT · ResNet-50 · TF-IDF",
-          "html": "<b>Feature Engineering</b><br>IndoBERT · ResNet-50 · TF-IDF"
+          "label": "PyMuPDF\nTesseract OCR",
+          "html": "PyMuPDF<br>Tesseract OCR"
         },
         {
           "id": "p7",
           "type": "node",
           "parent": "DP",
-          "label": "Fusi Fitur & Scaling\nscikit-learn Pipeline · StandardScaler · PCA",
-          "html": "<b>Fusi Fitur &amp; Scaling</b><br>scikit-learn Pipeline · StandardScaler · PCA"
+          "label": "Label Studio\nUltralytics YOLO",
+          "html": "Label Studio<br>Ultralytics YOLO"
         },
         {
           "id": "p8",
           "type": "node",
           "parent": "DP",
-          "label": "Gold Data\nParquet · PyArrow · DuckDB",
-          "html": "<b>Gold Data</b><br>Parquet · PyArrow · DuckDB"
+          "label": "IndoBERT\nResNet-50\nTF-IDF",
+          "html": "IndoBERT<br>ResNet-50<br>TF-IDF"
         },
         {
-          "id": "bde14",
+          "id": "p9",
+          "type": "node",
+          "parent": "DP",
+          "label": "scikit-learn Pipeline\nStandardScaler\nPCA",
+          "html": "scikit-learn Pipeline<br>StandardScaler<br>PCA"
+        },
+        {
+          "id": "p10",
+          "type": "node",
+          "parent": "DP",
+          "label": "Parquet\nPyArrow\nDuckDB",
+          "html": "Parquet<br>PyArrow<br>DuckDB"
+        },
+        {
+          "id": "bd-e14",
           "type": "edge",
           "parent": "DP",
           "source": "p1",
           "target": "p2"
         },
         {
-          "id": "bde15",
+          "id": "bd-e15",
           "type": "edge",
           "parent": "DP",
           "source": "p2",
           "target": "p3"
         },
         {
-          "id": "bde16",
+          "id": "bd-e16",
           "type": "edge",
           "parent": "DP",
           "source": "p3",
           "target": "p4"
         },
         {
-          "id": "bde17",
+          "id": "bd-e17",
           "type": "edge",
           "parent": "DP",
           "source": "p4",
           "target": "p5"
         },
         {
-          "id": "bde18",
+          "id": "bd-e18",
           "type": "edge",
           "parent": "DP",
           "source": "p5",
           "target": "p6"
         },
         {
-          "id": "bde19",
+          "id": "bd-e19",
           "type": "edge",
           "parent": "DP",
           "source": "p6",
           "target": "p7"
         },
         {
-          "id": "bde20",
+          "id": "bd-e20",
           "type": "edge",
           "parent": "DP",
           "source": "p7",
           "target": "p8"
+        },
+        {
+          "id": "bd-e21",
+          "type": "edge",
+          "parent": "DP",
+          "source": "p8",
+          "target": "p9"
+        },
+        {
+          "id": "bd-e22",
+          "type": "edge",
+          "parent": "DP",
+          "source": "p9",
+          "target": "p10"
         },
         {
           "id": "MD",
@@ -269,46 +287,45 @@
           "id": "m1",
           "type": "node",
           "parent": "MD",
-          "label": "Clustering\nK-Means · K-Prototypes · ACO",
-          "html": "<b>Clustering</b><br>K-Means · K-Prototypes · ACO"
-        },
-        {
-          "id": "lb",
-          "type": "node",
-          "parent": "MD",
-          "label": "Label Ground Truth\nGoogle Sheets (survei lapangan)",
-          "html": "<b>Label Ground Truth</b><br>Google Sheets (survei lapangan)"
+          "label": "K-Means\nK-Prototypes\nNumPy (ACO)",
+          "html": "K-Means<br>K-Prototypes<br>NumPy (ACO)"
         },
         {
           "id": "m3",
           "type": "node",
           "parent": "MD",
-          "label": "Classification\nLogistic Regression · Random Forest · XGBoost",
-          "html": "<b>Classification</b><br>Logistic Regression · Random Forest · XGBoost"
+          "label": "Logistic Regression\nRandom Forest\nXGBoost",
+          "html": "Logistic Regression<br>Random Forest<br>XGBoost"
+        },
+        {
+          "id": "lb",
+          "type": "node",
+          "parent": "MD",
+          "label": "Google Sheets"
         },
         {
           "id": "hp",
           "type": "node",
           "parent": "MD",
-          "label": "Hyperparameter Tuning\nOptuna · GridSearchCV",
-          "html": "<b>Hyperparameter Tuning</b><br>Optuna · GridSearchCV"
+          "label": "Optuna\nGridSearchCV",
+          "html": "Optuna<br>GridSearchCV"
         },
         {
-          "id": "bde23",
+          "id": "bd-e25",
           "type": "edge",
           "parent": "MD",
           "source": "lb",
           "target": "m3"
         },
         {
-          "id": "bde38",
+          "id": "bd-e39",
           "type": "edge",
           "parent": "MD",
           "source": "hp",
           "target": "m1"
         },
         {
-          "id": "bde39",
+          "id": "bd-e40",
           "type": "edge",
           "parent": "MD",
           "source": "hp",
@@ -318,123 +335,107 @@
           "id": "EV",
           "type": "node",
           "parent": "1",
-          "label": "Evaluation\n& Serving",
-          "html": "Evaluation<br>& Serving"
+          "label": "Evaluation & Serving"
         },
         {
-          "id": "ev",
+          "id": "e1",
           "type": "node",
           "parent": "EV",
-          "label": "Evaluation\nSilhouette · DBI · macro-F1 · mAP · GroupKFold",
-          "html": "<b>Evaluation</b><br>Silhouette · DBI · macro-F1 · mAP · GroupKFold"
+          "label": "scikit-learn Metrics\nUltralytics\nGroupKFold",
+          "html": "scikit-learn Metrics<br>Ultralytics<br>GroupKFold"
         },
         {
-          "id": "dc",
+          "id": "e2",
           "type": "node",
           "parent": "EV",
-          "label": "Metrik ≥\ntarget?",
-          "html": "<b>Metrik ≥</b><br>target?"
+          "label": "SHAP\nGrad-CAM",
+          "html": "SHAP<br>Grad-CAM"
         },
         {
-          "id": "xp",
+          "id": "e3",
           "type": "node",
           "parent": "EV",
-          "label": "Explainability\nSHAP · Grad-CAM",
-          "html": "<b>Explainability</b><br>SHAP · Grad-CAM"
+          "label": "MLflow\nONNX",
+          "html": "MLflow<br>ONNX"
         },
         {
-          "id": "r1",
+          "id": "e4",
           "type": "node",
           "parent": "EV",
-          "label": "Model Registry\nMLflow · ONNX",
-          "html": "<b>Model Registry</b><br>MLflow · ONNX"
+          "label": "FastAPI\nONNX Runtime",
+          "html": "FastAPI<br>ONNX Runtime"
         },
         {
-          "id": "r2",
-          "type": "node",
-          "parent": "EV",
-          "label": "Inference API\nFastAPI · ONNX Runtime",
-          "html": "<b>Inference API</b><br>FastAPI · ONNX Runtime"
-        },
-        {
-          "id": "bde26",
+          "id": "bd-e28",
           "type": "edge",
           "parent": "EV",
-          "source": "ev",
-          "target": "dc"
+          "source": "e1",
+          "target": "e2"
         },
         {
-          "id": "bde27",
+          "id": "bd-e29",
           "type": "edge",
           "parent": "EV",
-          "source": "xp",
-          "target": "r1"
+          "source": "e2",
+          "target": "e3"
         },
         {
-          "id": "bde28",
+          "id": "bd-e30",
           "type": "edge",
           "parent": "EV",
-          "source": "r1",
-          "target": "r2"
-        },
-        {
-          "id": "bde36",
-          "type": "edge",
-          "parent": "EV",
-          "source": "dc",
-          "target": "xp",
-          "label": "Yes"
+          "source": "e3",
+          "target": "e4"
         },
         {
           "id": "BD",
           "type": "node",
           "parent": "1",
-          "label": "BDA"
+          "label": "Analytics (BDA)"
         },
         {
           "id": "b1",
           "type": "node",
           "parent": "BD",
-          "label": "Aggregation\nDuckDB · Pandas · PySpark",
-          "html": "<b>Aggregation</b><br>DuckDB · Pandas · PySpark"
+          "label": "DuckDB\nPandas\nPySpark",
+          "html": "DuckDB<br>Pandas<br>PySpark"
         },
         {
           "id": "b2",
           "type": "node",
           "parent": "BD",
-          "label": "Spatial Analysis\nGeoPandas · Folium",
-          "html": "<b>Spatial Analysis</b><br>GeoPandas · Folium"
+          "label": "GeoPandas\nShapely",
+          "html": "GeoPandas<br>Shapely"
         },
         {
           "id": "b3",
           "type": "node",
           "parent": "BD",
-          "label": "Spatial Statistics\nPySAL · SciPy · statsmodels",
-          "html": "<b>Spatial Statistics</b><br>PySAL · SciPy · statsmodels"
+          "label": "PySAL\nSciPy\nstatsmodels",
+          "html": "PySAL<br>SciPy<br>statsmodels"
         },
         {
           "id": "b4",
           "type": "node",
           "parent": "BD",
-          "label": "Dashboard\nPlotly · Streamlit",
-          "html": "<b>Dashboard</b><br>Plotly · Streamlit"
+          "label": "Folium\nPlotly",
+          "html": "Folium<br>Plotly"
         },
         {
-          "id": "bde30",
+          "id": "bd-e32",
           "type": "edge",
           "parent": "BD",
           "source": "b1",
           "target": "b2"
         },
         {
-          "id": "bde31",
+          "id": "bd-e33",
           "type": "edge",
           "parent": "BD",
           "source": "b2",
           "target": "b3"
         },
         {
-          "id": "bde32",
+          "id": "bd-e34",
           "type": "edge",
           "parent": "BD",
           "source": "b3",
@@ -444,141 +445,146 @@
           "id": "AP",
           "type": "node",
           "parent": "1",
-          "label": "AI Application"
+          "label": "Application"
         },
         {
           "id": "a1",
           "type": "node",
           "parent": "AP",
-          "label": "Search & Recommendation (opsional)\nLangChain · FAISS",
-          "html": "<b>Search &amp; Recommendation (opsional)</b><br>LangChain · FAISS"
+          "label": "LangChain\nFAISS",
+          "html": "LangChain<br>FAISS"
         },
         {
           "id": "a2",
           "type": "node",
           "parent": "AP",
-          "label": "Web App\nStreamlit · FastAPI",
-          "html": "<b>Web App</b><br>Streamlit · FastAPI"
+          "label": "Streamlit\nFastAPI",
+          "html": "Streamlit<br>FastAPI"
         },
         {
           "id": "a3",
           "type": "node",
           "parent": "AP",
-          "label": "Report\nGoogle Docs",
-          "html": "<b>Report</b><br>Google Docs"
+          "label": "Google Docs"
         },
         {
-          "id": "bde34",
+          "id": "bd-e36",
           "type": "edge",
           "parent": "AP",
           "source": "a1",
           "target": "a2"
         },
         {
-          "id": "bde35",
+          "id": "bd-e37",
           "type": "edge",
           "parent": "AP",
           "source": "a2",
           "target": "a3"
         },
         {
-          "id": "bde1",
+          "id": "bd-e1",
           "type": "edge",
           "parent": "1",
           "source": "s1",
-          "target": "API"
+          "target": "i1"
         },
         {
-          "id": "bde2",
-          "type": "edge",
-          "parent": "1",
-          "source": "s2",
-          "target": "API"
-        },
-        {
-          "id": "bde3",
+          "id": "bd-e2",
           "type": "edge",
           "parent": "1",
           "source": "s4",
-          "target": "API"
+          "target": "i1"
         },
         {
-          "id": "bde5",
+          "id": "bd-e3",
+          "type": "edge",
+          "parent": "1",
+          "source": "s2",
+          "target": "i2"
+        },
+        {
+          "id": "bd-e4",
+          "type": "edge",
+          "parent": "1",
+          "source": "s3",
+          "target": "i2"
+        },
+        {
+          "id": "bd-e5",
           "type": "edge",
           "parent": "1",
           "source": "s5",
-          "target": "APP"
+          "target": "i2"
         },
         {
-          "id": "bde6",
+          "id": "bd-e6",
           "type": "edge",
           "parent": "1",
           "source": "s6",
-          "target": "APP"
+          "target": "i2"
         },
         {
-          "id": "bde7",
+          "id": "bd-e7",
           "type": "edge",
           "parent": "1",
           "source": "s7",
-          "target": "SRV"
+          "target": "i3"
         },
         {
-          "id": "bde13",
+          "id": "bd-e13",
           "type": "edge",
           "parent": "1",
-          "source": "RAW",
+          "source": "i6",
           "target": "p1"
         },
         {
-          "id": "bde21",
+          "id": "bd-e23",
           "type": "edge",
           "parent": "1",
-          "source": "p8",
+          "source": "p10",
           "target": "m1"
         },
         {
-          "id": "bde22",
+          "id": "bd-e24",
           "type": "edge",
           "parent": "1",
-          "source": "p8",
+          "source": "p10",
           "target": "m3"
         },
         {
-          "id": "bde24",
+          "id": "bd-e26",
           "type": "edge",
           "parent": "1",
           "source": "m1",
-          "target": "ev"
+          "target": "e1"
         },
         {
-          "id": "bde25",
+          "id": "bd-e27",
           "type": "edge",
           "parent": "1",
           "source": "m3",
-          "target": "ev"
+          "target": "e1"
         },
         {
-          "id": "bde29",
+          "id": "bd-e31",
           "type": "edge",
           "parent": "1",
-          "source": "r2",
+          "source": "e4",
           "target": "b1"
         },
         {
-          "id": "bde33",
+          "id": "bd-e35",
           "type": "edge",
           "parent": "1",
           "source": "b4",
           "target": "a2"
         },
         {
-          "id": "bde37",
+          "id": "bd-e38",
           "type": "edge",
           "parent": "1",
-          "source": "dc",
-          "target": "hp",
-          "label": "No"
+          "source": "e1",
+          "target": "hp"
         },
         {
           "id": "X1",
@@ -590,182 +596,127 @@
           "id": "X10",
           "type": "node",
           "parent": "X1",
-          "label": "Google Colab",
-          "html": "<b>Google Colab</b>"
+          "label": "Google Colab"
         },
         {
           "id": "X11",
           "type": "node",
           "parent": "X1",
-          "label": "VS Code",
-          "html": "<b>VS Code</b>"
+          "label": "VS Code"
         },
         {
           "id": "X12",
           "type": "node",
           "parent": "X1",
-          "label": "Python 3.10+",
-          "html": "<b>Python 3.10+</b>"
+          "label": "Python 3.10+"
         },
         {
           "id": "X13",
           "type": "node",
           "parent": "X1",
-          "label": "PyTorch",
-          "html": "<b>PyTorch</b>"
+          "label": "PyTorch"
         },
         {
           "id": "X14",
           "type": "node",
           "parent": "X1",
-          "label": "scikit-learn",
-          "html": "<b>scikit-learn</b>"
+          "label": "scikit-learn"
         },
         {
           "id": "X15",
           "type": "node",
           "parent": "X1",
-          "label": "Hugging Face",
-          "html": "<b>Hugging Face</b>"
+          "label": "Hugging Face"
         },
         {
           "id": "X2",
           "type": "node",
           "parent": "1",
-          "label": "MLOps & Monitoring"
+          "label": "MLOps"
         },
         {
           "id": "X20",
           "type": "node",
           "parent": "X2",
-          "label": "Google Sheets",
-          "html": "<b>Google Sheets</b>"
+          "label": "Google Sheets"
         },
         {
           "id": "X21",
           "type": "node",
           "parent": "X2",
-          "label": "Git / GitHub",
-          "html": "<b>Git / GitHub</b>"
+          "label": "Git / GitHub"
         },
         {
           "id": "X22",
           "type": "node",
           "parent": "X2",
-          "label": "MLflow",
-          "html": "<b>MLflow</b>"
+          "label": "MLflow"
         },
         {
           "id": "X23",
           "type": "node",
           "parent": "X2",
-          "label": "DVC (opsional)",
-          "html": "<b>DVC (opsional)</b>"
+          "label": "DVC"
         },
         {
           "id": "X3",
           "type": "node",
           "parent": "1",
-          "label": "Governance & Security"
+          "label": "Security"
         },
         {
           "id": "X30",
           "type": "node",
           "parent": "X3",
-          "label": "python-dotenv",
-          "html": "<b>python-dotenv</b>"
+          "label": "python-dotenv"
         },
         {
           "id": "X31",
           "type": "node",
           "parent": "X3",
-          "label": "regex anonimisasi",
-          "html": "<b>regex anonimisasi</b>"
+          "label": "regex"
         },
         {
           "id": "X32",
           "type": "node",
           "parent": "X3",
-          "label": "OpenCV blur wajah",
-          "html": "<b>OpenCV blur wajah</b>"
+          "label": "OpenCV"
         },
         {
           "id": "X33",
           "type": "node",
           "parent": "X3",
-          "label": "Google Drive Access Control",
-          "html": "<b>Google Drive Access Control</b>"
+          "label": "Google Drive Access Control"
         },
         {
           "id": "X4",
           "type": "node",
           "parent": "1",
-          "label": "Assessment Framework"
+          "label": "Evaluation Tools"
         },
         {
           "id": "X40",
           "type": "node",
           "parent": "X4",
-          "label": "scikit-learn Metrics",
-          "html": "<b>scikit-learn Metrics</b>"
+          "label": "scikit-learn Metrics"
         },
         {
           "id": "X41",
           "type": "node",
           "parent": "X4",
-          "label": "Ultralytics (mAP)",
-          "html": "<b>Ultralytics (mAP)</b>"
+          "label": "Ultralytics"
         },
         {
           "id": "X42",
           "type": "node",
           "parent": "X4",
-          "label": "Matplotlib",
-          "html": "<b>Matplotlib</b>"
+          "label": "Matplotlib"
         },
         {
           "id": "X43",
           "type": "node",
           "parent": "X4",
-          "label": "Seaborn",
-          "html": "<b>Seaborn</b>"
-        },
-        {
-          "id": "E5KYjD76-ptbFmaVJccU-1",
-          "type": "edge",
-          "parent": "1",
-          "source": "s3",
-          "target": "APP"
-        },
-        {
-          "id": "E5KYjD76-ptbFmaVJccU-4",
-          "type": "node",
-          "parent": "1"
-        },
-        {
-          "id": "E5KYjD76-ptbFmaVJccU-7",
-          "type": "node",
-          "parent": "1"
-        },
-        {
-          "id": "E5KYjD76-ptbFmaVJccU-8",
-          "type": "node",
-          "parent": "1"
-        },
-        {
-          "id": "E5KYjD76-ptbFmaVJccU-9",
-          "type": "node",
-          "parent": "1"
-        },
-        {
-          "id": "E5KYjD76-ptbFmaVJccU-10",
-          "type": "node",
-          "parent": "1"
-        },
-        {
-          "id": "E5KYjD76-ptbFmaVJccU-11",
-          "type": "node",
-          "parent": "1"
+          "label": "Seaborn"
         }
       ]
     },
@@ -1055,8 +1006,7 @@
           "id": "B3",
           "type": "node",
           "parent": "1",
-          "label": "3. PREPROCESSING\n & FITUR",
-          "html": "3. PREPROCESSING<div>&nbsp;&amp; FITUR</div>"
+          "label": "3. PREPROCESSING & FITUR"
         },
         {
           "id": "c0",
@@ -1386,8 +1336,8 @@
           "id": "B5",
           "type": "node",
           "parent": "1",
-          "label": "5. SERVING \n& BDA",
-          "html": "5. SERVING <br>&amp; BDA"
+          "label": "5. SERVING \n& BDA",
+          "html": "5. SERVING&nbsp;<div>&amp; BDA</div>"
         },
         {
           "id": "g0",
@@ -1651,6 +1601,655 @@
         {
           "id": "1",
           "type": "layer"
+        }
+      ]
+    },
+    {
+      "id": "Hk_Or3roBZT_b_8m5POI",
+      "name": "flowchart-rangga",
+      "cells": [
+        {
+          "id": "1",
+          "type": "layer"
+        },
+        {
+          "id": "B1",
+          "type": "node",
+          "parent": "1",
+          "label": "1. INGESTION (ETL) — DATA INDIVIDU RANGGA (NIM: 09020624045 | DATA-02, DATA-05, DATA-06, DATA-07)"
+        },
+        {
+          "id": "a0",
+          "type": "node",
+          "parent": "B1",
+          "label": "Start"
+        },
+        {
+          "id": "a1",
+          "type": "node",
+          "parent": "B1",
+          "label": "Ambil Data Kaggle:\nMSME, FoodDelivery &\nGoFood Sby (DATA-02,05,06)",
+          "html": "Ambil Data Kaggle:<br>MSME, FoodDelivery &amp;<br>GoFood Sby (DATA-02,05,06)"
+        },
+        {
+          "id": "a2",
+          "type": "node",
+          "parent": "B1",
+          "label": "Scraping Ulasan & Survei Foto:\nSWK Convention Hall &\nSemolowaru (DATA-07)",
+          "html": "Scraping Ulasan &amp; Survei Foto:<br>SWK Convention Hall &amp;<br>Semolowaru (DATA-07)"
+        },
+        {
+          "id": "a3",
+          "type": "node",
+          "parent": "B1",
+          "label": "Gabung Batch & Catat Schema:\n3 Kelas (Go-Digital, Berkembang,\nTradisional)",
+          "html": "Gabung Batch &amp; Catat Schema:<br>3 Kelas (Go-Digital, Berkembang,<br>Tradisional)"
+        },
+        {
+          "id": "a4",
+          "type": "node",
+          "parent": "B1",
+          "label": "Simpan Raw Data\n(Google Drive)",
+          "html": "Simpan Raw Data<br>(Google Drive)"
+        },
+        {
+          "id": "e1",
+          "type": "edge",
+          "parent": "B1",
+          "source": "a0",
+          "target": "a1"
+        },
+        {
+          "id": "e2",
+          "type": "edge",
+          "parent": "B1",
+          "source": "a1",
+          "target": "a2"
+        },
+        {
+          "id": "e3",
+          "type": "edge",
+          "parent": "B1",
+          "source": "a2",
+          "target": "a3"
+        },
+        {
+          "id": "e4",
+          "type": "edge",
+          "parent": "B1",
+          "source": "a3",
+          "target": "a4"
+        },
+        {
+          "id": "B2",
+          "type": "node",
+          "parent": "1",
+          "label": "2. VALIDASI &amp; EDA (EDA-01 — NIM: 09020624045 | Notebook 1: eda_kelompok3_09020624045.ipynb)"
+        },
+        {
+          "id": "b0",
+          "type": "node",
+          "parent": "B2",
+          "label": "Volume & Format\nSesuai?",
+          "html": "Volume &amp; Format<br>Sesuai?"
+        },
+        {
+          "id": "b1",
+          "type": "node",
+          "parent": "B2",
+          "label": "Data Profiling, Hapus Duplikat\n& Anonimisasi (Regex)",
+          "html": "Data Profiling, Hapus Duplikat<br>&amp; Anonimisasi (Regex)"
+        },
+        {
+          "id": "b2",
+          "type": "node",
+          "parent": "B2",
+          "label": "EDA Statistik & Visualisasi:\nMean, Std, Korelasi, Scatter,\nBar, Pie & Histogram",
+          "html": "EDA Statistik &amp; Visualisasi:<br>Mean, Std, Korelasi, Scatter,<br>Bar, Pie &amp; Histogram"
+        },
+        {
+          "id": "b3",
+          "type": "node",
+          "parent": "B2",
+          "label": "Ada Missing /\nOutlier (IQR)?",
+          "html": "Ada Missing /<br>Outlier (IQR)?"
+        },
+        {
+          "id": "b4",
+          "type": "node",
+          "parent": "B2",
+          "label": "Simpan Clean Data\n(CSV / Parquet)",
+          "html": "Simpan Clean Data<br>(CSV / Parquet)"
+        },
+        {
+          "id": "bL1",
+          "type": "node",
+          "parent": "B2",
+          "label": "Tambah Koleksi Data"
+        },
+        {
+          "id": "bL2",
+          "type": "node",
+          "parent": "B2",
+          "label": "Imputasi Median &amp; Filter IQR"
+        },
+        {
+          "id": "e6",
+          "type": "edge",
+          "parent": "B2",
+          "source": "b0",
+          "target": "b1",
+          "label": "Ya"
+        },
+        {
+          "id": "e7",
+          "type": "edge",
+          "parent": "B2",
+          "source": "b0",
+          "target": "bL1",
+          "label": "Tidak"
+        },
+        {
+          "id": "e9",
+          "type": "edge",
+          "parent": "B2",
+          "source": "b1",
+          "target": "b2"
+        },
+        {
+          "id": "e10",
+          "type": "edge",
+          "parent": "B2",
+          "source": "b2",
+          "target": "b3"
+        },
+        {
+          "id": "e11",
+          "type": "edge",
+          "parent": "B2",
+          "source": "b3",
+          "target": "b4",
+          "label": "Tidak"
+        },
+        {
+          "id": "e12",
+          "type": "edge",
+          "parent": "B2",
+          "source": "b3",
+          "target": "bL2",
+          "label": "Ya"
+        },
+        {
+          "id": "e13",
+          "type": "edge",
+          "parent": "B2",
+          "source": "bL2",
+          "target": "b4"
+        },
+        {
+          "id": "B3",
+          "type": "node",
+          "parent": "1",
+          "label": "3. PREPROCESSING &amp; FITUR MULTIMODAL (EDA-01 &amp; ME-01 — NIM: 09020624045)"
+        },
+        {
+          "id": "c0",
+          "type": "node",
+          "parent": "B3",
+          "label": "Transformasi 3 Format:\nManual Mapping, Label\nEncoder & Binary Encoding",
+          "html": "Transformasi 3 Format:<br>Manual Mapping, Label<br>Encoder &amp; Binary Encoding"
+        },
+        {
+          "id": "c1",
+          "type": "node",
+          "parent": "B3",
+          "label": "Deteksi Indikator Visual Foto\nSWK (QRIS & Kasir POS)",
+          "html": "Deteksi Indikator Visual Foto<br>SWK (QRIS &amp; Kasir POS)"
+        },
+        {
+          "id": "c2",
+          "type": "node",
+          "parent": "B3",
+          "label": "Deteksi Indikator\nValid?",
+          "html": "Deteksi Indikator<br>Valid?"
+        },
+        {
+          "id": "c3",
+          "type": "node",
+          "parent": "B3",
+          "label": "Feature Engineering, TF-IDF,\nStandardScaler & PCA",
+          "html": "Feature Engineering, TF-IDF,<br>StandardScaler &amp; PCA"
+        },
+        {
+          "id": "c4",
+          "type": "node",
+          "parent": "B3",
+          "label": "Simpan Gold Data\n(Google Drive)",
+          "html": "Simpan Gold Data<br>(Google Drive)"
+        },
+        {
+          "id": "cL",
+          "type": "node",
+          "parent": "B3",
+          "label": "Perbaiki Ekstraksi Fitur"
+        },
+        {
+          "id": "e15",
+          "type": "edge",
+          "parent": "B3",
+          "source": "c0",
+          "target": "c1"
+        },
+        {
+          "id": "e16",
+          "type": "edge",
+          "parent": "B3",
+          "source": "c1",
+          "target": "c2"
+        },
+        {
+          "id": "e17",
+          "type": "edge",
+          "parent": "B3",
+          "source": "c2",
+          "target": "c3",
+          "label": "Ya"
+        },
+        {
+          "id": "e18",
+          "type": "edge",
+          "parent": "B3",
+          "source": "c2",
+          "target": "cL",
+          "label": "Tidak"
+        },
+        {
+          "id": "e19",
+          "type": "edge",
+          "parent": "B3",
+          "source": "cL",
+          "target": "c1"
+        },
+        {
+          "id": "e20",
+          "type": "edge",
+          "parent": "B3",
+          "source": "c3",
+          "target": "c4"
+        },
+        {
+          "id": "B4",
+          "type": "node",
+          "parent": "1",
+          "label": "4. MODELING &amp; EVALUASI (ME-01 — NIM: 09020624045 | Notebook 2: model_kelompok3_09020624045.ipynb)"
+        },
+        {
+          "id": "m0",
+          "type": "node",
+          "parent": "B4",
+          "label": "Split Data UMKM:\n70% Train, 10% Val,\n20% Test",
+          "html": "Split Data UMKM:<br>70% Train, 10% Val,<br>20% Test"
+        },
+        {
+          "id": "d0",
+          "type": "node",
+          "parent": "B4",
+          "label": "Klasterisasi K-Means &\nOptimasi ACO (k=2..6)",
+          "html": "Klasterisasi K-Means &amp;<br>Optimasi ACO (k=2..6)"
+        },
+        {
+          "id": "d1",
+          "type": "node",
+          "parent": "B4",
+          "label": "Evaluasi Silhouette Score,\nDBI & Elbow Inertia",
+          "html": "Evaluasi Silhouette Score,<br>DBI &amp; Elbow Inertia"
+        },
+        {
+          "id": "d2",
+          "type": "node",
+          "parent": "B4",
+          "label": "k=3 Optimal?"
+        },
+        {
+          "id": "d3",
+          "type": "node",
+          "parent": "B4",
+          "label": "Profil 3 Klaster UMKM:\nGo-Digital, Berkembang,\nTradisional",
+          "html": "Profil 3 Klaster UMKM:<br>Go-Digital, Berkembang,<br>Tradisional"
+        },
+        {
+          "id": "dL",
+          "type": "node",
+          "parent": "B4",
+          "label": "Atur k / Centroid ACO"
+        },
+        {
+          "id": "f0",
+          "type": "node",
+          "parent": "B4",
+          "label": "Latih Klasifikasi & Regresi:\nRandom Forest & XGBoost",
+          "html": "Latih Klasifikasi &amp; Regresi:<br>Random Forest &amp; XGBoost"
+        },
+        {
+          "id": "f1",
+          "type": "node",
+          "parent": "B4",
+          "label": "Evaluasi Accuracy,\nmacro-F1 & Confusion Matrix",
+          "html": "Evaluasi Accuracy,<br>macro-F1 &amp; Confusion Matrix"
+        },
+        {
+          "id": "f2",
+          "type": "node",
+          "parent": "B4",
+          "label": "F1 &ge; 70%?"
+        },
+        {
+          "id": "f3",
+          "type": "node",
+          "parent": "B4",
+          "label": "Explainability Model:\nSHAP / Feature Importance",
+          "html": "Explainability Model:<br>SHAP / Feature Importance"
+        },
+        {
+          "id": "fL",
+          "type": "node",
+          "parent": "B4",
+          "label": "Hyperparameter Tuning"
+        },
+        {
+          "id": "e22",
+          "type": "edge",
+          "parent": "B4",
+          "source": "m0",
+          "target": "d0"
+        },
+        {
+          "id": "e23",
+          "type": "edge",
+          "parent": "B4",
+          "source": "m0",
+          "target": "f0"
+        },
+        {
+          "id": "e24",
+          "type": "edge",
+          "parent": "B4",
+          "source": "d0",
+          "target": "d1"
+        },
+        {
+          "id": "e25",
+          "type": "edge",
+          "parent": "B4",
+          "source": "d1",
+          "target": "d2"
+        },
+        {
+          "id": "e26",
+          "type": "edge",
+          "parent": "B4",
+          "source": "d2",
+          "target": "d3",
+          "label": "Ya"
+        },
+        {
+          "id": "e27",
+          "type": "edge",
+          "parent": "B4",
+          "source": "d2",
+          "target": "dL",
+          "label": "Tidak"
+        },
+        {
+          "id": "e28",
+          "type": "edge",
+          "parent": "B4",
+          "source": "dL",
+          "target": "d0"
+        },
+        {
+          "id": "e29",
+          "type": "edge",
+          "parent": "B4",
+          "source": "f0",
+          "target": "f1"
+        },
+        {
+          "id": "e30",
+          "type": "edge",
+          "parent": "B4",
+          "source": "f1",
+          "target": "f2"
+        },
+        {
+          "id": "e31",
+          "type": "edge",
+          "parent": "B4",
+          "source": "f2",
+          "target": "f3",
+          "label": "Ya"
+        },
+        {
+          "id": "e32",
+          "type": "edge",
+          "parent": "B4",
+          "source": "f2",
+          "target": "fL",
+          "label": "Tidak"
+        },
+        {
+          "id": "e33",
+          "type": "edge",
+          "parent": "B4",
+          "source": "fL",
+          "target": "f0"
+        },
+        {
+          "id": "B5",
+          "type": "node",
+          "parent": "1",
+          "label": "5. SERVING &amp; BDA (BDA-01 — NIM: 09020624045 | Notebook 3: bda_kelompok3_09020624045.ipynb)"
+        },
+        {
+          "id": "g0",
+          "type": "node",
+          "parent": "B5",
+          "label": "Simpan Model & Buat\nLayanan Inference API",
+          "html": "Simpan Model &amp; Buat<br>Layanan Inference API"
+        },
+        {
+          "id": "g1",
+          "type": "node",
+          "parent": "B5",
+          "label": "Agregasi Klaster per Kecamatan\n& Peta Spasial SWK",
+          "html": "Agregasi Klaster per Kecamatan<br>&amp; Peta Spasial SWK"
+        },
+        {
+          "id": "g2",
+          "type": "node",
+          "parent": "B5",
+          "label": "Statistik Spasial (Chi2/ANOVA)\n& Evaluasi Big Data 10V",
+          "html": "Statistik Spasial (Chi2/ANOVA)<br>&amp; Evaluasi Big Data 10V"
+        },
+        {
+          "id": "g3",
+          "type": "node",
+          "parent": "B5",
+          "label": "Analisis Gap Digitalisasi\n& Visualisasi Dashboard BDA",
+          "html": "Analisis Gap Digitalisasi<br>&amp; Visualisasi Dashboard BDA"
+        },
+        {
+          "id": "g4",
+          "type": "node",
+          "parent": "B5",
+          "label": "Rekomendasi Intervensi\nE-Gov Pemkot Surabaya",
+          "html": "Rekomendasi Intervensi<br>E-Gov Pemkot Surabaya"
+        },
+        {
+          "id": "e36",
+          "type": "edge",
+          "parent": "B5",
+          "source": "g0",
+          "target": "g1"
+        },
+        {
+          "id": "e37",
+          "type": "edge",
+          "parent": "B5",
+          "source": "g1",
+          "target": "g2"
+        },
+        {
+          "id": "e38",
+          "type": "edge",
+          "parent": "B5",
+          "source": "g2",
+          "target": "g3"
+        },
+        {
+          "id": "e39",
+          "type": "edge",
+          "parent": "B5",
+          "source": "g3",
+          "target": "g4"
+        },
+        {
+          "id": "B6",
+          "type": "node",
+          "parent": "1",
+          "label": "6. AI APPLICATION (SISTEM CERDAS PEMETAAN UMKM E-GOVERNMENT)"
+        },
+        {
+          "id": "h0",
+          "type": "node",
+          "parent": "B6",
+          "label": "Bangun Web App &\nIntegrasi Dashboard API",
+          "html": "Bangun Web App &amp;<br>Integrasi Dashboard API"
+        },
+        {
+          "id": "h1",
+          "type": "node",
+          "parent": "B6",
+          "label": "Uji Fungsional Aplikasi\n& Rekomendasi AI",
+          "html": "Uji Fungsional Aplikasi<br>&amp; Rekomendasi AI"
+        },
+        {
+          "id": "h2",
+          "type": "node",
+          "parent": "B6",
+          "label": "Lolos Uji?"
+        },
+        {
+          "id": "h3",
+          "type": "node",
+          "parent": "B6",
+          "label": "Tulis Laporan Akhir\nBDA & AI (Google Docs)",
+          "html": "Tulis Laporan Akhir<br>BDA &amp; AI (Google Docs)"
+        },
+        {
+          "id": "h4",
+          "type": "node",
+          "parent": "B6",
+          "label": "End"
+        },
+        {
+          "id": "hL",
+          "type": "node",
+          "parent": "B6",
+          "label": "Perbaiki Aplikasi"
+        },
+        {
+          "id": "e41",
+          "type": "edge",
+          "parent": "B6",
+          "source": "h0",
+          "target": "h1"
+        },
+        {
+          "id": "e42",
+          "type": "edge",
+          "parent": "B6",
+          "source": "h1",
+          "target": "h2"
+        },
+        {
+          "id": "e43",
+          "type": "edge",
+          "parent": "B6",
+          "source": "h2",
+          "target": "h3",
+          "label": "Ya"
+        },
+        {
+          "id": "e44",
+          "type": "edge",
+          "parent": "B6",
+          "source": "h2",
+          "target": "hL",
+          "label": "Tidak"
+        },
+        {
+          "id": "e45",
+          "type": "edge",
+          "parent": "B6",
+          "source": "hL",
+          "target": "h0"
+        },
+        {
+          "id": "e46",
+          "type": "edge",
+          "parent": "B6",
+          "source": "h3",
+          "target": "h4"
+        },
+        {
+          "id": "e5",
+          "type": "edge",
+          "parent": "1",
+          "source": "a4",
+          "target": "b0"
+        },
+        {
+          "id": "e8",
+          "type": "edge",
+          "parent": "1",
+          "source": "bL1",
+          "target": "a1"
+        },
+        {
+          "id": "e14",
+          "type": "edge",
+          "parent": "1",
+          "source": "b4",
+          "target": "c0"
+        },
+        {
+          "id": "e21",
+          "type": "edge",
+          "parent": "1",
+          "source": "c4",
+          "target": "m0"
+        },
+        {
+          "id": "e34",
+          "type": "edge",
+          "parent": "1",
+          "source": "d3",
+          "target": "g0"
+        },
+        {
+          "id": "e35",
+          "type": "edge",
+          "parent": "1",
+          "source": "f3",
+          "target": "g0"
+        },
+        {
+          "id": "e40",
+          "type": "edge",
+          "parent": "1",
+          "source": "g4",
+          "target": "h0"
         }
       ]
     }
