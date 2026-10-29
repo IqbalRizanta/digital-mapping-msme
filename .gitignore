@@ -58,3 +58,14 @@ data/yolo_cls/
 reports/yolo/
 reports/yolo_runs/
 reports/*.log
+weights/
+*.log
+.ipynb_checkpoints/
+
+# Task guide screenshots
+peta-digital-umkm/Project-Task-Guide/
+
+# Dokumentasi penjelasan proyek internal
+PENJELASAN_LENGKAP_PROYEK.md
+PENJELASAN*.md
+PENJELASAN*.txt
