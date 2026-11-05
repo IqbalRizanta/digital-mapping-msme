@@ -1,0 +1,48 @@
+{
+  "registered_models": [
+    {
+      "name": "umkm-yolov8n-indicator-detector",
+      "version": "v2.0",
+      "stage": "Production",
+      "format": "PyTorch (.pt)",
+      "path": "models/yolov8n_indicator_detect.pt"
+    },
+    {
+      "name": "umkm-yolov8n-maturity-classifier",
+      "version": "v2.0",
+      "stage": "Production",
+      "format": "PyTorch (.pt)",
+      "path": "models/yolov8n_maturity_cls.pt"
+    },
+    {
+      "name": "umkm-random-forest-multimodal",
+      "version": "v2.0",
+      "stage": "Production",
+      "format": "Joblib (.joblib)",
+      "path": "models/random_forest_maturity.joblib",
+      "metrics": {
+        "macro_f1": 1.0,
+        "accuracy": 1.0,
+        "precision_macro": 1.0,
+        "recall_macro": 1.0,
+        "cohen_kappa_clf": 1.0
+      }
+    },
+    {
+      "name": "umkm-kmeans-clustering",
+      "version": "v2.0",
+      "stage": "Production",
+      "format": "Joblib (.joblib)",
+      "path": "models/kmeans_maturity.joblib",
+      "metrics": {
+        "silhouette_score": 0.2943,
+        "davies_bouldin_index": 1.3964,
+        "cluster_counts": {
+          "Konvensional": 126,
+          "Berkembang": 119,
+          "Maju": 11
+        }
+      }
+    }
+  ]
+}

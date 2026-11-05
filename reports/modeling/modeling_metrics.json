@@ -1,0 +1,23 @@
+{
+  "clustering_k3": {
+    "silhouette_score": 0.2943,
+    "davies_bouldin_index": 1.3964,
+    "cluster_counts": {
+      "Konvensional": 126,
+      "Berkembang": 119,
+      "Maju": 11
+    }
+  },
+  "classification_groupkfold_k5": {
+    "macro_f1": 1.0,
+    "accuracy": 1.0,
+    "precision_macro": 1.0,
+    "recall_macro": 1.0,
+    "cohen_kappa_clf": 1.0
+  },
+  "cross_source_kappa": {
+    "kappa_qris": 0.7479,
+    "kappa_pos": 0.722,
+    "mean_kappa": 0.735
+  }
+}

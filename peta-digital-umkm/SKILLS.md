@@ -1,101 +1,114 @@
 # SKILLS — Peta Digital UMKM Kuliner Surabaya Timur
 
-> **Status:** Final Terverifikasi · 28 Oktober 2026  
-> **Rujukan Resmi Arsitektur & Flowchart:**
-> 1. `diagram-architecture/H7D.5-3_diagram-architecture-2026 (1).json` (`flowchart-bd-ai` dan `bd-ai-archi`)
-> 2. `diagram-architecture/flowchart-mandiri.json` (`flowchart-mandiri-gmaps-realworld`)
+> **Status:** Final Terverifikasi · 4 November 2026  
+> **Rujukan Resmi Arsitektur:** *Arsitektur Big Data & AI - Peta Digital UMKM Kuliner Surabaya Timur* (`mxGraphModel`)
 
-Kumpulan prosedur terstandar (*Standard Operating Procedures*) yang diimplementasikan pada pipeline analitik multimodal Peta Digital UMKM Kuliner Surabaya Timur.
+Kumpulan prosedur operasional terstandar (*Standard Operating Procedures*) yang memetakan setiap modul, library, dan framework pada diagram arsitektur ke dalam langkah eksekusi teknis.
 
 ---
 
-### S01 `ingest-places-api`
-- **Tujuan:** Mengambil metadata UMKM, ulasan teks, dan foto etalase dari Google Maps secara legal dan terstruktur.
-- **Masukan:** Grid koordinat 6 kecamatan Surabaya Timur; API key tersimpan di file `.env`.
-- **Keluaran:** Respons JSON mentah dan foto disimpan ke Google Drive (`raw/google_maps/`).
-- **Alat:** Python `requests`, Google Places API, Pandas.
+### S01 `ingest-multimodal-etl` (`DS: s0–s3` $\longrightarrow$ `ETL: e0–e5` $\longrightarrow$ `ST: c0`)
+- **Tujuan:** Mengakuisisi 4 sumber data utama dan menyimpannya ke tier `Raw Data (c0)` di Google Drive.
+- **Komponen Arsitektur:**
+  - **`s0` $\rightarrow$ `e0` (Google Places API & REST HTTP):** Mengambil data lokasi, rating, teks ulasan, dan foto UMKM dari Google Maps.
+  - **`s1` $\rightarrow$ `e1` (KaggleHub CLI):** Mengunduh dataset numerik & gambar pendukung dari Kaggle.
+  - **`s2` $\rightarrow$ `e2` (Google Drive API & Manual Download):** Mengunduh dokumen PDF jurnal & regulasi.
+  - **`s3` $\rightarrow$ `e3` (Manual Foto & Google Forms):** Mengumpulkan foto stan & survei lapangan di SWK Surabaya Timur.
+  - **`e4` (Pandas & PySpark):** Menggabungkan batch data mentah berformat JSON & CSV.
+  - **`e5` (Google Sheet):** Mencatat katalog & skema data.
+- **Keluaran:** `Raw Data (c0)` di Google Drive (JSON, CSV, PDF, Foto).
 
-### S04 `field-survey-intake`
-- **Tujuan:** Mengumpulkan data ground truth lapangan di Sentra Wisata Kuliner (SWK Convention Hall & Deles).
-- **Masukan:** Foto stan fisik, meja kasir, instrumen pembayaran (QRIS standee, mesin EDC, display POS), dan formulir survei.
-- **Keluaran:** Foto lapangan terorganisir di `raw/survei/` dan tabel label kematangan digital.
-- **Guardrail:** Wajib memprioritaskan privasi pemilik dan pengunjung; foto difokuskan pada kasir dan stan.
+### S02 `text-and-pdf-processing` (`DT: PR — p0, p1`)
+- **Tujuan:** Membersihkan teks ulasan pelanggan dan mengekstrak informasi dari dokumen PDF.
+- **Komponen Arsitektur:**
+  - **`p0` (Regex & NLTK):** Pembersihan teks ulasan, penghapusan *stopwords* bahasa Indonesia/daerah, dan penyensoran informasi pribadi (PII seperti nomor telepon/nama).
+  - **`p1` (PyMuPDF & pdfplumber):** Ekstraksi teks naratif dan tabel regulasi/jurnal dari dokumen PDF.
+- **Keluaran:** Korpus teks ulasan bersih dan potongan teks/tabel dokumen terstruktur.
 
-### S05 `volume-gate`
-- **Tujuan:** Memvalidasi ambang batas volume data sebelum data masuk ke tahap processing.
-- **Aturan:** Total ukuran foto $\ge 200\text{ MB}$ dan total baris data multimodal $\ge 2.000$ entitas.
+### S03 `image-sanitization-and-augmentation` (`DT: PR — p2, p3, p5`)
+- **Tujuan:** Menjamin kualitas visual, privasi publik, dan variasi citra stan UMKM.
+- **Komponen Arsitektur:**
+  - **`p2` (OpenCV):** Pengecekan foto duplikat, pemburaman wajah (*Gaussian Face Blur* pada 315 wajah), dan *resize* dimensi gambar.
+  - **`p3` (Albumentations):** Augmentasi gambar untuk memperkaya variasi pencahayaan dan sudut pandang pelatihan.
+  - **`p5` (Pillow):** Pembacaan dan konversi format foto ke standar RGB `.jpg`.
+- **Keluaran:** 274 foto stan bersih bebas wajah dan bebas duplikat di `Processed Data (c1)`.
 
-### S06 `validate-and-dedupe`
-- **Tujuan:** Memeriksa integritas file citra, menghitung image hash (MD5/Perceptual Hash), dan menduplikasi data duplikat.
-- **Keluaran:** Manifest data bersih sementara dan daftar citra tereliminasi.
+### S04 `tabular-cleaning-and-validation` (`DT: PR — p4` $\longleftrightarrow$ `ST: c1`)
+- **Tujuan:** Membersihkan data numerik/tabular dan memvalidasi atribut indikator digital.
+- **Komponen Arsitektur:**
+  - **`p4` (Pandas & SciPy):** Imputasi nilai kosong, deteksi dan penanganan outlier berbasis *Interquartile Range* (IQR), serta validasi silang indikator `QRIS`/`EDC`/`POS`.
+- **Keluaran:** Dataset `Parquet bersih` tersimpan pada tier **`Processed Data (c1)`** di Google Drive (`umkm.parquet`, `ulasan.parquet`, `foto.parquet`, `dokumen.parquet`).
 
-### S07 `anonymize-and-blur`
-- **Tujuan:** Menjamin privasi publik dengan menyamarkan identitas pribadi sebelum masuk zona Clean.
-- **Langkah:** (1) Sanitasi nomor telepon/kontak pada ulasan teks menggunakan regex; (2) Deteksi wajah menggunakan Haar Cascade / DNN OpenCV dan pemburaman Gaussian Blur ($k=51$).
-- **Keluaran:** 315 wajah berhasil disanitasi tanpa mengubah detail instrumen kasir atau etalase.
+### S05 `exploratory-data-analysis` (`DT: EDA — d0, d1, d2`)
+- **Tujuan:** Memahami karakteristik distribusi data dan membandingkan kondisi daring vs lapangan.
+- **Komponen Arsitektur:**
+  - **`d0` (ydata-profiling):** Pembuatan profil statistik otomatis untuk dataset Google Maps, Kaggle, dan survei SWK.
+  - **`d1` (Seaborn & Matplotlib):** Visualisasi sebaran rating & jumlah ulasan per wilayah kecamatan di Surabaya Timur.
+  - **`d2` (Matplotlib):** Komparasi visual berdampingan antara foto Google Maps vs *Real World* (survei SWK).
+- **Keluaran:** Laporan profil dan 6 grafik analitik EDA di [`notebooks/eda_3_09040624091.ipynb`](file:///C:/big-data-analytic/notebooks/eda_3_09040624091.ipynb) serta `G:\My Drive\Iqbal-EDA\`.
 
-### S07b `clip-dual-gate-filtering` (Kurasi Citra Bersih Mutlak)
-- **Tujuan:** Menjamin dataset foto bersih HANYA memuat stan fisik dan target klasifikasi.
-- **Langkah:** Evaluasi zero-shot OpenAI CLIP (`ViT-B/32`) dengan dual-gate:
-  1. *Prompt Gate:* Komparasi probabilitas indikator (`storefront`, `cashier`, `qris`, `payment machine`) vs non-target (`food dish`, `drink cup`, `printed menu`, `digital food illustration AI`).
-  2. *Place-Dominance Gate:* Mensyaratkan skor dominasi tempat $p_{\text{place}} \ge 0.60$.
-  3. *Big Business Rule:* Mengeliminasi jaringan restoran besar yang tidak memuat foto kasir/pembayaran.
-- **Keluaran:** 415 foto makanan/minuman/menu/AI disaring keluar; 274 foto stan target diterima di `data/clean/photos/`.
+### S06 `feature-extraction-and-fusion` (`DT: FE — f0–f5` $\longleftrightarrow$ `FS: fs0–fs3`)
+- **Tujuan:** Mengekstrak fitur dari keempat modalitas data dan menggabungkannya ke dalam *Feature Store*.
+- **Komponen Arsitektur:**
+  - **`f0` (IndoBERT & TF-IDF):** Ekstraksi vektor representasi semantik dan bobot kata dari teks ulasan.
+  - **`f1` (Label Studio & Ultralytics YOLO):** Anotasi dan deteksi objek indikator `QRIS`, `EDC`, `POS`, dan stiker merchant.
+  - **`f2` (ResNet-50):** Ekstraksi fitur visual merchant berdimensi tinggi.
+  - **`f3` (Binary/Label Encoding):** Transformasi indikator `QRIS`/`POS`/`EDC` menjadi fitur biner `0/1`.
+  - **`f4` (Sentence-Transformers):** Pembuatan *embedding* vektor untuk *chunk* dokumen PDF.
+  - **`f5` (scikit-learn Pipeline):** Standarisasi dengan `StandardScaler` & reduksi dimensi `PCA` untuk fusi fitur multimodal.
+- **Penyimpanan (`FS`):** Disimpan ke **Google Drive (`fs0`)** dalam format **Apache Parquet via PyArrow (`fs1`)**, array **NumPy `.npy/.npz` (`fs2`)**, dan **Pandas DataFrame (`fs3`)**.
 
-### S08 `eda-multimodal`
-- **Tujuan:** Melakukan analisis eksplorasi data komprehensif pada 4 modalitas:
-  1. Tabular: Distribusi UMKM per kecamatan, rating, dan tipe lokasi.
-  2. Teks: Frekuensi kata kunci indikator digital dan sebaran panjang ulasan.
-  3. Citra: Proporsi deteksi indikator YOLOv8 pada stan dan sebaran kelas survei SWK.
-  4. Dokumen: Ringkasan perizinan penelitian dan regulasi insentif dinas.
-- **Keluaran:** 6 file grafik beresolusi tinggi tersimpan di `G:\My Drive\Iqbal-EDA\`.
+### S07 `ml-and-dl-modeling` (`AOS: ML m0–m3` & `DL l0–l2`)
+- **Tujuan:** Melatih model klastering tanpa supervisi, klasifikasi kematangan 3 kelas, dan detektor *deep learning*.
+- **Komponen Arsitektur:**
+  - **Machine Learning (`ML`):**
+    - **`m0` (scikit-learn):** Klastering `K-Means` & `K-Prototypes`, serta klasifikasi `Random Forest` & `Logistic Regression` dengan validasi `GroupKFold` ($K=5$).
+    - **`m1` (XGBoost):** Klasifikasi *gradient boosting* untuk 3 kelas kematangan digital (*Konvensional*, *Berkembang*, *Maju*).
+    - **`m2` (NumPy):** Optimasi titik pusat klaster (*Centroid optimization / ACO*).
+    - **`m3` (Joblib):** Penyimpanan artefak model & pipeline preprocessing.
+  - **Deep Learning Frameworks (`DL`):**
+    - **`l0` (PyTorch):** Backend komputasi tensor deep learning.
+    - **`l1` (Hugging Face):** Eksekusi model Transformers (`IndoBERT`).
+    - **`l2` (Ultralytics):** Pelatihan & inferensi detektor objek `YOLO`.
 
-### S11 `autolabel-yolo-world`
-- **Tujuan:** Menghasilkan anotasi bounding box awal (pseudo-labeling) secara obyektif tanpa fabrikasi koordinat.
-- **Alat:** `yolov8s-worldv2.pt` open-vocabulary prompt detection untuk 5 kelas target (`qr code`, `card payment terminal`, `cash register`, `delivery app sticker`, `food stall`).
-- **Keluaran:** Format anotasi standar YOLO di `data/yolo/`.
+### S08 `model-evaluation-and-xai` (`ME: me0–me5`)
+- **Tujuan:** Mengevaluasi kualitas model secara menyeluruh dan menjelaskan dasar prediksi model.
+- **Komponen Arsitektur:**
+  - **`me0` (scikit-learn Metrics):** Perhitungan `macro-F1`, `accuracy`, `precision`, dan `recall`.
+  - **`me1` (Silhouette Score):** Pengukuran kualitas kepadatan dan pemisahan klaster `K-Means` (capaian: **0.4964**).
+  - **`me2` (Cohen's Kappa):** Pengukuran kesepakatan indikator antara Google Maps vs survei lapangan SWK ($\kappa_{\text{QRIS}} = 0.751$, $\kappa_{\text{POS}} = 0.727$).
+  - **`me3` (Ultralytics mAP):** Evaluasi akurasi kotak deteksi YOLO (capaian mAP@50: **40.74%**).
+  - **`me4` (SHAP):** Analisis nilai kontribusi fitur terhadap output klasifikasi.
+  - **`me5` (Grad-CAM):** Visualisasi peta aktivasi area fokus gambar pada deteksi visual.
 
-### S12 `train-yolo-detector`
-- **Tujuan:** Melatih model deteksi objek indikator target kematangan digital.
-- **Alat:** Ultralytics YOLOv8 (`yolov8n.pt`), PyTorch.
-- **Keluaran:** Model weights [`models/yolov8n_indicator_detect.pt`](file:///C:/big-data-analytic/models/yolov8n_indicator_detect.pt), kurva hasil [`results.csv`](file:///C:/big-data-analytic/reports/yolo/detect/train/results.csv), dan log metrik [`metrics_detect.json`](file:///C:/big-data-analytic/reports/yolo/detect/metrics_detect.json) (mAP@50: **40.74%**).
+### S09 `model-registry-and-inferencing` (`REG: rg0–rg3` $\longrightarrow$ `INF: in0–in3`)
+- **Tujuan:** Membekukan versi model terbaik dan menyajikannya sebagai layanan prediksi siap pakai.
+- **Komponen Arsitektur:**
+  - **Registry (`REG`):** **`rg0` (MLflow Model Registry)** untuk versi & stage model, **`rg1` (ONNX `.onnx`)** untuk bobot model portabel, **`rg2` (Joblib `.joblib`)** untuk model scikit-learn, dan **`rg3` (YOLO Weights `.pt`)** untuk bobot detektor.
+  - **Inferencing (`INF`):** **`in0` (FastAPI)** sebagai endpoint Inference API, **`in1` (ONNX Runtime)** untuk prediksi model ONNX, **`in2` (scikit-learn Predict)** untuk prediksi klaster & kelas UMKM baru, serta **`in3` (Ultralytics YOLO Predict)** untuk deteksi indikator pada foto baru.
 
-### S12b `multitask-yolo-inference` (Deliverable Lengkap YOLOv8)
-- **Tujuan:** Menghasilkan seluruh deliverable visual YOLOv8 pada seluruh 274 citra bersih:
-  1. **Deteksi Objek:** 274 citra bounding box berwarna + label kelas + confidence di `reports/yolo/detect/predict/`.
-  2. **Segmentasi Poligon:** 274 citra polygon mask transparan stan/etalase di `reports/yolo/segment/predict/`.
-  3. **Estimasi Pose:** 274 citra skeleton keypoints kasir/pedagang di `reports/yolo/pose/predict/`.
-  4. **Klasifikasi Kematangan:** 274 citra berlabel kematangan visual di `reports/yolo/classify/predict/`.
-  5. **Panel Komparasi 4-in-1:** Panel komparatif visual beresolusi tinggi di `02_output_lengkap_yolov8_multitask.png`.
-- **Keluaran:** Tersimpan lokal di `reports/yolo/` dan tersinkronisasi ke `G:\My Drive\Iqbal-Model-Evaluation\yolo_outputs/`.
+### S10 `spatial-bda-visualization-and-app` (`BDA: bd0–bd3` $\longrightarrow$ `VIS: vz0–vz3` $\longrightarrow$ `APP: a0–a2`)
+- **Tujuan:** Menganalisis kesenjangan digitalisasi secara spasial di Surabaya Timur, memvisualisasikannya, dan menyajikannya ke pemangku kepentingan.
+- **Komponen Arsitektur:**
+  - **Big Data Analytics Spasial (`BDA`):**
+    - **`bd0` (Pandas & PySpark):** Agregasi metrik adopsi digital per kecamatan.
+    - **`bd1` (GeoPandas & Shapely):** Pemetaan titik koordinat UMKM ke poligon kecamatan Surabaya Timur.
+    - **`bd2` (PySAL, SciPy & statsmodels):** Analisis statistik spasial dan evaluasi bias cakupan wilayah.
+    - **`bd3` (Pandas):** Perhitungan dan analisis *gap* digitalisasi wilayah (*Digital Gap Index*).
+  - **Visualization (`VIS`):**
+    - **`vz0` (Folium & Plotly):** Peta interaktif sebaran 3 kelas kematangan digital.
+    - **`vz1` (Seaborn & Matplotlib):** Grafik analitik statis untuk laporan EDA & BDA.
+    - **`vz2` (PCA):** Visualisasi proyeksi 2D/3D klaster kematangan UMKM.
+    - **`vz3` (YOLO Bounding Box):** Visualisasi kotak deteksi indikator pada foto stan.
+  - **AI Application (`APP`):**
+    - **`a0` (Streamlit & FastAPI):** Web App interaktif untuk mengecek status digital UMKM.
+    - **`a1` (LangChain & FAISS):** Mesin rekomendasi intervensi & pencarian regulasi otomatis berbasis *Retrieval-Augmented Generation* (RAG).
+    - **`a2` (Google Docs):** Penyusunan laporan akhir & rekomendasi intervensi kebijakan *E-Government*.
 
-### S13 `build-gold-features`
-- **Tujuan:** Menggabungkan fitur ekstraksi citra YOLOv8, teks ulasan, dan tabular ke dalam tabel fusi terpadu.
-- **Keluaran:** Tabel fusi multimodal (190 UMKM) disimpan ke format Parquet.
-
-### S14 `group-split`
-- **Tujuan:** Pembagian data cross-validation anti-kebocoran data (*anti-leakage*).
-- **Metode:** `GroupKFold` ($K=5$) berdasarkan `umkm_id` sehingga seluruh foto/ulasan dari satu UMKM berada pada fold yang sama.
-
-### S14b `cohens-kappa-agreement` (Uji Kesepakatan Silang)
-- **Tujuan:** Mengukur derajat kesepakatan indikator visual Google Maps vs Ground Truth survei lapangan di SWK.
-- **Metode:** Menghitung statistik Cohen's Kappa ($\kappa$).
-- **Hasil:** $\kappa_{\text{QRIS}} = 0.751$ (*Substantial Agreement*), $\kappa_{\text{POS}} = 0.727$ (*Moderate-Substantial*). Lolos gerbang kesepakatan ($\kappa \ge 0.70$).
-
-### S15 `train-classifier`
-- **Tujuan:** Melatih model klasifikasi kematangan digital 3-kelas (*Konvensional*, *Berkembang*, *Maju*).
-- **Alat:** Random Forest Classifier dengan validasi `GroupKFold` ($K=5$).
-- **Keluaran:** Confusion matrix dan laporan klasifikasi di `04_confusion_matrix_klasifikasi.png`.
-
-### S16 `cluster-validation`
-- **Tujuan:** Mengelompokkan tingkat digitalisasi alami melalui pendekatan tanpa supervisi (*unsupervised*).
-- **Alat:** K-Means Clustering ($k=3$) pada fitur multimodal terskala.
-- **Keluaran:** Evaluasi Silhouette Score (**0.4964**) dan Davies-Bouldin Index (**0.7916**), serta peta panas profil klaster di `03_profil_klaster_kmeans.png`.
-
-### S20 `bda-spatial-gap`
-- **Tujuan:** Menganalisis penetrasi pembayaran digital di 6 kecamatan Surabaya Timur dan menyusun indeks kesenjangan digital.
-- **Keluaran:** Peta penetrasi digital, Digital Gap Index, dan formulasi rekomendasi kebijakan di `G:\My Drive\Iqbal-BDA\`.
-
-### S21 `headless-notebook-sync`
-- **Tujuan:** Menjalankan notebook analitik secara otomatis, menyematkan grafik base64, menjamin nol identitas pribadi, dan menyinkronkan salinan notebook ke Google Drive (`G:\My Drive\`).
-- **Alat:** Python headless runner [`scripts/run_notebook.py`](file:///C:/big-data-analytic/scripts/run_notebook.py).
+### S11 `mlops-and-headless-sync` (`OPS: o0–o2` & `ST: c2`)
+- **Tujuan:** Menjaga reproduksibilitas eksperimen, versi data/kode, dan sinkronisasi artefak ke Google Drive.
+- **Komponen Arsitektur:**
+  - **`o0` (MLflow & DVC):** Pencatatan log eksperimen dan pengelolaan versi dataset.
+  - **`o1` (Git / GitHub):** Pengelolaan versi kode sumber.
+  - **`o2` (Google Colab + VS Code):** Lingkungan pengembangan dan eksekusi CPU/GPU.
+  - **Headless Runner ([`scripts/run_notebook.py`](file:///C:/big-data-analytic/scripts/run_notebook.py)):** Mengeksekusi seluruh notebook bebas identitas personal dan menyinkronkan hasilnya ke `Output Data (c2)` di Google Drive (`G:\My Drive\`).

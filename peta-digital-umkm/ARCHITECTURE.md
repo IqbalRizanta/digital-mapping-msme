@@ -1,305 +1,323 @@
 # ARCHITECTURE — Peta Digital UMKM Kuliner Surabaya Timur
 
-> **Status:** Final Terverifikasi · 28 Oktober 2026  
-> **Rujukan Resmi Arsitektur & Flowchart:**
-> 1. `diagram-architecture/H7D.5-3_diagram-architecture-2026 (1).json` (Halaman: `bd-ai-archi` dan `flowchart-bd-ai`)
-> 2. `diagram-architecture/flowchart-mandiri.json` (Halaman: `flowchart-mandiri-gmaps-realworld`)
->
-> Dokumen ini mendefinisikan arsitektur sistem pipeline multimodal (Citra, Teks Ulasan, Tabular, Dokumen Regulasi), integrasi penyimpanan Google Drive, peran alur data mandiri ke alur kelompok, serta spesifikasi vision multi-task Ultralytics YOLOv8 dan pembersihan ketat dual-gate CLIP.
+> **Status:** Final Terverifikasi · 4 November 2026  
+> **Judul Diagram Arsitektur:** *Arsitektur Big Data & AI - Peta Digital UMKM Kuliner Surabaya Timur*  
+> **Konvensi Alur Diagram:**
+> - **Panah satu arah ($\longrightarrow$):** Alur data utama (*primary data flow*).
+> - **Panah dua arah ($\longleftrightarrow$):** Pertukaran data, artefak, atau log (*bidirectional data/artifact/log exchange*).
+> - **Kotak komponen:** Berisi modul, library, dan framework spesifik pada setiap lapisan.
 
 ---
 
-## 1. Gambaran Umum Arsitektur Kelompok (`bd-ai-archi`)
-Arsitektur kelompok mengadopsi pipeline modern big data analytics berlapis dengan **satu alur data multimodal terpadu**:
+## 1. Gambaran Umum Arsitektur Big Data & AI (`mxGraphModel`)
 
-$$\text{Data Source} \longrightarrow \text{Ingestion (ETL)} \longrightarrow \text{Data Processing} \longrightarrow \text{Modeling} \longrightarrow \text{Evaluation \& Serving} \longrightarrow \text{BDA} \longrightarrow \text{AI Application}$$
+Arsitektur sistem memadukan **13 blok utama** (termasuk sub-blok terstruktur pada *Data Transformation* dan *Analytics Operating System*) yang memproses 4 modalitas data (Teks Ulasan, Data Numerik, Dokumen PDF, dan Citra Visual) dari hulu ke hilir:
 
-Didukung oleh 4 blok tata kelola lintas-lapisan:
-- **Dev Environment:** Google Colab, VS Code, Python 3.10+, PyTorch, scikit-learn, Hugging Face
-- **MLOps & Monitoring:** Google Sheets, Git / GitHub, MLflow, DVC
-- **Governance & Security:** python-dotenv, regex anonymization, OpenCV face blurring, Google Drive Access Control
-- **Assessment Framework:** scikit-learn Metrics, Ultralytics, Matplotlib, Seaborn
+$$\text{DATA SOURCES} \longrightarrow \text{ETL (INGESTION)} \longrightarrow \text{DATA STORAGE} \longleftrightarrow \text{Data Transformation} \longleftrightarrow \text{Analytics Operating System} \longrightarrow \text{Model Evaluation} \longrightarrow \text{Registry} \longrightarrow \text{Inferencing} \longrightarrow \text{Big Data Analytics (Spasial)} \longrightarrow \text{Visualization} \longrightarrow \text{AI Application}$$
+
+Serta didukung oleh pertukaran dua arah ($\longleftrightarrow$) dengan blok **AI/ML Ops** dan **Feature Store**.
 
 ```mermaid
 flowchart LR
-  subgraph DS["1. Data Source"]
-    s1["Google Maps"]
-    s2["Kaggle"]
-    s3["ScienceDirect"]
-    s4["Opendata"]
-    s5["Mendeley Data"]
-    s6["Dinasti Publisher"]
-    s7["Real World (Survei Lapangan)"]
+  subgraph DS["DATA SOURCES"]
+    s0["<b>s0: Google Maps</b><br/>Teks Ulasan & Foto"]
+    s1["<b>s1: Kaggle</b><br/>Data Numerik & Gambar"]
+    s2["<b>s2: Journal</b><br/>Data Dokumen (PDF)"]
+    s3["<b>s3: Real World</b><br/>Foto & Survei Lapangan SWK"]
   end
 
-  subgraph ING["2. Ingestion (ETL)"]
-    i1["Places API / requests"]
-    i2["kagglehub / BeautifulSoup"]
-    i3["Google Form / Google Drive"]
-    i4["Pandas / DuckDB / PySpark"]
-    i5["Google Sheets (Schema Katalog)"]
-    i6[("Google Drive (Raw Data)")]
+  subgraph ETL["ETL (INGESTION)"]
+    e0["<b>e0: Google Places API & REST HTTP</b><br/>Data lokasi, rating, ulasan, foto"]
+    e1["<b>e1: KaggleHub CLI</b><br/>Dataset numerik & gambar"]
+    e2["<b>e2: Google Drive API & Manual Download</b><br/>PDF jurnal & regulasi"]
+    e3["<b>e3: Manual Foto & Google Forms</b><br/>Survei lapangan SWK"]
+    e4["<b>e4: Pandas & PySpark</b><br/>Gabung batch JSON & CSV"]
+    e5["<b>e5: Google Sheet</b><br/>Katalog & skema data"]
   end
 
-  subgraph DP["3. Processing (Sequential Pipeline)"]
-    p1["Pandas / ydata-profiling (EDA)"]
-    p2["Seaborn / Matplotlib (Visualisasi)"]
-    p3["scikit-learn / SciPy (Cleaning)"]
-    p4["regex / OpenCV (Blur Wajah)"]
-    p5["Albumentations / NLTK (Preprocessing)"]
-    p6["PyMuPDF / Tesseract (OCR)"]
-    p7["Label Studio / YOLOv8 (Deteksi Indikator)"]
-    p8["IndoBERT / ResNet-50 / TF-IDF (Embedding)"]
-    p9["scikit-learn Pipeline / StandardScaler / PCA (Fusi)"]
-    p10[("PyArrow / DuckDB (Gold Parquet)")]
+  subgraph ST["DATA STORAGE"]
+    c0[("<b>c0: Raw Data</b><br/>Google Drive<br/>JSON, CSV, PDF, Foto")]
+    c1[("<b>c1: Processed Data</b><br/>Google Drive<br/>Parquet bersih")]
+    c2[("<b>c2: Output Data</b><br/>Google Drive<br/>Model, peta, laporan")]
   end
 
-  subgraph MD["4. Modeling"]
-    m1["K-Means / K-Prototypes / ACO (Clustering)"]
-    lb[("Google Sheets (Label Ground Truth)")]
-    m3["Logistic Regression / Random Forest / XGBoost"]
-    hp["Optuna / GridSearchCV (Hyperparameter Tuning)"]
+  subgraph OPS["AI/ML Ops"]
+    o0["<b>o0: MLflow & DVC</b><br/>Log eksperimen & versi data"]
+    o1["<b>o1: Git / GitHub</b><br/>Versi kode"]
+    o2["<b>o2: Google Colab</b><br/>+ VS Code (CPU/GPU)"]
   end
 
-  subgraph EV["5. Evaluation & Serving"]
-    e1["GroupKFold / Ultralytics Metrics"]
-    e2["SHAP / Grad-CAM (Explainability)"]
-    e3["MLflow / ONNX (Model Registry)"]
-    e4["FastAPI / ONNX Runtime (Inference API)"]
+  subgraph DT["Data Transformation"]
+    subgraph PR["Processing"]
+      p0["<b>p0: Regex & NLTK</b><br/>Cleaning teks ulasan, stopwords, sensor PII"]
+      p1["<b>p1: PyMuPDF & pdfplumber</b><br/>Ekstrak teks & tabel PDF"]
+      p2["<b>p2: OpenCV</b><br/>Cek foto duplikat, blur wajah, resize"]
+      p3["<b>p3: Albumentations</b><br/>Augmentasi gambar"]
+      p4["<b>p4: Pandas & SciPy</b><br/>Imputasi, outlier IQR, validasi QRIS/EDC/POS"]
+      p5["<b>p5: Pillow</b><br/>Baca & konversi format foto"]
+    end
+    subgraph EDA["Exploratory Data Analysis (EDA)"]
+      d0["<b>d0: ydata-profiling</b><br/>Profil otomatis dataset Maps, Kaggle, survei"]
+      d1["<b>d1: Seaborn & Matplotlib</b><br/>Sebaran rating & ulasan per wilayah"]
+      d2["<b>d2: Matplotlib</b><br/>Bandingkan foto Gmaps vs Real World"]
+    end
+    subgraph FE["Feature Extraction & Engineering"]
+      f0["<b>f0: IndoBERT & TF-IDF</b><br/>Vektor teks ulasan"]
+      f1["<b>f1: Label Studio & Ultralytics YOLO</b><br/>Deteksi QRIS, EDC, POS, stiker merchant"]
+      f2["<b>f2: ResNet-50</b><br/>Ekstraksi fitur visual merchant"]
+      f3["<b>f3: Binary/Label Encoding</b><br/>Indikator QRIS/POS/EDC jadi 0/1"]
+      f4["<b>f4: Sentence-Transformers</b><br/>Embedding chunk dokumen"]
+      f5["<b>f5: scikit-learn Pipeline</b><br/>StandardScaler & PCA: fusi fitur"]
+    end
   end
 
-  subgraph BD["6. Big Data Analytics (BDA)"]
-    b1["DuckDB / Pandas / PySpark (Agregasi)"]
-    b2["GeoPandas / Shapely (Spatial Join)"]
-    b3["PySAL / SciPy / statsmodels (Spatial Stats)"]
-    b4["Folium / Plotly (Peta & Dashboard)"]
+  subgraph AOS["Analytics Operating System"]
+    subgraph ML["Machine Learning"]
+      m0["<b>m0: scikit-learn</b><br/>K-Means, K-Prototypes, Random Forest, Logistic Regression"]
+      m1["<b>m1: XGBoost</b><br/>Klasifikasi 3 kelas kematangan digital"]
+      m2["<b>m2: NumPy</b><br/>Centroid optimization (ACO)"]
+      m3["<b>m3: Joblib</b><br/>Simpan model & preprocessing"]
+    end
+    subgraph DL["Deep Learning Frameworks"]
+      l0["<b>l0: PyTorch</b><br/>Backend deep learning"]
+      l1["<b>l1: Hugging Face</b><br/>Transformers (IndoBERT)"]
+      l2["<b>l2: Ultralytics</b><br/>YOLO deteksi objek"]
+    end
   end
 
-  subgraph AP["7. AI Application"]
-    a1["LangChain / FAISS (RAG Search Opsional)"]
-    a2["Streamlit / FastAPI (Web App)"]
-    a3["Google Docs (Laporan Final)"]
+  subgraph FS["Feature Store"]
+    fs0["<b>fs0: Google Drive</b><br/>Penyimpanan fitur"]
+    fs1["<b>fs1: Apache Parquet</b><br/>PyArrow: matriks fitur"]
+    fs2["<b>fs2: NumPy (.npy / .npz)</b><br/>Embedding teks & fitur gambar"]
+    fs3["<b>fs3: Pandas DataFrame</b><br/>Tabel fitur & label"]
   end
 
-  %% Data Flow Connections Sesuai JSON bd-ai-archi
-  s1 & s4 --> i1
-  s2 & s3 & s5 & s6 --> i2
-  s7 --> i3
-  i1 & i2 & i3 --> i4 --> i5 --> i6
-  i6 --> p1 --> p2 --> p3 --> p4 --> p5 --> p6 --> p7 --> p8 --> p9 --> p10
-  p10 --> m1
-  p10 --> m3
-  lb --> m3
-  m1 & m3 --> e1
-  e1 -->|Metrik < Target| hp -.-> m1 & m3
-  e1 -->|Metrik >= Target| e2 --> e3 --> e4
-  e4 --> b1 --> b2 --> b3 --> b4
-  b4 --> a2
-  a1 --> a2 --> a3
+  subgraph ME["Model Evaluation"]
+    me0["<b>me0: scikit-learn Metrics</b><br/>macro-F1, accuracy, precision, recall"]
+    me1["<b>me1: Silhouette Score</b><br/>Kualitas klaster K-Means"]
+    me2["<b>me2: Cohen's Kappa</b><br/>Kesepakatan Maps vs lapangan"]
+    me3["<b>me3: Ultralytics mAP</b><br/>Akurasi kotak deteksi"]
+    me4["<b>me4: SHAP</b><br/>Pengaruh fitur"]
+    me5["<b>me5: Grad-CAM</b><br/>Area fokus gambar"]
+  end
+
+  subgraph INF["Inferencing"]
+    in0["<b>in0: FastAPI</b><br/>Endpoint Inference API"]
+    in1["<b>in1: ONNX Runtime</b><br/>Prediksi model ONNX"]
+    in2["<b>in2: scikit-learn Predict</b><br/>Klaster & kelas UMKM baru"]
+    in3["<b>in3: Ultralytics YOLO Predict</b><br/>Deteksi indikator foto baru"]
+  end
+
+  subgraph REG["Registry"]
+    rg0["<b>rg0: MLflow Model Registry</b><br/>Versi & stage model"]
+    rg1["<b>rg1: ONNX (.onnx)</b><br/>Bobot model portabel"]
+    rg2["<b>rg2: Joblib (.joblib)</b><br/>Model scikit-learn"]
+    rg3["<b>rg3: YOLO Weights (.pt)</b><br/>Bobot detektor"]
+  end
+
+  subgraph BDA["Big Data Analytics (Spasial)"]
+    bd0["<b>bd0: Pandas & PySpark</b><br/>Agregasi per kecamatan"]
+    bd1["<b>bd1: GeoPandas & Shapely</b><br/>Titik ke poligon Surabaya Timur"]
+    bd2["<b>bd2: PySAL, SciPy & statsmodels</b><br/>Statistik spasial & bias cakupan"]
+    bd3["<b>bd3: Pandas</b><br/>Analisis gap digitalisasi wilayah"]
+  end
+
+  subgraph VIS["Visualization"]
+    vz0["<b>vz0: Folium & Plotly</b><br/>Peta interaktif 3 kelas"]
+    vz1["<b>vz1: Seaborn & Matplotlib</b><br/>Grafik EDA & BDA"]
+    vz2["<b>vz2: PCA</b><br/>Visualisasi klaster"]
+    vz3["<b>vz3: YOLO Bounding Box</b><br/>Visualisasi deteksi"]
+  end
+
+  subgraph APP["AI Application"]
+    a0["<b>a0: Streamlit & FastAPI</b><br/>Web App cek status digital"]
+    a1["<b>a1: LangChain & FAISS</b><br/>Rekomendasi otomatis (RAG)"]
+    a2["<b>a2: Google Docs</b><br/>Laporan akhir & rekomendasi intervensi E-Gov"]
+  end
+
+  %% Edges Sesuai mxGraphModel (E1 - E15)
+  DS -->|"E1 (Satu Arah)"| ETL
+  ETL -->|"E2 (Satu Arah)"| ST
+  ST <-->|"E3 (Dua Arah)"| DT
+  ST -->|"E4 (Satu Arah)"| AOS
+  DT <-->|"E5 (Dua Arah)"| AOS
+  DT <-->|"E6 (Dua Arah)"| FS
+  OPS <-->|"E7 (Dua Arah)"| DT
+  OPS <-->|"E8 (Dua Arah)"| REG
+  OPS <-->|"E9 (Dua Arah)"| INF
+  AOS -->|"E10 (Satu Arah)"| ME
+  ME -->|"E11 (Satu Arah)"| REG
+  REG -->|"E12 (Satu Arah)"| INF
+  INF -->|"E13 (Satu Arah)"| BDA
+  BDA -->|"E14 (Satu Arah)"| VIS
+  VIS -->|"E15 (Satu Arah)"| APP
 ```
 
 ---
 
-## 2. Alur Flowchart Kelompok (`flowchart-bd-ai`)
-Mengatur siklus hidup data kelompok dalam 6 fase lengkap beserta gerbang keputusan kualitas (Quality Decision Gates):
+## 2. Rincian Komponen Per Blok Arsitektur
 
-```mermaid
-flowchart TD
-  a0([Start]) --> a1["Tentukan kelas kematangan & indikator"]
-  a1 --> a2["Ambil data API (Places API, Kaggle)"]
-  a2 --> a3["Unduh dokumen regulasi / jurnal"]
-  a3 --> a4["Survei & foto lapangan SWK"]
-  a4 --> a5["Gabung data Batch (Pandas/DuckDB)"]
-  a5 --> a6["Catat Data Schema di Google Sheets"]
-  a6 --> a7[("Simpan Raw Data ke Google Drive")]
-
-  a7 --> b0{"Volume cukup? (Gambar >= 200MB & Teks/Baris >= 2000)"}
-  b0 -- Tidak --> bL1["Tambah data / kueri grid"] --> a2
-  b0 -- Ya --> b1["Cek format file & integritas"]
-  b1 --> b2["Hapus duplikat (ImageHash & Unique Key)"]
-  b2 --> b3["Anonimisasi regex & OpenCV Face Blur"]
-  b3 --> b4["EDA statistik tabular & teks"]
-  b4 --> b5["EDA visualisasi sebaran & citra"]
-  b5 --> b6{"Ada missing value / outlier?"}
-  b6 -- Ya --> bL2["Cleaning (imputasi / winsorize / hapus)"] --> b7
-  b6 -- Tidak --> b7[("Simpan Clean Parquet ke Google Drive")]
-
-  b7 --> c0["Preprocessing 3 format (Citra, Teks, Dokumen)"]
-  c0 --> c1["Anotasi foto indikator di Label Studio"]
-  c1 --> c2["Latih detektor Ultralytics YOLOv8"]
-  c2 --> c3{"mAP >= target?"}
-  c3 -- Tidak --> cL["Tambah anotasi / tuning hyperparameter"] --> c1
-  c3 -- Ya --> c4["Deteksi indikator pada seluruh foto bersih"]
-  c4 --> c5["Ekstraksi embedding teks (IndoBERT) & citra"]
-  c5 --> c6["Fusi fitur multimodal & scaling (Pipeline)"]
-  c6 --> c7[("Simpan Gold Parquet ke Google Drive")]
-
-  c7 --> m0["Split data per UMKM (GroupKFold K=5)"]
-  
-  %% Unsupervised Branch
-  m0 --> d0["Klastering K-Means / ACO"]
-  d0 --> d1["Hitung Silhouette Score & DBI"]
-  d1 --> d2{"k optimal? (k=3)"}
-  d2 -- Tidak --> dL["Atur parameter k / ACO"] --> d0
-  d2 -- Ya --> d3["Profil klaster kematangan digital"] --> g0
-
-  %% Supervised Branch
-  m0 --> f0["Ambil label Ground Truth dari survei SWK"]
-  f0 --> f1["Latih model Random Forest / XGBoost"]
-  f1 --> f2["Hitung macro-F1 & confusion matrix"]
-  f2 --> f3{"macro-F1 >= 70%?"}
-  f3 -- Tidak --> fL["Tuning parameter (Optuna / GridSearchCV)"] --> f1
-  f3 -- Ya --> f4["Jelaskan prediksi model (SHAP & Grad-CAM)"] --> g0
-
-  g0[("Simpan model registry (ONNX/pt) & hasil prediksi")] --> g1["Buat Inference API (FastAPI)"]
-  g1 --> g2["Agregasi indikator per kecamatan (6 kecamatan)"]
-  g2 --> g3["Analisis spasial (GeoPandas / Folium)"]
-  g3 --> g4["Statistik spasial (PySAL / Moran's I)"]
-  g4 --> g5["Identifikasi Digital Gap Index per wilayah"]
-  g5 --> g6["Bangun dashboard interaktif (Plotly / Streamlit)"]
-  g6 --> g7["Rumuskan rekomendasi intervensi dinas"]
-
-  g7 --> h0["Bangun Web App (Streamlit)"]
-  h0 --> h1["Hubungkan Web App ke API & Dashboard"]
-  h1 --> h2["Integrasi fitur pencarian regulasi opsional (FAISS)"]
-  h2 --> h3["Pengujian fungsional aplikasi (UAT)"]
-  h3 --> h4{"Lolos uji fungsi?"}
-  h4 -- Tidak --> hL["Perbaiki antarmuka & endpoint"] --> h1
-  h4 -- Ya --> h5["Tulis laporan analitik (Google Docs)"]
-  h5 --> h6([End])
-```
-
----
-
-## 3. Alur Flowchart Mandiri (`flowchart-mandiri-gmaps-realworld`)
-Mengatur secara spesifik kontribusi data mandiri (Google Maps API + Survei Lapangan SWK Surabaya Timur) hingga penggabungan ke tabel Gold kelompok:
-
-```mermaid
-flowchart TD
-  subgraph B1["1. PENGUMPULAN DATA (Google Maps & Real World)"]
-    S([Start]) --> g1["Tentukan kueri & grid per kecamatan"]
-    S --> r1["Susun form survei & pedoman foto target"]
-    g1 --> g2["Ambil data tempat via Places API"]
-    r1 --> r2["Survei lapangan di SWK Surabaya Timur"]
-    g2 --> g3["Ambil ulasan teks & foto usaha"]
-    r2 --> r3["Ambil foto stan, etalase, kasir, QRIS, EDC, POS"]
-    g3 --> g4{"Kuota & batas API cukup?"}
-    g4 -- Tidak --> g5["Tambah kueri / perluas grid"] --> g2
-    g4 -- Ya --> g6[("Simpan JSON & Foto ke Google Drive (Raw)")]
-    r3 --> r4{"Izin & form survei lengkap?"}
-    r4 -- Tidak --> r5["Lengkapi form / ulangi survei stan"] --> r2
-    r4 -- Ya --> r6[("Unggah Foto & Form ke Google Drive (Raw)")]
-  end
-
-  subgraph B2["2. VALIDASI & EDA (Data Mandiri)"]
-    g6 & r6 --> m1["Gabungkan kedua sumber & terbitkan umkm_id"]
-    m1 --> m2["Cek format file & eliminasi duplikat"]
-    m2 --> m3["Anonimisasi privasi: OpenCV Gaussian Face Blur (315 wajah)"]
-    m3 --> m4["EDA komparatif: Google Maps vs Survei Lapangan SWK"]
-    m4 --> m5{"Terdapat missing value / outlier?"}
-    m5 -- Ya --> mL["Cleaning: imputasi numerik / sanitasi teks"] --> m6
-    m5 -- Tidak --> m6[("Simpan Dataset Clean ke Parquet di Google Drive")]
-  end
-
-  subgraph B3["3. PREPROCESSING & FITUR"]
-    m6 --> p1["Preprocessing citra target & teks ulasan"]
-    p1 --> p2["Anotasi foto stan & indikator (Label Studio / YOLO-World)"]
-    p2 --> p3["Latih detektor indikator (Ultralytics YOLOv8n)"]
-    p3 --> p4{"mAP >= target capaian?"}
-    p4 -- Tidak --> pL["Tambah anotasi sampel / augmentasi / tuning"] --> p2
-    p4 -- Ya --> p5["Deteksi indikator visual: QRIS, POS, EDC, Merchant Online, Stan"]
-    p5 --> p6["Ekstraksi embedding teks ulasan (IndoBERT / TF-IDF)"]
-  end
-
-  subgraph B4["4. ANALISIS MANDIRI & EVALUASI"]
-    p6 --> q1["Ekstraksi fitur numerik Maps (Rating publik, Jumlah ulasan)"]
-    q1 --> q2["Komparasi indikator visual: Citra Google Maps vs Lapangan"]
-    q2 --> q3["Uji Kesepakatan Silang: Hitung Cohen's Kappa score"]
-    q3 --> q4{"Kesepakatan cukup? (Kappa >= 0.70)"}
-    q4 -- Tidak --> qL["Tinjau kasus diskrepansi / verifikasi ulang stan"] --> q2
-    q4 -- Ya --> q5["Validasi label kematangan kelas dari survei lapangan"]
-    q5 --> q6["Analisis bias cakupan geografis Google Maps di Surabaya Timur"]
-  end
-
-  subgraph B5["5. GABUNG KE KELOMPOK"]
-    q6 --> s1["Gabungkan fitur multimodal & label mandiri per UMKM"]
-    s1 --> s2["Cek keselarasan skema tabel Gold kelompok"]
-    s2 --> s3{"Skema cocok & valid?"}
-    s3 -- Tidak --> sL["Perbaiki nama kolom, tipe data, atau format fold"] --> s2
-    s3 -- Ya --> s4[("Simpan tabel fitur & label terpadu (Parquet)")]
-    s4 --> s5["Kirim ke Fusi Fitur & Pemodelan Kelompok"]
-    s5 --> s6([End])
-  end
-```
-
----
-
-## 4. Spesifikasi Vision Multi-Task YOLOv8 & Filter Dual-Gate CLIP
-
-Untuk memenuhi target arsitektur `[p7] Label Studio | Ultralytics YOLO`, sistem mengimplementasikan **4 tugas visi komputer YOLOv8** secara terintegrasi:
-
-```mermaid
-graph TD
-  RAW_IMG["Pool Citra Mentah Google Maps & Survei (672 Foto)"] --> CLIP_GATE{"Dual-Gate OpenAI CLIP Zero-Shot Filter"}
-  
-  CLIP_GATE -->|Ditolak 415 Foto| REJECT["Zona Reject: Makanan, Minuman, Menu, Ilustrasi AI"]
-  CLIP_GATE -->|Diterima 257 Foto| ACCEPT["Zona Target: Stan, Kasir, Etalase, Banner Digital"]
-  
-  ACCEPT --> BIG_BIZ{"Big Business Gate"}
-  BIG_BIZ -->|Ditolak 43 Foto| CHAIN["Rantai Usaha Besar Tanpa Foto Kasir"]
-  BIG_BIZ -->|Diterima 230 Foto| CLEAN_POOL["Dataset Foto Bersih (274 Foto: 44 Survei + 230 Maps)"]
-  
-  CLEAN_POOL --> TASK1["1. Object Detection (YOLOv8n-detect)<br>Bounding Box Berwarna + Label + Confidence<br>Target: qris, edc, pos, merchant_online, stan"]
-  CLEAN_POOL --> TASK2["2. Instance Segmentation (YOLOv8n-seg)<br>Polygon Mask Warna Transparan pada Stan/Etalase"]
-  CLEAN_POOL --> TASK3["3. Pose Estimation (YOLOv8n-pose)<br>Skeleton Keypoints Kerangka Tubuh Kasir/Pedagang"]
-  CLEAN_POOL --> TASK4["4. Maturity Classification (YOLOv8n-cls)<br>Prediksi Tingkat Kematangan: Konvensional / Berkembang / Maju"]
-  
-  TASK1 & TASK2 & TASK3 & TASK4 --> OUT_GDRIVE[("Google Drive: Iqbal-Model-Evaluation/yolo_outputs/")]
-```
-
-### 4.1 Rincian Deliverable 4 Task YOLOv8:
-1. **Deteksi Objek (`yolov8n_indicator_detect.pt`):**
-   - Mendeteksi 5 kelas target: `qris`, `edc`, `pos`, `merchant_online`, `stan`.
-   - Menghasilkan 274 citra dengan bounding box berwarna + label kelas + skor confidence (`reports/yolo/detect/predict/`).
-   - Log metrik: [`metrics_detect.json`](file:///C:/big-data-analytic/reports/yolo/detect/metrics_detect.json) (mAP@50: **40.74%**, Precision: **44.70%**, Recall: **36.57%**), kurva pelatihan [`results.csv`](file:///C:/big-data-analytic/reports/yolo/detect/train/results.csv).
-2. **Segmentasi Instance (`yolov8n-seg.pt`):**
-   - Menghasilkan 274 citra ber-mask poligon warna transparan pada objek etalase/meja stan (`reports/yolo/segment/predict/`).
-   - Ringkasan: [`summary_segment.json`](file:///C:/big-data-analytic/reports/yolo/segment/summary_segment.json) (1.181 objek poligon tersegmentasi).
-3. **Estimasi Pose (`yolov8n-pose.pt`):**
-   - Memetakan kerangka tubuh manusia (skeleton keypoints) pedagang/kasir di stan (`reports/yolo/pose/predict/`).
-   - Ringkasan: [`summary_pose.json`](file:///C:/big-data-analytic/reports/yolo/pose/summary_pose.json) (371 pose terpetakan).
-4. **Klasifikasi Kematangan (`yolov8n_maturity_cls.pt`):**
-   - Klasifikasi visual 3-kelas: *Konvensional*, *Berkembang*, *Maju* (`reports/yolo/classify/predict/`).
-   - Metrik: [`metrics_classify.json`](file:///C:/big-data-analytic/reports/yolo/classify/metrics_classify.json) (Top-1 Accuracy: **63.64%**, Top-5: **100%**).
-5. **Panel Komparasi Multi-Task:**
-   - Panel visual 4-in-1 beresolusi tinggi tersimpan di [`02_output_lengkap_yolov8_multitask.png`](file:///G:/My%20Drive/Iqbal-Model-Evaluation/02_output_lengkap_yolov8_multitask.png).
-
----
-
-## 5. Tata Kelola Penyimpanan Cloud (Google Drive Contract)
-
-Sesuai arsitektur dan flowchart, Google Drive adalah repositori utama untuk sinkronisasi antar-tahap:
-
-| Direktori Google Drive | Konten & Artefak | Format |
+### 2.1 `DS` — DATA SOURCES
+| ID Node | Modul / Sumber | Deskripsi Konten |
 | :--- | :--- | :--- |
-| **`G:\My Drive\clean\`** | `umkm.parquet`, `ulasan.parquet`, `foto.parquet`, `dokumen.parquet`, dan folder foto bersih `photos/` | Parquet & JPG |
-| **`G:\My Drive\Iqbal-EDA\`** | Salinan notebook `eda_3_09040624091.ipynb` tereksekusi + 6 file grafik EDA (distribusi kecamatan, rating, indikator ulasan, panjang kata, indikator citra YOLO, ground truth SWK) | `.ipynb` & `.png` |
-| **`G:\My Drive\Iqbal-Model-Evaluation\`** | Salinan notebook `model_3_09040624091.ipynb` + panel multi-task `02_output_lengkap_yolov8_multitask.png` + bobot model `yolov8n_indicator_detect.pt` & `yolov8n_maturity_cls.pt` + folder lengkap `yolo_outputs/` | `.ipynb`, `.pt`, `.png`, `.json` |
-| **`G:\My Drive\Iqbal-BDA\`** | Salinan notebook `bda_3_09040624091.ipynb` + grafik penetrasi digital per kecamatan + peta gap kesenjangan | `.ipynb` & `.png` |
+| **`s0`** | **Google Maps** | Teks Ulasan & Foto etalase/stan UMKM kuliner |
+| **`s1`** | **Kaggle** | Data Numerik & Gambar pendukung |
+| **`s2`** | **Journal** | Data Dokumen (PDF) jurnal dan regulasi |
+| **`s3`** | **Real World** | Foto & Survei Lapangan SWK (Sentra Wisata Kuliner Surabaya Timur) |
+
+### 2.2 `ETL` — ETL (INGESTION)
+| ID Node | Modul / Library / Framework | Peran dan Fungsi |
+| :--- | :--- | :--- |
+| **`e0`** | **Google Places API & REST HTTP** | Pengambilan data lokasi, rating, ulasan, dan foto UMKM |
+| **`e1`** | **KaggleHub CLI** | Pengunduhan dataset numerik & gambar dari Kaggle |
+| **`e2`** | **Google Drive API & Manual Download** | Akuisisi dokumen PDF jurnal & regulasi kebijakan |
+| **`e3`** | **Manual Foto & Google Forms** | Akuisisi hasil survei lapangan di SWK Surabaya Timur |
+| **`e4`** | **Pandas & PySpark** | Penggabungan batch data mentah berformat JSON & CSV |
+| **`e5`** | **Google Sheet** | Pencatatan katalog & skema data (*data catalog & schema*) |
+
+### 2.3 `ST` — DATA STORAGE
+| ID Node | Tier Penyimpanan | Lokasi & Format Artefak |
+| :--- | :--- | :--- |
+| **`c0`** | **Raw Data** | Google Drive — Menyimpan data mentah `JSON`, `CSV`, `PDF`, dan `Foto` |
+| **`c1`** | **Processed Data** | Google Drive — Menyimpan dataset `Parquet bersih` tervalidasi |
+| **`c2`** | **Output Data** | Google Drive — Menyimpan artefak akhir `Model`, `peta`, dan `laporan` |
+
+### 2.4 `DT` — Data Transformation
+Terdiri atas 3 sub-blok pemrosesan multimodal terpadu:
+
+1. **`PR` — Processing:**
+   - **`p0` (Regex & NLTK):** Cleaning teks ulasan, penghapusan *stopwords*, dan penyensoran PII (*Personally Identifiable Information*).
+   - **`p1` (PyMuPDF & pdfplumber):** Ekstraksi teks dan tabel dari dokumen PDF jurnal/regulasi.
+   - **`p2` (OpenCV):** Pemeriksaan foto duplikat, pemburaman wajah (*face blur*), dan *resize* resolusi citra.
+   - **`p3` (Albumentations):** Augmentasi gambar untuk ketahanan pelatihan model deteksi.
+   - **`p4` (Pandas & SciPy):** Imputasi nilai kosong, penanganan outlier berbasis IQR, serta validasi indikator `QRIS`/`EDC`/`POS`.
+   - **`p5` (Pillow):** Pembacaan dan konversi format foto standar.
+
+2. **`EDA` — Exploratory Data Analysis (EDA):**
+   - **`d0` (ydata-profiling):** Pembuatan profil otomatis dataset Google Maps, Kaggle, dan survei lapangan.
+   - **`d1` (Seaborn & Matplotlib):** Visualisasi sebaran rating & ulasan per wilayah kecamatan.
+   - **`d2` (Matplotlib):** Komparasi visual foto Google Maps vs *Real World* (survei SWK).
+
+3. **`FE` — Feature Extraction & Engineering:**
+   - **`f0` (IndoBERT & TF-IDF):** Ekstraksi vektor representasi teks ulasan pelanggan.
+   - **`f1` (Label Studio & Ultralytics YOLO):** Anotasi dan deteksi objek indikator `QRIS`, `EDC`, `POS`, dan stiker merchant.
+   - **`f2` (ResNet-50):** Ekstraksi fitur visual mendalam (*deep visual features*) dari foto merchant.
+   - **`f3` (Binary/Label Encoding):** Pengodean indikator keberadaan `QRIS`/`POS`/`EDC` menjadi fitur biner `0/1`.
+   - **`f4` (Sentence-Transformers):** Pembuatan *embedding* untuk potongan teks (*chunk*) dokumen PDF.
+   - **`f5` (scikit-learn Pipeline):** Normalisasi `StandardScaler` & reduksi dimensi `PCA` untuk fusi fitur multimodal.
+
+### 2.5 `AOS` — Analytics Operating System
+Terbagi menjadi 2 sub-blok komputasi pemodelan:
+
+1. **`ML` — Machine Learning:**
+   - **`m0` (scikit-learn):** Pemodelan *unsupervised* (`K-Means`, `K-Prototypes`) dan *supervised* (`Random Forest`, `Logistic Regression`).
+   - **`m1` (XGBoost):** Algoritma *gradient boosting* untuk klasifikasi 3 kelas kematangan digital (*Konvensional*, *Berkembang*, *Maju*).
+   - **`m2` (NumPy):** Komputasi matriks untuk optimasi titik pusat klaster (*Centroid optimization / ACO*).
+   - **`m3` (Joblib):** Serialisasi dan penyimpanan pipeline preprocessing serta model *scikit-learn*.
+
+2. **`DL` — Deep Learning Frameworks:**
+   - **`l0` (PyTorch):** Backend komputasi tensor dan akselerasi GPU untuk model *deep learning*.
+   - **`l1` (Hugging Face):** Ekosistem *Transformers* untuk inferensi dan fine-tuning `IndoBERT`.
+   - **`l2` (Ultralytics):** Framework pelatihan dan inferensi `YOLO` untuk deteksi objek indikator digital.
+
+### 2.6 `OPS` — AI/ML Ops
+| ID Node | Modul / Platform | Peran Operasional |
+| :--- | :--- | :--- |
+| **`o0`** | **MLflow & DVC** | Pencatatan log eksperimen pelatihan & pengelolaan versi data (*data versioning*) |
+| **`o1`** | **Git / GitHub** | Pengelolaan versi kode sumber (*source code version control*) |
+| **`o2`** | **Google Colab** | Lingkungan eksekusi cloud terintegrasi `+ VS Code (CPU/GPU)` |
+
+### 2.7 `FS` — Feature Store
+| ID Node | Teknologi Penyimpanan Fitur | Peran & Konten |
+| :--- | :--- | :--- |
+| **`fs0`** | **Google Drive** | Penyimpanan fitur terpusat yang dapat diakses lintas lingkungan |
+| **`fs1`** | **Apache Parquet** | Penyimpanan matriks fitur kolumnar berkinerja tinggi via `PyArrow` |
+| **`fs2`** | **NumPy (`.npy` / `.npz`)** | Penyimpanan array biner *embedding* teks & fitur gambar |
+| **`fs3`** | **Pandas DataFrame** | Struktur tabel fitur terpadu & label kelas di memori |
+
+### 2.8 `ME` — Model Evaluation
+| ID Node | Metrik & Metode Evaluasi | Fungsi Evaluasi |
+| :--- | :--- | :--- |
+| **`me0`** | **scikit-learn Metrics** | Evaluasi klasifikasi: `macro-F1`, `accuracy`, `precision`, `recall` |
+| **`me1`** | **Silhouette Score** | Evaluasi kohesi dan separasi kualitas klaster `K-Means` |
+| **`me2`** | **Cohen's Kappa** | Uji tingkat kesepakatan indikator antara Google Maps vs survei lapangan |
+| **`me3`** | **Ultralytics mAP** | Evaluasi *mean Average Precision* akurasi kotak deteksi YOLO |
+| **`me4`** | **SHAP** | Analisis *explainability* kontribusi dan pengaruh fitur terhadap prediksi |
+| **`me5`** | **Grad-CAM** | Visualisasi heatmap area fokus gambar pada model visi komputer |
+
+### 2.9 `REG` — Registry & `INF` — Inferencing
+| Blok | ID Node | Komponen | Deskripsi |
+| :--- | :--- | :--- | :--- |
+| **Registry (`REG`)** | **`rg0`** | **MLflow Model Registry** | Pengelolaan versi & *stage* siklus hidup model (*Staging/Production*) |
+| **Registry (`REG`)** | **`rg1`** | **ONNX (`.onnx`)** | Format bobot model portabel lintas-platform |
+| **Registry (`REG`)** | **`rg2`** | **Joblib (`.joblib`)** | Artefak terkompresi untuk model dan pipeline `scikit-learn` |
+| **Registry (`REG`)** | **`rg3`** | **YOLO Weights (`.pt`)** | Bobot model detektor indikator PyTorch/Ultralytics |
+| **Inferencing (`INF`)** | **`in0`** | **FastAPI** | Layanan REST Endpoint Inference API berkinerja tinggi |
+| **Inferencing (`INF`)** | **`in1`** | **ONNX Runtime** | Mesin eksekusi inferensi cepat untuk model berformat ONNX |
+| **Inferencing (`INF`)** | **`in2`** | **scikit-learn Predict** | Prediksi klaster & kelas kematangan untuk entitas UMKM baru |
+| **Inferencing (`INF`)** | **`in3`** | **Ultralytics YOLO Predict** | Deteksi indikator pembayaran digital pada unggahan foto baru |
+
+### 2.10 `BDA` — Big Data Analytics (Spasial), `VIS` — Visualization & `APP` — AI Application
+| Blok | ID Node | Modul / Library | Fungsi Utama |
+| :--- | :--- | :--- | :--- |
+| **Big Data Analytics (`BDA`)** | **`bd0`** | **Pandas & PySpark** | Agregasi indikator dan metrik kematangan per kecamatan |
+| **Big Data Analytics (`BDA`)** | **`bd1`** | **GeoPandas & Shapely** | Pemetaan titik koordinat UMKM ke poligon kecamatan Surabaya Timur |
+| **Big Data Analytics (`BDA`)** | **`bd2`** | **PySAL, SciPy & statsmodels** | Analisis statistik spasial (autokorelasi) & evaluasi bias cakupan |
+| **Big Data Analytics (`BDA`)** | **`bd3`** | **Pandas** | Perhitungan dan analisis *gap* digitalisasi wilayah (*Digital Gap Index*) |
+| **Visualization (`VIS`)** | **`vz0`** | **Folium & Plotly** | Visualisasi peta interaktif sebaran 3 kelas kematangan digital |
+| **Visualization (`VIS`)** | **`vz1`** | **Seaborn & Matplotlib** | Pembuatan grafik analitik statis untuk laporan EDA & BDA |
+| **Visualization (`VIS`)** | **`vz2`** | **PCA** | Proyeksi dimensi untuk visualisasi sebaran klaster UMKM |
+| **Visualization (`VIS`)** | **`vz3`** | **YOLO Bounding Box** | Visualisasi hasil deteksi objek indikator pada citra stan |
+| **AI Application (`APP`)** | **`a0`** | **Streamlit & FastAPI** | Antarmuka Web App interaktif untuk pengecekan status digital UMKM |
+| **AI Application (`APP`)** | **`a1`** | **LangChain & FAISS** | Sistem rekomendasi intervensi dan pencarian regulasi otomatis berbasis RAG |
+| **AI Application (`APP`)** | **`a2`** | **Google Docs** | Penyusunan laporan akhir & rekomendasi intervensi kebijakan *E-Government* |
 
 ---
 
-## 6. Penyelarasan Node & Edge Terhadap Diagram Asli
+## 3. Spesifikasi Alur Koneksi Antar-Blok (`E1` – `E15`)
 
-| Kode Node JSON | Label Asli Diagram | Implementasi Nyata Proyek | Status Audit |
+| ID Edge | Blok Asal | Blok Tujuan | Tipe Panah | Makna Alur Data / Artefak / Log |
+| :--- | :--- | :--- | :--- | :--- |
+| **`E1`** | `DS` (DATA SOURCES) | `ETL` (ETL INGESTION) | Satu Arah ($\longrightarrow$) | Alur akuisisi data mentah dari 4 sumber utama (Google Maps, Kaggle, Journal, Real World) ke modul ingesti. |
+| **`E2`** | `ETL` (ETL INGESTION) | `ST` (DATA STORAGE) | Satu Arah ($\longrightarrow$) | Penyimpanan batch hasil ekstraksi dan skema katalog ke Google Drive (`Raw Data`). |
+| **`E3`** | `ST` (DATA STORAGE) | `DT` (Data Transformation) | Dua Arah ($\longleftrightarrow$) | Pembacaan `Raw Data` dari Google Drive untuk diproses dan penulisan kembali `Processed Data` (Parquet bersih) ke Google Drive. |
+| **`E4`** | `ST` (DATA STORAGE) | `AOS` (Analytics OS) | Satu Arah ($\longrightarrow$) | Alur penyediaan dataset tersimpan dari Google Drive langsung menuju lingkungan pelatihan model. |
+| **`E5`** | `DT` (Data Transformation) | `AOS` (Analytics OS) | Dua Arah ($\longleftrightarrow$) | Pertukaran fitur hasil ekstraksi (`IndoBERT`, `YOLO`, `ResNet-50`, `PCA`) dengan framework `ML` dan `DL` (termasuk *fine-tuning* dan *feature feedback*). |
+| **`E6`** | `DT` (Data Transformation) | `FS` (Feature Store) | Dua Arah ($\longleftrightarrow$) | Penyimpanan dan pembacaan kembali matriks fitur (`Parquet`, `.npy/.npz`, `DataFrame`) di Google Drive Feature Store. |
+| **`E7`** | `OPS` (AI/ML Ops) | `DT` (Data Transformation) | Dua Arah ($\longleftrightarrow$) | Pelacakan versi dataset (`DVC`), kode transformasi (`Git`), dan eksekusi pemrosesan di `Google Colab / VS Code`. |
+| **`E8`** | `OPS` (AI/ML Ops) | `REG` (Registry) | Dua Arah ($\longleftrightarrow$) | Sinkronisasi log eksperimen `MLflow` dengan manajemen versi model pada `MLflow Model Registry`. |
+| **`E9`** | `OPS` (AI/ML Ops) | `INF` (Inferencing) | Dua Arah ($\longleftrightarrow$) | Deployment layanan inferensi, pemantauan runtime, dan pencatatan log prediksi kembali ke sistem MLOps. |
+| **`E10`** | `AOS` (Analytics OS) | `ME` (Model Evaluation) | Satu Arah ($\longrightarrow$) | Alur pengiriman hasil pelatihan model klastering, klasifikasi, dan deteksi objek untuk dievaluasi secara kuantitatif & *explainable*. |
+| **`E11`** | `ME` (Model Evaluation) | `REG` (Registry) | Satu Arah ($\longrightarrow$) | Promosi dan pembekuan model yang telah lolos evaluasi metrik (`macro-F1`, `Silhouette`, `Kappa`, `mAP`) ke dalam `Registry`. |
+| **`E12`** | `REG` (Registry) | `INF` (Inferencing) | Satu Arah ($\longrightarrow$) | Pemuatan bobot model terverifikasi (`.onnx`, `.joblib`, `.pt`) oleh mesin inferensi (`FastAPI`, `ONNX Runtime`, `Predict`). |
+| **`E13`** | `INF` (Inferencing) | `BDA` (Big Data Analytics) | Satu Arah ($\longrightarrow$) | Pengiriman hasil prediksi kelas kematangan dan deteksi indikator seluruh UMKM untuk analisis spasial Surabaya Timur. |
+| **`E14`** | `BDA` (Big Data Analytics) | `VIS` (Visualization) | Satu Arah ($\longrightarrow$) | Alur hasil agregasi kecamatan, statistik spasial, dan analisis *gap* menuju modul pemetaan dan visualisasi. |
+| **`E15`** | `VIS` (Visualization) | `APP` (AI Application) | Satu Arah ($\longrightarrow$) | Integrasi peta interaktif `Folium/Plotly`, grafik `Seaborn/Matplotlib`, `PCA`, dan visualisasi `YOLO` ke dalam Web App `Streamlit`, sistem RAG `LangChain/FAISS`, dan laporan `Google Docs`. |
+
+---
+
+## 4. Spesifikasi Vision YOLOv8 & Kurasi Citra
+
+Selaras dengan komponen **`p2` (OpenCV)**, **`p3` (Albumentations)**, **`p5` (Pillow)**, **`f1` (Label Studio & Ultralytics YOLO)**, **`l2` (Ultralytics)**, **`me3` (Ultralytics mAP)**, **`rg3` (YOLO Weights `.pt`)**, **`in3` (Ultralytics YOLO Predict)**, dan **`vz3` (YOLO Bounding Box)**:
+
+1. **Sanitasi & Kurasi Citra (`p2`, `p5`):**
+   - Pemeriksaan duplikasi gambar, konversi format dengan Pillow, pemburaman 315 wajah dengan OpenCV Gaussian Blur, dan penyaringan ketat foto non-target sehingga menghasilkan **274 citra stan bersih**.
+2. **Deteksi Indikator Digital (`f1`, `l2`, `rg3`, `in3`, `vz3`):**
+   - Mendeteksi objek indikator digital (`QRIS`, `EDC`, `POS`, stiker merchant online, dan stan fisik) menggunakan bobot model [`yolov8n_indicator_detect.pt`](file:///C:/big-data-analytic/models/yolov8n_indicator_detect.pt).
+   - Evaluasi metrik (`me3`): mAP@50 mencapai **40.74%** ([`metrics_detect.json`](file:///C:/big-data-analytic/reports/yolo/detect/metrics_detect.json)).
+   - Mendukung kapabilitas multi-task Ultralytics (Object Detection, Instance Segmentation, Pose Estimation, dan Maturity Classification) dengan artefak visual tersimpan di [`02_output_lengkap_yolov8_multitask.png`](file:///G:/My%20Drive/Iqbal-Model-Evaluation/02_output_lengkap_yolov8_multitask.png).
+
+---
+
+## 5. Tata Kelola Penyimpanan Cloud (`ST` & `FS` — Google Drive Contract)
+
+Sesuai blok **`ST` (DATA STORAGE: `c0`, `c1`, `c2`)** dan **`FS` (Feature Store: `fs0`, `fs1`, `fs2`, `fs3`)**, seluruh data dan artefak dikelola di Google Drive:
+
+| Komponen Diagram | Direktori Google Drive | Konten & Artefak | Format |
 | :--- | :--- | :--- | :--- |
-| `[s1], [s7]` | Google Maps & Real World | Ingestion Places API Surabaya Timur & Survei SWK | **Lolos (100% Sesuai)** |
-| `[p4]` | regex & OpenCV | Pembersihan teks regex & OpenCV Gaussian Face Blur (315 wajah) | **Lolos (100% Sesuai)** |
-| `[p7]` | Label Studio & Ultralytics YOLO | Deteksi 5 kelas indikator, Seg, Pose, Cls | **Lolos (100% Sesuai)** |
-| `[p8]` | IndoBERT / TF-IDF | Ekstraksi fitur teks ulasan per UMKM | **Lolos (100% Sesuai)** |
-| `[p9], [p10]`| Pipeline & Parquet Gold | Fusi fitur multimodal (`df_fusi` 190 UMKM) ke Parquet | **Lolos (100% Sesuai)** |
-| `[q3]` | Cohen's Kappa | Uji kesepakatan silang Google Maps vs Lapangan SWK ($\kappa \ge 0.70$) | **Lolos (100% Sesuai)** |
-| `[m1], [d0-d3]` | K-Means Clustering | Clustering $k=3$ (Silhouette Score: 0.4964, DBI: 0.7916) | **Lolos (100% Sesuai)** |
-| `[m3], [f0-f4]` | Supervised Classification | Random Forest dengan `GroupKFold` ($K=5$) anti-leakage | **Lolos (100% Sesuai)** |
-| `[b1-b4]` | Spatial Analytics BDA | Analisis penetrasi digital 6 kecamatan & Digital Gap Index | **Lolos (100% Sesuai)** |
-| `[i6], [b7], [c7]`| Google Drive Storage | Sinkronisasi otomatis ke `G:\My Drive\` | **Lolos (100% Sesuai)** |
+| **`c0` (Raw Data)** | `G:\My Drive\raw\` | Data mentah hasil ingesti Places API, Kaggle, PDF jurnal/regulasi, dan foto survei lapangan SWK | `JSON`, `CSV`, `PDF`, `JPG` |
+| **`c1` (Processed Data)** | `G:\My Drive\clean\` | `umkm.parquet`, `ulasan.parquet`, `foto.parquet`, `dokumen.parquet`, dan folder foto bersih `photos/` | `.parquet` & `.jpg` |
+| **`fs0..fs3` (Feature Store)** | `G:\My Drive\features\` & `clean\` | Matriks fitur `Apache Parquet (PyArrow)`, embedding teks & gambar `NumPy (.npy/.npz)`, dan `Pandas DataFrame` | `.parquet`, `.npy`, `.npz` |
+| **`c2` (Output Data — EDA)** | `G:\My Drive\Iqbal-EDA\` | Notebook `eda_3_09040624091.ipynb` + 6 file grafik EDA (`d0`, `d1`, `d2`, `vz1`) | `.ipynb` & `.png` |
+| **`c2` (Output Data — Model & Registry)** | `G:\My Drive\Iqbal-Model-Evaluation\` | Notebook `model_3_09040624091.ipynb` + bobot model (`.pt`, `.joblib`, `.onnx`) + hasil evaluasi (`me0..me5`) + output visual YOLO (`vz2`, `vz3`) | `.ipynb`, `.pt`, `.png`, `.json` |
+| **`c2` (Output Data — BDA)** | `G:\My Drive\Iqbal-BDA\` | Notebook `bda_3_09040624091.ipynb` + peta dan grafik analisis gap digitalisasi wilayah Surabaya Timur (`bd0..bd3`, `vz0`, `vz1`) | `.ipynb` & `.png` |

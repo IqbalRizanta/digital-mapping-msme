@@ -1,0 +1,326 @@
+<mxGraphModel dx="3142" dy="1740" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;" value="Arsitektur Big Data &amp;amp; AI - Peta Digital UMKM Kuliner Surabaya Timur" vertex="1">
+      <mxGeometry height="30" width="560" x="190" y="30" as="geometry" />
+    </mxCell>
+    <mxCell id="note" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" value="Panah satu arah = alur data utama; panah dua arah = pertukaran data/artefak/log. Kotak berisi modul, library, dan framework." vertex="1">
+      <mxGeometry height="24" width="625" x="195" y="70" as="geometry" />
+    </mxCell>
+    <mxCell id="DS" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=4;strokeWidth=2;fillColor=none;" value="DATA SOURCES" vertex="1">
+      <mxGeometry height="420" width="240" x="130" y="582.5" as="geometry" />
+    </mxCell>
+    <mxCell id="ETL" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=4;strokeWidth=2;fillColor=none;" value="ETL (INGESTION)" vertex="1">
+      <mxGeometry height="545" width="240" x="485" y="520" as="geometry" />
+    </mxCell>
+    <mxCell id="ST" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=4;strokeWidth=2;fillColor=none;" value="DATA STORAGE" vertex="1">
+      <mxGeometry height="385" width="250" x="790" y="600" as="geometry" />
+    </mxCell>
+    <mxCell id="DT" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=4;strokeWidth=2;fillColor=none;" value="Data Transformation" vertex="1">
+      <mxGeometry height="530" width="1000" x="1140" y="300" as="geometry" />
+    </mxCell>
+    <mxCell id="PR" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;fillColor=none;" value="Processing" vertex="1">
+      <mxGeometry height="145" width="960" x="1159" y="355" as="geometry" />
+    </mxCell>
+    <mxCell id="EDA" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;fillColor=none;" value="Exploratory Data Analysis (EDA)" vertex="1">
+      <mxGeometry height="115" width="960" x="1159" y="515" as="geometry" />
+    </mxCell>
+    <mxCell id="FE" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;fillColor=none;" value="Feature Extraction &amp;amp; Engineering" vertex="1">
+      <mxGeometry height="170" width="960" x="1159" y="645" as="geometry" />
+    </mxCell>
+    <mxCell id="AOS" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=4;strokeWidth=2;fillColor=none;" value="Analytics Operating System" vertex="1">
+      <mxGeometry height="240" width="1000" x="1140" y="940" as="geometry" />
+    </mxCell>
+    <mxCell id="ML" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=4;strokeWidth=2;fillColor=none;" value="Machine Learning" vertex="1">
+      <mxGeometry height="180" width="560" x="1159" y="985" as="geometry" />
+    </mxCell>
+    <mxCell id="DL" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=4;strokeWidth=2;fillColor=none;" value="Deep Learning Frameworks" vertex="1">
+      <mxGeometry height="180" width="380" x="1740" y="985" as="geometry" />
+    </mxCell>
+    <mxCell id="OPS" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;fillColor=none;strokeWidth=2;" value="AI/ML Ops" vertex="1">
+      <mxGeometry height="125" width="520" x="1380" y="100" as="geometry" />
+    </mxCell>
+    <mxCell id="FS" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;fillColor=none;strokeWidth=2;" value="Feature Store" vertex="1">
+      <mxGeometry height="260" width="340" x="2210" y="300" as="geometry" />
+    </mxCell>
+    <mxCell id="ME" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;fillColor=none;strokeWidth=2;" value="Model Evaluation" vertex="1">
+      <mxGeometry height="350" width="340" x="2210" y="580" as="geometry" />
+    </mxCell>
+    <mxCell id="INF" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;fillColor=none;strokeWidth=2;" value="Inferencing" vertex="1">
+      <mxGeometry height="240" width="340" x="2660" y="275" as="geometry" />
+    </mxCell>
+    <mxCell id="REG" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;fillColor=none;strokeWidth=2;" value="Registry" vertex="1">
+      <mxGeometry height="240" width="340" x="2660" y="555" as="geometry" />
+    </mxCell>
+    <mxCell id="BDA" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;fillColor=none;strokeWidth=2;" value="Big Data Analytics (Spasial)" vertex="1">
+      <mxGeometry height="240" width="340" x="3060" y="275" as="geometry" />
+    </mxCell>
+    <mxCell id="VIS" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;fillColor=none;strokeWidth=2;" value="Visualization" vertex="1">
+      <mxGeometry height="240" width="340" x="3060" y="555" as="geometry" />
+    </mxCell>
+    <mxCell id="APP" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;fillColor=none;strokeWidth=2;" value="AI Application" vertex="1">
+      <mxGeometry height="230" width="340" x="3060" y="835" as="geometry" />
+    </mxCell>
+    <mxCell id="s0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Google Maps&lt;/b&gt;&lt;br&gt;Teks Ulasan &amp;amp; Foto" vertex="1">
+      <mxGeometry height="60" width="200" x="150" y="622.5" as="geometry" />
+    </mxCell>
+    <mxCell id="s1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Kaggle&lt;/b&gt;&lt;br&gt;Data Numerik &amp;amp; Gambar" vertex="1">
+      <mxGeometry height="60" width="200" x="150" y="712.5" as="geometry" />
+    </mxCell>
+    <mxCell id="s2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Journal&lt;/b&gt;&lt;br&gt;Data Dokumen (PDF)" vertex="1">
+      <mxGeometry height="60" width="200" x="150" y="802.5" as="geometry" />
+    </mxCell>
+    <mxCell id="s3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Real World&lt;/b&gt;&lt;br&gt;Foto &amp;amp; Survei Lapangan SWK" vertex="1">
+      <mxGeometry height="60" width="200" x="150" y="892.5" as="geometry" />
+    </mxCell>
+    <mxCell id="e0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Google Places API &amp;amp; REST HTTP&lt;/b&gt;&lt;br&gt;Data lokasi, rating, ulasan, foto" vertex="1">
+      <mxGeometry height="60" width="200" x="505" y="570" as="geometry" />
+    </mxCell>
+    <mxCell id="e1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;KaggleHub CLI&lt;/b&gt;&lt;br&gt;Dataset numerik &amp;amp; gambar" vertex="1">
+      <mxGeometry height="60" width="200" x="505" y="650" as="geometry" />
+    </mxCell>
+    <mxCell id="e2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Google Drive API &amp;amp; Manual Download&lt;/b&gt;&lt;br&gt;PDF jurnal &amp;amp; regulasi" vertex="1">
+      <mxGeometry height="60" width="200" x="505" y="730" as="geometry" />
+    </mxCell>
+    <mxCell id="e3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Manual Foto &amp;amp; Google Forms&lt;/b&gt;&lt;br&gt;Survei lapangan SWK" vertex="1">
+      <mxGeometry height="60" width="200" x="505" y="810" as="geometry" />
+    </mxCell>
+    <mxCell id="e4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Pandas &amp;amp; PySpark&lt;/b&gt;&lt;br&gt;Gabung batch JSON &amp;amp; CSV" vertex="1">
+      <mxGeometry height="60" width="200" x="505" y="890" as="geometry" />
+    </mxCell>
+    <mxCell id="e5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Google Sheet&lt;/b&gt;&lt;br&gt;Katalog &amp;amp; skema data" vertex="1">
+      <mxGeometry height="60" width="200" x="505" y="970" as="geometry" />
+    </mxCell>
+    <mxCell id="c0" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=14;fontStyle=1;fontSize=10;fillColor=none;" value="&lt;b&gt;Raw Data&lt;/b&gt;&lt;br&gt;Google Drive&lt;br&gt;JSON, CSV, PDF, Foto" vertex="1">
+      <mxGeometry height="80" width="150" x="840" y="655" as="geometry" />
+    </mxCell>
+    <mxCell id="c1" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=14;fontStyle=1;fontSize=10;fillColor=none;" value="&lt;b&gt;Processed Data&lt;/b&gt;&lt;br&gt;Google Drive&lt;br&gt;Parquet bersih" vertex="1">
+      <mxGeometry height="80" width="150" x="840" y="765" as="geometry" />
+    </mxCell>
+    <mxCell id="c2" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=14;fontStyle=1;fontSize=10;fillColor=none;" value="&lt;b&gt;Output Data&lt;/b&gt;&lt;br&gt;Google Drive&lt;br&gt;Model, peta, laporan" vertex="1">
+      <mxGeometry height="80" width="150" x="840" y="875" as="geometry" />
+    </mxCell>
+    <mxCell id="p0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Regex &amp;amp; NLTK&lt;/b&gt;&lt;br&gt;Cleaning teks ulasan, stopwords, sensor PII" vertex="1">
+      <mxGeometry height="85" width="145" x="1174" y="395" as="geometry" />
+    </mxCell>
+    <mxCell id="p1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;PyMuPDF &amp;amp; pdfplumber&lt;/b&gt;&lt;br&gt;Ekstrak teks &amp;amp; tabel PDF" vertex="1">
+      <mxGeometry height="85" width="145" x="1331" y="395" as="geometry" />
+    </mxCell>
+    <mxCell id="p2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;OpenCV&lt;/b&gt;&lt;br&gt;Cek foto duplikat, blur wajah, resize" vertex="1">
+      <mxGeometry height="85" width="145" x="1488" y="395" as="geometry" />
+    </mxCell>
+    <mxCell id="p3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Albumentations&lt;/b&gt;&lt;br&gt;Augmentasi gambar" vertex="1">
+      <mxGeometry height="85" width="145" x="1645" y="395" as="geometry" />
+    </mxCell>
+    <mxCell id="p4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Pandas &amp;amp; SciPy&lt;/b&gt;&lt;br&gt;Imputasi, outlier IQR, validasi QRIS/EDC/POS" vertex="1">
+      <mxGeometry height="85" width="145" x="1802" y="395" as="geometry" />
+    </mxCell>
+    <mxCell id="p5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Pillow&lt;/b&gt;&lt;br&gt;Baca &amp;amp; konversi format foto" vertex="1">
+      <mxGeometry height="85" width="145" x="1959" y="395" as="geometry" />
+    </mxCell>
+    <mxCell id="d0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;ydata-profiling&lt;/b&gt;&lt;br&gt;Profil otomatis dataset Maps, Kaggle, survei" vertex="1">
+      <mxGeometry height="65" width="300" x="1174" y="550" as="geometry" />
+    </mxCell>
+    <mxCell id="d1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Seaborn &amp;amp; Matplotlib&lt;/b&gt;&lt;br&gt;Sebaran rating &amp;amp; ulasan per wilayah" vertex="1">
+      <mxGeometry height="65" width="300" x="1486" y="550" as="geometry" />
+    </mxCell>
+    <mxCell id="d2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Matplotlib&lt;/b&gt;&lt;br&gt;Bandingkan foto Gmaps vs Real World" vertex="1">
+      <mxGeometry height="65" width="300" x="1798" y="550" as="geometry" />
+    </mxCell>
+    <mxCell id="f0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;IndoBERT &amp;amp; TF-IDF&lt;/b&gt;&lt;br&gt;Vektor teks ulasan" vertex="1">
+      <mxGeometry height="110" width="145" x="1174" y="685" as="geometry" />
+    </mxCell>
+    <mxCell id="f1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Label Studio &amp;amp; Ultralytics YOLO&lt;/b&gt;&lt;br&gt;Deteksi QRIS, EDC, POS, stiker merchant" vertex="1">
+      <mxGeometry height="110" width="145" x="1331" y="685" as="geometry" />
+    </mxCell>
+    <mxCell id="f2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;ResNet-50&lt;/b&gt;&lt;br&gt;Ekstraksi fitur visual merchant" vertex="1">
+      <mxGeometry height="110" width="145" x="1488" y="685" as="geometry" />
+    </mxCell>
+    <mxCell id="f3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Binary/Label Encoding&lt;/b&gt;&lt;br&gt;Indikator QRIS/POS/EDC jadi 0/1" vertex="1">
+      <mxGeometry height="110" width="145" x="1645" y="685" as="geometry" />
+    </mxCell>
+    <mxCell id="f4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Sentence-Transformers&lt;/b&gt;&lt;br&gt;Embedding chunk dokumen" vertex="1">
+      <mxGeometry height="110" width="145" x="1802" y="685" as="geometry" />
+    </mxCell>
+    <mxCell id="f5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;scikit-learn Pipeline&lt;/b&gt;&lt;br&gt;StandardScaler &amp;amp; PCA: fusi fitur" vertex="1">
+      <mxGeometry height="110" width="145" x="1959" y="685" as="geometry" />
+    </mxCell>
+    <mxCell id="m0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;scikit-learn&lt;/b&gt;&lt;br&gt;K-Means, K-Prototypes, Random Forest, Logistic Regression" vertex="1">
+      <mxGeometry height="110" width="125" x="1174" y="1025" as="geometry" />
+    </mxCell>
+    <mxCell id="m1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;XGBoost&lt;/b&gt;&lt;br&gt;Klasifikasi 3 kelas kematangan digital" vertex="1">
+      <mxGeometry height="110" width="125" x="1311" y="1025" as="geometry" />
+    </mxCell>
+    <mxCell id="m2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;NumPy&lt;/b&gt;&lt;br&gt;Centroid optimization (ACO)" vertex="1">
+      <mxGeometry height="110" width="125" x="1448" y="1025" as="geometry" />
+    </mxCell>
+    <mxCell id="m3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Joblib&lt;/b&gt;&lt;br&gt;Simpan model &amp;amp; preprocessing" vertex="1">
+      <mxGeometry height="110" width="125" x="1585" y="1025" as="geometry" />
+    </mxCell>
+    <mxCell id="l0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;PyTorch&lt;/b&gt;&lt;br&gt;Backend deep learning" vertex="1">
+      <mxGeometry height="110" width="112" x="1755" y="1025" as="geometry" />
+    </mxCell>
+    <mxCell id="l1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Hugging Face&lt;/b&gt;&lt;br&gt;Transformers (IndoBERT)" vertex="1">
+      <mxGeometry height="110" width="112" x="1879" y="1025" as="geometry" />
+    </mxCell>
+    <mxCell id="l2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Ultralytics&lt;/b&gt;&lt;br&gt;YOLO deteksi objek" vertex="1">
+      <mxGeometry height="110" width="112" x="2003" y="1025" as="geometry" />
+    </mxCell>
+    <mxCell id="o0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;MLflow &amp;amp; DVC&lt;/b&gt;&lt;br&gt;Log eksperimen &amp;amp; versi data" vertex="1">
+      <mxGeometry height="65" width="150" x="1395" y="145" as="geometry" />
+    </mxCell>
+    <mxCell id="o1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Git / GitHub&lt;/b&gt;&lt;br&gt;Versi kode" vertex="1">
+      <mxGeometry height="65" width="150" x="1557" y="145" as="geometry" />
+    </mxCell>
+    <mxCell id="o2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Google Colab&lt;/b&gt;&lt;br&gt;+ VS Code (CPU/GPU)" vertex="1">
+      <mxGeometry height="65" width="150" x="1719" y="145" as="geometry" />
+    </mxCell>
+    <mxCell id="fs0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Google Drive&lt;/b&gt;&lt;br&gt;Penyimpanan fitur" vertex="1">
+      <mxGeometry height="65" width="140" x="2240" y="360" as="geometry" />
+    </mxCell>
+    <mxCell id="fs1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Apache Parquet&lt;/b&gt;&lt;br&gt;PyArrow: matriks fitur" vertex="1">
+      <mxGeometry height="65" width="140" x="2400" y="360" as="geometry" />
+    </mxCell>
+    <mxCell id="fs2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;DuckDB&lt;/b&gt;&lt;br&gt;Query agregasi cepat" vertex="1">
+      <mxGeometry height="65" width="140" x="2240" y="455" as="geometry" />
+    </mxCell>
+    <mxCell id="fs3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Pandas DataFrame&lt;/b&gt;&lt;br&gt;Tabel fitur &amp;amp; label" vertex="1">
+      <mxGeometry height="65" width="140" x="2400" y="455" as="geometry" />
+    </mxCell>
+    <mxCell id="me0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;scikit-learn Metrics&lt;/b&gt;&lt;br&gt;macro-F1, accuracy, precision, recall" vertex="1">
+      <mxGeometry height="70" width="140" x="2230" y="630" as="geometry" />
+    </mxCell>
+    <mxCell id="me1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Silhouette Score&lt;/b&gt;&lt;br&gt;Kualitas klaster K-Means" vertex="1">
+      <mxGeometry height="70" width="140" x="2390" y="630" as="geometry" />
+    </mxCell>
+    <mxCell id="me2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Cohen&#39;s Kappa&lt;/b&gt;&lt;br&gt;Kesepakatan Maps vs lapangan" vertex="1">
+      <mxGeometry height="70" width="140" x="2230" y="730" as="geometry" />
+    </mxCell>
+    <mxCell id="me3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Ultralytics mAP&lt;/b&gt;&lt;br&gt;Akurasi kotak deteksi" vertex="1">
+      <mxGeometry height="70" width="140" x="2390" y="730" as="geometry" />
+    </mxCell>
+    <mxCell id="me4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;SHAP&lt;/b&gt;&lt;br&gt;Pengaruh fitur" vertex="1">
+      <mxGeometry height="70" width="140" x="2230" y="830" as="geometry" />
+    </mxCell>
+    <mxCell id="me5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Grad-CAM&lt;/b&gt;&lt;br&gt;Area fokus gambar" vertex="1">
+      <mxGeometry height="70" width="140" x="2390" y="830" as="geometry" />
+    </mxCell>
+    <mxCell id="in0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;FastAPI&lt;/b&gt;&lt;br&gt;Endpoint Inference API" vertex="1">
+      <mxGeometry height="65" width="140" x="2680" y="325" as="geometry" />
+    </mxCell>
+    <mxCell id="in1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;ONNX Runtime&lt;/b&gt;&lt;br&gt;Prediksi model ONNX" vertex="1">
+      <mxGeometry height="65" width="140" x="2840" y="325" as="geometry" />
+    </mxCell>
+    <mxCell id="in2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;scikit-learn Predict&lt;/b&gt;&lt;br&gt;Klaster &amp;amp; kelas UMKM baru" vertex="1">
+      <mxGeometry height="65" width="140" x="2680" y="420" as="geometry" />
+    </mxCell>
+    <mxCell id="in3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Ultralytics YOLO Predict&lt;/b&gt;&lt;br&gt;Deteksi indikator foto baru" vertex="1">
+      <mxGeometry height="65" width="140" x="2840" y="420" as="geometry" />
+    </mxCell>
+    <mxCell id="rg0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;MLflow Model Registry&lt;/b&gt;&lt;br&gt;Versi &amp;amp; stage model" vertex="1">
+      <mxGeometry height="65" width="140" x="2680" y="605" as="geometry" />
+    </mxCell>
+    <mxCell id="rg1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;ONNX (.onnx)&lt;/b&gt;&lt;br&gt;Bobot model portabel" vertex="1">
+      <mxGeometry height="65" width="140" x="2840" y="605" as="geometry" />
+    </mxCell>
+    <mxCell id="rg2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Joblib (.joblib)&lt;/b&gt;&lt;br&gt;Model scikit-learn" vertex="1">
+      <mxGeometry height="65" width="140" x="2680" y="700" as="geometry" />
+    </mxCell>
+    <mxCell id="rg3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;YOLO Weights (.pt)&lt;/b&gt;&lt;br&gt;Bobot detektor" vertex="1">
+      <mxGeometry height="65" width="140" x="2840" y="700" as="geometry" />
+    </mxCell>
+    <mxCell id="bd0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Pandas &amp;amp; PySpark&lt;/b&gt;&lt;br&gt;Agregasi per kecamatan" vertex="1">
+      <mxGeometry height="65" width="140" x="3080" y="325" as="geometry" />
+    </mxCell>
+    <mxCell id="bd1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;GeoPandas &amp;amp; Shapely&lt;/b&gt;&lt;br&gt;Titik ke poligon Surabaya Timur" vertex="1">
+      <mxGeometry height="65" width="140" x="3240" y="325" as="geometry" />
+    </mxCell>
+    <mxCell id="bd2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;PySAL, SciPy &amp;amp; statsmodels&lt;/b&gt;&lt;br&gt;Statistik spasial &amp;amp; bias cakupan" vertex="1">
+      <mxGeometry height="65" width="140" x="3080" y="420" as="geometry" />
+    </mxCell>
+    <mxCell id="bd3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Pandas&lt;/b&gt;&lt;br&gt;Analisis gap digitalisasi wilayah" vertex="1">
+      <mxGeometry height="65" width="140" x="3240" y="420" as="geometry" />
+    </mxCell>
+    <mxCell id="vz0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Folium &amp;amp; Plotly&lt;/b&gt;&lt;br&gt;Peta interaktif 3 kelas" vertex="1">
+      <mxGeometry height="65" width="140" x="3080" y="605" as="geometry" />
+    </mxCell>
+    <mxCell id="vz1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Seaborn &amp;amp; Matplotlib&lt;/b&gt;&lt;br&gt;Grafik EDA &amp;amp; BDA" vertex="1">
+      <mxGeometry height="65" width="140" x="3240" y="605" as="geometry" />
+    </mxCell>
+    <mxCell id="vz2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;PCA&lt;/b&gt;&lt;br&gt;Visualisasi klaster" vertex="1">
+      <mxGeometry height="65" width="140" x="3080" y="700" as="geometry" />
+    </mxCell>
+    <mxCell id="vz3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;YOLO Bounding Box&lt;/b&gt;&lt;br&gt;Visualisasi deteksi" vertex="1">
+      <mxGeometry height="65" width="140" x="3240" y="700" as="geometry" />
+    </mxCell>
+    <mxCell id="a0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Streamlit &amp;amp; FastAPI&lt;/b&gt;&lt;br&gt;Web App cek status digital" vertex="1">
+      <mxGeometry height="65" width="140" x="3080" y="885" as="geometry" />
+    </mxCell>
+    <mxCell id="a1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;LangChain &amp;amp; FAISS&lt;/b&gt;&lt;br&gt;Rekomendasi otomatis (RAG)" vertex="1">
+      <mxGeometry height="65" width="140" x="3240" y="885" as="geometry" />
+    </mxCell>
+    <mxCell id="a2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fontSize=10;" value="&lt;b&gt;Google Docs&lt;/b&gt;&lt;br&gt;Laporan akhir &amp;amp; rekomendasi intervensi E-Gov" vertex="1">
+      <mxGeometry height="65" width="300" x="3080" y="970" as="geometry" />
+    </mxCell>
+    <mxCell id="E1" edge="1" parent="1" source="DS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="ETL">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="E2" edge="1" parent="1" source="ETL" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="ST">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="E3" edge="1" parent="1" source="ST" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;startArrow=block;startFill=1;entryX=0;entryY=0.5;" target="DT">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="1090" y="792.5" as="sourcePoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="E4" edge="1" parent="1" source="ST" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0;entryY=0.75;" target="AOS">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="E5" edge="1" parent="1" source="DT" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="AOS">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="E6" edge="1" parent="1" source="DT" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=1;exitY=0.25;">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="2210" y="432.5" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="E7" edge="1" parent="1" source="OPS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="DT">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="E8" edge="1" parent="1" source="OPS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="REG">
+      <mxGeometry relative="1" x="-0.0004" as="geometry">
+        <Array as="points">
+          <mxPoint x="2610" y="162.5" />
+          <mxPoint x="2610" y="675" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="E9" edge="1" parent="1" source="OPS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;startArrow=block;startFill=1;exitX=1;exitY=0.5;entryX=0.5;entryY=0;" target="INF">
+      <mxGeometry relative="1" x="0.0212" as="geometry" />
+    </mxCell>
+    <mxCell id="E10" edge="1" parent="1" source="AOS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0.5;entryY=1;" target="ME">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="E11" edge="1" parent="1" source="ME" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="REG">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="2610" y="755" />
+          <mxPoint x="2610" y="675" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="E12" edge="1" parent="1" source="REG" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" target="INF">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="E13" edge="1" parent="1" source="INF" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="BDA">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="E14" edge="1" parent="1" source="BDA" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="VIS">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="E15" edge="1" parent="1" source="VIS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="APP">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+  </root>
+</mxGraphModel>
