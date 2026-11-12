@@ -10,6 +10,12 @@ Referensi Dokumentasi Resmi:
 
 import json
 from pathlib import Path
+import sys
+
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 import numpy as np
 import pandas as pd
 import torch
@@ -20,8 +26,6 @@ from sklearn.metrics import accuracy_score, f1_score, mean_squared_error, r2_sco
 from sklearn.preprocessing import StandardScaler
 
 from model.training.ml_pipeline import FEATURE_COLS, derive_target_class, prepare_feature_frame
-
-ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 GOLD_DIR = ROOT_DIR / "data" / "gold"
 SAVED_DIR = ROOT_DIR / "model" / "saved"
 REPORTS_DIR = ROOT_DIR / "peta-digital-umkm" / "reports" / "modeling"

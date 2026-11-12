@@ -11,7 +11,13 @@ Referensi Dokumentasi Resmi:
 import json
 import pickle
 import shutil
+import sys
 from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -21,8 +27,6 @@ import pandas as pd
 from sklearn.metrics import confusion_matrix
 
 from model.training.ml_pipeline import FEATURE_COLS, LABEL_NAMES, derive_target_class, prepare_feature_frame
-
-ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 GOLD_DIR = ROOT_DIR / "data" / "gold"
 SAVED_DIR = ROOT_DIR / "model" / "saved"
 EVAL_DIR = ROOT_DIR / "peta-digital-umkm" / "reports" / "modeling"

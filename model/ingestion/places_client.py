@@ -1,6 +1,6 @@
 """
 Google Places API (New) Ingestion Client for UMKM Kuliner Surabaya Timur.
-Fetches place metadata, reviews, and photos compliant with project requirements.
+Fetches authentic place metadata, multi-lingual original reviews, and photos compliant with project requirements.
 """
 
 from __future__ import annotations
@@ -102,15 +102,15 @@ class GooglePlacesIngestion:
 
         return results[:max_results]
 
-    def download_photo(self, photo_name: str, save_path: Path, max_size: int = 800) -> bool:
-        """Download photo from Google Places Photo Media API."""
+    def download_photo(self, photo_name: str, save_path: Path, max_size: int = 1600) -> bool:
+        """Download high-resolution photo from Google Places Photo Media API."""
         url = f"https://places.googleapis.com/v1/{photo_name}/media?maxHeightPx={max_size}&maxWidthPx={max_size}&key={self.api_key}"
         try:
-            resp = requests.get(url, stream=True, timeout=15)
+            resp = requests.get(url, stream=True, timeout=20)
             if resp.status_code == 200:
                 save_path.parent.mkdir(parents=True, exist_ok=True)
                 with open(save_path, "wb") as f:
-                    for chunk in resp.iter_content(chunk_size=8192):
+                    for chunk in resp.iter_content(chunk_size=16384):
                         f.write(chunk)
                 return True
             else:
@@ -125,9 +125,9 @@ class GooglePlacesIngestion:
         queries: Optional[List[str]] = None,
         max_places_per_query: int = 15,
         download_photos: bool = True,
-        max_photos_per_place: int = 2,
+        max_photos_per_place: int = 5,
     ) -> Dict[str, Any]:
-        """Ingest culinary places for a specific subdistrict."""
+        """Ingest authentic culinary places for a specific subdistrict."""
         if queries is None:
             queries = [
                 f"kuliner {kecamatan} Surabaya",
@@ -173,22 +173,27 @@ class GooglePlacesIngestion:
                 }
                 collected_places.append(place_record)
 
-                # Extract reviews
+                # Extract reviews - strictly keeping original language without forced translation
                 for rev in p.get("reviews", []):
                     author = rev.get("authorAttribution", {}).get("displayName", "Pengulas Anonim")
-                    rev_text = rev.get("text", {}).get("text", "")
+                    original_obj = rev.get("originalText") or {}
+                    translated_obj = rev.get("text") or {}
+                    rev_text = original_obj.get("text") or translated_obj.get("text") or ""
+                    lang_code = original_obj.get("languageCode") or translated_obj.get("languageCode") or "id"
+
                     rev_record = {
                         "place_id": pid,
                         "kecamatan": kecamatan,
                         "author_name": author,
                         "rating": rev.get("rating"),
                         "text": rev_text,
+                        "language": lang_code,
                         "publish_time": rev.get("publishTime"),
                         "relative_publish_time": rev.get("relativePublishTimeDescription"),
                     }
                     collected_reviews.append(rev_record)
 
-                # Download photos if requested
+                # Download high-resolution photos if requested
                 if download_photos and p.get("photos"):
                     photos_to_get = p["photos"][:max_photos_per_place]
                     for idx, photo_item in enumerate(photos_to_get):
@@ -197,7 +202,7 @@ class GooglePlacesIngestion:
                             photo_filename = f"{pid}_photo_{idx}.jpg"
                             photo_path = photos_dir / photo_filename
                             if not photo_path.exists():
-                                if self.download_photo(pname, photo_path):
+                                if self.download_photo(pname, photo_path, max_size=1600):
                                     downloaded_photos_count += 1
                                     time.sleep(0.2)
 

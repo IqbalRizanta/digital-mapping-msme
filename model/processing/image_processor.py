@@ -62,6 +62,28 @@ class ImageProcessor:
         if not raw_path.exists():
             return None
 
+        # Output destination
+        out_dir = self.clean_photo_dir / subfolder
+        out_dir.mkdir(parents=True, exist_ok=True)
+        clean_filename = f"clean_{raw_path.name}"
+        clean_path = out_dir / clean_filename
+
+        # If already processed and exists, reuse to avoid slow re-computation
+        if clean_path.exists() and clean_path.stat().st_size > 0:
+            clean_hash = self.compute_sha256(clean_path)
+            # Read shape quickly
+            img_shape = cv2.imread(str(clean_path))
+            h, w = (img_shape.shape[:2]) if img_shape is not None else (0, 0)
+            return {
+                "raw_path": str(raw_path.resolve()).replace("\\", "/"),
+                "clean_path": str(clean_path.resolve()).replace("\\", "/"),
+                "width": w,
+                "height": h,
+                "face_blurred_count": 0,
+                "clean_sha256": clean_hash,
+                "size_kb": round(clean_path.stat().st_size / 1024, 2),
+            }
+
         # Read image
         img = cv2.imread(str(raw_path))
         if img is None:
@@ -71,12 +93,6 @@ class ImageProcessor:
 
         # Privacy step: blur faces
         sanitized_img, face_count = self.blur_faces(img)
-
-        # Output destination
-        out_dir = self.clean_photo_dir / subfolder
-        out_dir.mkdir(parents=True, exist_ok=True)
-        clean_filename = f"clean_{raw_path.name}"
-        clean_path = out_dir / clean_filename
 
         # Write clean sanitized image
         cv2.imwrite(str(clean_path), sanitized_img)

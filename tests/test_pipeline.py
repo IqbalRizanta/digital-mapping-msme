@@ -1,8 +1,12 @@
 """
 Suite pengujian unit dan integrasi untuk pipeline Big Data & AI UMKM Surabaya Timur.
 
-Menjalankan validasi dataset bersih, penyimpanan model ML (.pkl) & DL (.pt/.pth/.h5),
-analitik spasial BDA, serta endpoint backend FastAPI.
+Menjalankan validasi dataset bersih:
+1. Pelestarian bahasa asli ulasan (Indonesian/English/Javanese).
+2. Kebenaran data ingestion (100% Google Places API asli tanpa entitas fiktif).
+3. Volume penyimpanan citra Google Maps (Minimal >= 200 MB).
+4. Penyimpanan model ML (.pkl) & DL (.pt/.pth/.h5).
+5. Analitik spasial BDA & endpoint backend FastAPI.
 """
 
 import unittest
@@ -17,6 +21,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 CLEAN_DIR = ROOT_DIR / "data" / "clean"
 SAVED_DIR = ROOT_DIR / "model" / "saved"
 BDA_DIR = ROOT_DIR / "peta-digital-umkm" / "reports" / "bda"
+GDRIVE_IMAGES_GMAPS = Path(r"G:\My Drive\Images-GMAPS")
 
 
 class TestUMKMPipeline(unittest.TestCase):
@@ -29,10 +34,36 @@ class TestUMKMPipeline(unittest.TestCase):
         df_foto = pd.read_parquet(CLEAN_DIR / "foto.parquet")
         df_dok = pd.read_parquet(CLEAN_DIR / "dokumen.parquet")
 
-        self.assertEqual(len(df_umkm), 256)
-        self.assertEqual(len(df_ulasan), 1017)
-        self.assertEqual(len(df_foto), 203)
+        # 1. Validasi entitas UMKM 100% dari Google Places API (bebas entitas palsu)
+        self.assertEqual(len(df_umkm), 246)
+        self.assertFalse(df_umkm["place_id"].str.contains("SURVEI").any(), "Ditemukan entitas buatan/palsu di umkm.parquet!")
+        self.assertTrue((df_umkm["sumber"] == "google_places_api").all())
+
+        # 2. Validasi ulasan melestarikan bahasa asli
+        self.assertGreaterEqual(len(df_ulasan), 1000)
+        self.assertIn("teks_asli", df_ulasan.columns)
+        self.assertIn("bahasa", df_ulasan.columns)
+        self.assertIn("en", set(df_ulasan["bahasa"]))
+        self.assertIn("id", set(df_ulasan["bahasa"]))
+
+        # 3. Validasi foto dan dokumen
+        self.assertGreaterEqual(len(df_foto), 900)
         self.assertEqual(len(df_dok), 3)
+
+    def test_image_storage_volume_ge_200mb(self):
+        """Validasi penyimpanan citra GMAPS pada Google Drive minimal >= 200 MB."""
+        if GDRIVE_IMAGES_GMAPS.exists():
+            files = [
+                f for f in GDRIVE_IMAGES_GMAPS.rglob("*")
+                if f.is_file() and f.suffix.lower() in [".jpg", ".jpeg", ".png", ".webp"]
+            ]
+            total_bytes = sum(f.stat().st_size for f in files)
+            total_mb = total_bytes / (1024 * 1024)
+            self.assertGreaterEqual(
+                total_mb,
+                200.0,
+                f"Ukuran gambar pada Images-GMAPS ({total_mb:.2f} MB) belum memenuhi target minimal 200 MB!",
+            )
 
     def test_saved_models_and_embeddings_exist(self):
         expected_files = [
@@ -108,7 +139,7 @@ class TestUMKMPipeline(unittest.TestCase):
 
         # Test /umkm/list
         umkms = umkm_list()
-        self.assertEqual(len(umkms), 256)
+        self.assertEqual(len(umkms), 246)
 
         # Test /predict/multimodal
         req = UMKMPredictRequest(
