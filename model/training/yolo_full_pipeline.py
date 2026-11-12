@@ -36,13 +36,13 @@ from PIL import Image, ImageFile
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-BASE = Path(__file__).resolve().parents[3]
+BASE = Path(__file__).resolve().parents[2]
 RAW_MAPS = BASE / "data" / "raw" / "google_maps"
 SURVEY_INV = BASE / "data" / "raw" / "survei_offline" / "survey_images_inventory.csv"
 CLEAN_DIR = BASE / "data" / "clean"
 CLEAN_PHOTOS = CLEAN_DIR / "photos"
-OUT = BASE / "reports" / "yolo"
-MODELS = BASE / "models"
+OUT = BASE / "peta-digital-umkm" / "reports" / "yolo"
+MODELS = BASE / "model" / "saved"
 GDRIVE_OUT = Path("G:/My Drive/Iqbal-Model-Evaluation/yolo_outputs")
 GDRIVE_CLEAN = Path("G:/My Drive/clean")
 
@@ -124,7 +124,7 @@ def _list_maps_photos() -> list[Path]:
 
 def _load_place_meta() -> pd.DataFrame:
     """Gabungkan metadata tempat (lama + ext) beserta flag usaha besar."""
-    from src.umkm.ingestion.expand_umkm_photos import CHAIN_KEYWORDS
+    from model.ingestion.expand_umkm_photos import CHAIN_KEYWORDS
 
     rows = []
     for d in (RAW_MAPS, RAW_MAPS_EXT):
@@ -238,7 +238,7 @@ def _contact_sheet(paths: list[str], dest: Path, title: str, cell: int = 160, co
 # 2. CLEAN ZONE (hanya foto target) + face blur
 # -----------------------------------------------------------------------------
 def stage_clean() -> pd.DataFrame:
-    from src.umkm.processing.image_processor import ImageProcessor
+    from model.processing.image_processor import ImageProcessor
 
     scores = pd.read_csv(OUT / "filter" / "clip_filter_scores.csv")
     if CLEAN_PHOTOS.exists():

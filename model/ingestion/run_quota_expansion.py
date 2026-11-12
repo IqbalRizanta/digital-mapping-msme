@@ -33,18 +33,18 @@ import torch
 import yaml
 from PIL import Image, ImageFile
 
-from src.umkm.ingestion.places_client import GooglePlacesIngestion
-from src.umkm.ingestion.expand_umkm_photos import CHAIN_KEYWORDS, is_big_business
+from model.ingestion.places_client import GooglePlacesIngestion
+from model.ingestion.expand_umkm_photos import CHAIN_KEYWORDS, is_big_business
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-BASE = Path(__file__).resolve().parents[1]
-SAMPLE_KEEP_DIR = BASE / "sample" / "keep"
-SAMPLE_REJECT_DIR = BASE / "sample" / "reject"
+BASE = Path(__file__).resolve().parents[2]
+SAMPLE_KEEP_DIR = BASE / "data" / "sample" / "keep"
+SAMPLE_REJECT_DIR = BASE / "data" / "sample" / "reject"
 RAW_MAPS = BASE / "data" / "raw" / "google_maps"
 RAW_MAPS_EXT = BASE / "data" / "raw" / "google_maps_ext"
 SURVEY_DIR = BASE / "data" / "raw" / "survei_offline"
-OUT_FILTER = BASE / "reports" / "yolo" / "filter"
+OUT_FILTER = BASE / "peta-digital-umkm" / "reports" / "yolo" / "filter"
 
 # Kueri tambahan untuk memperbesar kuota data UMKM di 6 kecamatan Surabaya Timur
 NEW_QUOTA_QUERIES = [
@@ -394,7 +394,7 @@ def run_quota_expansion_with_live_filtering(filter_engine: SampleGuidedFilter, m
 
 
 if __name__ == "__main__":
-    from scripts.run_smart_ingestion_and_keep_filter import (
+    from model.ingestion.sample_keep_filter import (
         sync_sample_keep_to_survey,
         filter_all_and_populate_sample_reject,
     )

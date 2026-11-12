@@ -167,8 +167,8 @@ class UMKMInferenceService:
         if not pq_path.exists():
             return []
         df = pd.read_parquet(pq_path)
-        if kecamatan and kecamatan != "Semua":
-            df = df[df["kecamatan"] == kecamatan]
+        if kecamatan and not hasattr(kecamatan, "default") and str(kecamatan) != "Semua":
+            df = df[df["kecamatan"].astype(str) == str(kecamatan)]
         cols = [
             "umkm_id",
             "place_id",

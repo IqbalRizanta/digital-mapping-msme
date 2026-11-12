@@ -11,8 +11,8 @@ from typing import Any, Dict, List
 import pandas as pd
 import pypdf
 
-from src.umkm.processing.image_processor import ImageProcessor
-from src.umkm.processing.text_processor import TextProcessor
+from model.processing.image_processor import ImageProcessor
+from model.processing.text_processor import TextProcessor
 
 
 def build_clean_datasets():

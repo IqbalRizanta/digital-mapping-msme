@@ -50,7 +50,7 @@ def bda_summary() -> list:
 
 
 @app.get("/umkm/list")
-def umkm_list(kecamatan: str | None = Query(default=None)) -> list:
+def umkm_list(kecamatan: str | None = None) -> list:
     return UMKMInferenceService.get_umkm_table(kecamatan=kecamatan)
 
 

@@ -10,8 +10,8 @@ import sys
 from pathlib import Path
 import yaml
 
-from src.umkm.ingestion.places_client import GooglePlacesIngestion
-from src.umkm.ingestion.survey_scanner import SurveyImageScanner
+from model.ingestion.places_client import GooglePlacesIngestion
+from model.ingestion.survey_scanner import SurveyImageScanner
 
 
 def main():

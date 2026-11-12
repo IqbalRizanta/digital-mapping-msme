@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import re
 from typing import Any, Dict, List
-from src.umkm.processing.anonymizer import TextAnonymizer
+from model.processing.anonymizer import TextAnonymizer
 
 
 class TextProcessor:

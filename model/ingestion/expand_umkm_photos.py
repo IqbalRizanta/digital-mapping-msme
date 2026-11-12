@@ -21,9 +21,9 @@ from pathlib import Path
 
 import yaml
 
-from src.umkm.ingestion.places_client import GooglePlacesIngestion
+from model.ingestion.places_client import GooglePlacesIngestion
 
-BASE = Path(__file__).resolve().parents[3]
+BASE = Path(__file__).resolve().parents[2]
 OLD_DIR = BASE / "data" / "raw" / "google_maps"
 EXT_DIR = BASE / "data" / "raw" / "google_maps_ext"
 
