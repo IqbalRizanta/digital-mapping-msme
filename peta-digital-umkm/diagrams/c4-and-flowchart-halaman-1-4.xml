@@ -1,0 +1,100 @@
+<mxfile host="app.diagrams.net" modified="2026-11-12T10:30:00.000Z" agent="Antigravity" version="24.0.0" type="device">
+  <diagram id="Page1_BigDataArch" name="Page 1 - Big Data Architecture">
+    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p1_title" value="Page 1: High Functional Big Data &amp; AI Architecture — Peta Digital UMKM Surabaya Timur" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="20" width="900" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p1_ds" value="DATA SOURCES&#xa;1. Google Maps Places API (6 Kecamatan)&#xa;2. Survei Lapangan SWK (43 sample/keep)&#xa;3. Kaggle Dataset &amp; Dokumen Regulasi PDF" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="300" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="p1_etl" value="ETL &amp; PYSPARK STAGING&#xa;- Filter sample/keep vs sample/reject (627 ditolak)&#xa;- PySpark SQL Multimodal Join (pyspark_staging.py)&#xa;- Data Schema Catalog" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="420" y="80" width="320" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="p1_do" value="DATA OCEAN / GOOGLE DRIVE STORAGE&#xa;- G:\My Drive\Images-GMAPS (203 Foto Bersih)&#xa;- G:\My Drive\Text Numeric-GMAPS (256 UMKM, 1.017 Ulasan)&#xa;- data/staging_spark/umkm_spark_staged.parquet" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="800" y="80" width="360" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="p1_dt" value="DATA TRANSFORMATION &amp; FEATURE STORE&#xa;- Processing: Regex PII, OpenCV Face Blur (321 wajah)&#xa;- EDA: model/eda/eda_analysis.py&#xa;- Feature &amp; Embedding: TF-IDF (32) + StandardScaler + PCA (6)&#xa;- Output: embeddings_multimodal.npy | .npz | .parquet" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="420" y="300" width="740" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="p1_aos" value="ANALYTICS OPERATING SYSTEM &amp; MODEL REGISTRY (model/saved/)&#xa;- Machine Learning (.pkl): K-Means, Random Forest Clf, XGBoost Clf, RF Regressor, Ridge&#xa;- Deep Learning (.pt/.pth/.h5): DeepAutoencoder, PyTorch MLP Clf, PyTorch MLP Reg, YOLOv8&#xa;- Evaluation (model/evaluation/model_evaluation.py): GroupKFold, Silhouette, Cohen's Kappa, RMSE/R2, SHAP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="420" y="500" width="740" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="p1_out" value="SPATIAL BDA, INFERENCING &amp; AI APPLICATION (app/)&#xa;- Spatial BDA (model/analytics/bda_analytics.py): Digital Gap Index 6 Kecamatan Surabaya Timur&#xa;- FastAPI Server (app/server/main.py) &amp; Streamlit Client (app/client/dashboard.py)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="420" y="710" width="740" height="130" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="Page2_MethodFlowchart" name="Page 2 - Flowchart of Method (Fig 1 &amp; 2d)">
+    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p2_title" value="Page 2: Flowchart of Method Based on Big Data Architecture (Unsupervised &amp; Supervised Loop)" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="20" width="950" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p2_s1" value="1. Data Importing &amp; Filter sample/keep&#xa;(256 UMKM, 1.017 Ulasan, 203 Foto Clean, 627 Reject)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="90" width="320" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="p2_s2" value="2. PySpark Staging &amp; Google Drive Sync&#xa;(Images-GMAPS &amp; Text Numeric-GMAPS)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="90" width="320" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="p2_s3" value="3. Data Analyzing (EDA) &amp; Data Splitting&#xa;(Jalur A: Clustering | Jalur B: Supervised)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="840" y="75" width="320" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="p2_ca" value="Jalur A (Unsupervised Clustering):&#xa;- ML: K-Means (K=3)&#xa;- DL: DeepClusteringAutoencoder + Latent KMeans&#xa;- Gate: Optimal Cluster? (Silhouette Score)&#xa;- Simpan: ml_clustering_kmeans.pkl &amp; dl_clustering_autoencoder.pt/.pth/.h5" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;spacingLeft=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="260" width="520" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="p2_cb" value="Jalur B (Supervised Classification &amp; Regression):&#xa;- Feature Extraction &amp; Embedding (.npy, .npz, .parquet)&#xa;- ML Classification (RF, XGBoost) &amp; ML Regression (RF Reg, Ridge)&#xa;- DL Classification (MLP, YOLOv8) &amp; DL Regression (MLP Regressor)&#xa;- Gate: GroupKFold Accuracy/F1 &gt; 70% &amp; R2 &gt; 0.85? (Capai F1=95.6%, R2=0.98)&#xa;- Simpan: .pkl &amp; .pt/.pth/.h5 di model/saved/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;spacingLeft=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="260" width="560" height="160" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="Page3_C4AppArch" name="Page 3 - Application Architecture (C4 Model)">
+    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p3_title" value="Page 3: Application Architecture Based on AI using C4 Model (app/client, app/server, model/)" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="20" width="950" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p3_cli" value="Container 1: app/client/ (Streamlit Web Client)&#xa;- dashboard.py (4 Tab Analitik BDA, Simulasi 6 Model, Direktori, Artefak)&#xa;- api_client.py (BackendClient REST HTTP + Fallback)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="120" width="420" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="p3_srv" value="Container 2: app/server/ (FastAPI Inference Server)&#xa;- main.py (/health, /bda/summary, /umkm/list, /predict/multimodal)&#xa;- inference_service.py (UMKMInferenceService)&#xa;- schemas.py (Pydantic Request/Response)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="580" y="120" width="440" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="p3_mod" value="Container 3: model/saved/ (Stored Models &amp; Embeddings)&#xa;- ML (.pkl): ml_clustering_kmeans, ml_classification_rf/xgb, ml_regression_rf/ridge&#xa;- DL (.pt/.pth/.h5): dl_clustering_autoencoder, dl_classification_mlp, dl_regression_mlp, yolov8&#xa;- Embeddings: embeddings_multimodal.npy | .npz | .parquet" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="120" width="440" height="180" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="Page4_AppFlowchart" name="Page 4 - Flowchart of AI Application">
+    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p4_title" value="Page 4: Flowchart of Application Based on Artificial Intelligence (Client-Server Inference Flow)" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="20" width="950" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p4_1" value="1. User Membuka Dashboard Streamlit&#xa;(app/client/dashboard.py)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="100" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="p4_2" value="2. Input Profil &amp; Indikator UMKM&#xa;(Rating, Ulasan, QRIS, Ojol, POS, EDC)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="100" width="300" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="p4_3" value="3. HTTP POST /predict/multimodal&#xa;ke FastAPI Server (app/server/main.py)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="100" width="320" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="p4_4" value="4. Eksekusi Serentak 6 Model di UMKMInferenceService:&#xa;- ML Clustering (.pkl), ML Classification (.pkl), ML Regression (.pkl)&#xa;- DL Clustering (.pt/.h5), DL Classification (.pt/.h5), DL Regression (.pt/.h5)&#xa;+ Pencocokan Rekomendasi Intervensi &amp; Tabel BDA Kecamatan" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="420" y="240" width="680" height="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

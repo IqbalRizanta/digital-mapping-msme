@@ -1,0 +1,70 @@
+{
+  "staging_pyspark": {
+    "engine": "pyspark_schema_arrow",
+    "rows": 256,
+    "columns": 29,
+    "staged_path": "C:\\big-data-analytic\\data\\staging_spark\\umkm_spark_staged.parquet",
+    "gdrive_gmaps_sync": {
+      "images_gmaps_dir": "G:\\My Drive\\Images-GMAPS",
+      "text_numeric_gmaps_dir": "G:\\My Drive\\Text Numeric-GMAPS",
+      "images_copied": 203,
+      "text_numeric_files": 31
+    }
+  },
+  "eda": {
+    "total_umkm": 256,
+    "total_ulasan": 1017,
+    "total_foto_clean": 203,
+    "total_faces_blurred": 321,
+    "total_dokumen": 3,
+    "plots_generated": 6
+  },
+  "embeddings": {
+    "n_samples": 256,
+    "pca_dim": 6,
+    "tfidf_dim": 32,
+    "npy_path": "C:\\big-data-analytic\\model\\saved\\embeddings_multimodal.npy",
+    "npz_path": "C:\\big-data-analytic\\model\\saved\\embeddings_multimodal.npz",
+    "parquet_path": "C:\\big-data-analytic\\model\\saved\\embeddings_multimodal.parquet"
+  },
+  "machine_learning": {
+    "ml_clustering": {
+      "algorithm": "KMeans(k=3)",
+      "silhouette_score": 0.2818
+    },
+    "ml_classification": {
+      "algorithm": "RandomForestClassifier",
+      "group_kfold_accuracy": 0.9609,
+      "group_kfold_macro_f1": 0.9561,
+      "cohen_kappa": 0.9403
+    },
+    "ml_regression": {
+      "algorithm": "RandomForestRegressor",
+      "group_kfold_rmse": 3.5035,
+      "group_kfold_mae": 1.0738,
+      "group_kfold_r2": 0.9803
+    }
+  },
+  "deep_learning": {
+    "dl_clustering": {
+      "architecture": "DeepClusteringAutoencoder(latent=6)+KMeans",
+      "latent_silhouette_score": 0.357
+    },
+    "dl_classification": {
+      "architecture": "DeepMaturityClassifier(MLP)",
+      "accuracy": 1.0,
+      "macro_f1": 1.0
+    },
+    "dl_regression": {
+      "architecture": "DeepMaturityRegressor(MLP)",
+      "rmse": 0.5354,
+      "r2": 0.9995
+    }
+  },
+  "model_evaluation": {
+    "evaluated_models": 6,
+    "plots_saved": 4,
+    "summary_csv": "C:\\big-data-analytic\\peta-digital-umkm\\reports\\modeling\\model_comparison_summary.csv"
+  },
+  "bda_kecamatan_count": 6
+}

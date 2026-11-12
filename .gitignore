@@ -17,29 +17,32 @@ ENV/
 credentials.json
 service-account*.json
 
-# Data files (keep folder structure via .gitkeep)
+# Ignore all Markdown files except root README.md
+*.md
+!README.md
+
+# Raw & intermediate local data (synced to Google Drive)
 data/raw/*
 !data/raw/.gitkeep
 data/clean/*
 !data/clean/.gitkeep
 data/gold/*
 !data/gold/.gitkeep
+data/staging_spark/*
+!data/staging_spark/.gitkeep
+data/*.zip
+data/yolo/
+data/yolo_cls/
 
-# Large models & checkpoints
-models/*
-!models/.gitkeep
-*.pt
-*.pth
-*.onnx
-*.bin
-runs/
-mlruns/
+# Base pretrained YOLO checkpoints
+model/pretrained/*
 
 # IDE & Editor caches
 .vscode/
 .idea/
 *.swp
 *.swo
+.ipynb_checkpoints/
 
 # OS files
 Thumbs.db
@@ -47,25 +50,7 @@ ehthumbs.db
 Desktop.ini
 .DS_Store
 
-# Temporary outputs
-reports/eda/*.html
-reports/eda/*.png
-reports/figures/*
-!reports/figures/.gitkeep
-data/*.zip
-data/yolo/
-data/yolo_cls/
-reports/yolo/
-reports/yolo_runs/
-reports/*.log
-weights/
+# Logs
 *.log
-.ipynb_checkpoints/
-
-# Task guide screenshots
-peta-digital-umkm/Project-Task-Guide/
-
-# Dokumentasi penjelasan proyek internal
-PENJELASAN_LENGKAP_PROYEK.md
-PENJELASAN*.md
-PENJELASAN*.txt
+mlruns/
+runs/

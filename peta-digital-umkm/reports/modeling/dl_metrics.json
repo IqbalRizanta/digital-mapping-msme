@@ -1,0 +1,16 @@
+{
+  "dl_clustering": {
+    "architecture": "DeepClusteringAutoencoder(latent=6)+KMeans",
+    "latent_silhouette_score": 0.357
+  },
+  "dl_classification": {
+    "architecture": "DeepMaturityClassifier(MLP)",
+    "accuracy": 1.0,
+    "macro_f1": 1.0
+  },
+  "dl_regression": {
+    "architecture": "DeepMaturityRegressor(MLP)",
+    "rmse": 0.5354,
+    "r2": 0.9995
+  }
+}

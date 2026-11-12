@@ -1,0 +1,1 @@
+"""Modul frontend Streamlit client."""
