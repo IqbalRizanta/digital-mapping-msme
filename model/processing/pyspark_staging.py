@@ -97,65 +97,111 @@ def sync_scraping_to_gdrive_gmaps(
     sync_stats["text_numeric_files"] += 7
 
     # ---------------------------------------------------------
-    # 2. Sinkronisasi ke G:\My Drive\Images-GMAPS (Minimal >= 200 MB)
+    # 2. Sinkronisasi ke G:\My Drive\Images-GMAPS (Zona raw/ & clean/ >= 200 MB)
     # ---------------------------------------------------------
     GDRIVE_IMAGES_GMAPS.mkdir(parents=True, exist_ok=True)
     df_foto.to_csv(GDRIVE_IMAGES_GMAPS / "foto_metadata_gmaps.csv", index=False)
     df_foto.to_parquet(GDRIVE_IMAGES_GMAPS / "foto_metadata_gmaps.parquet", index=False)
 
-    # 2.1 Salin Foto Bersih (Face-Blurred & Standardized)
+    # 2.1 Bersihkan folder berpenamaan teknis/lama agar tersisa struktur rapi per Kecamatan & Nama Tempat
+    legacy_root_dirs = [
+        "google_places_api",
+        "survei_lapangan_swk",
+        "raw_google_maps",
+        "raw_google_maps_ext",
+        "raw_google_maps_hires",
+        "sample_keep_anchors",
+    ]
+    for legacy_dir in legacy_root_dirs:
+        p = GDRIVE_IMAGES_GMAPS / legacy_dir
+        if p.exists():
+            shutil.rmtree(p, ignore_errors=True)
+
+    raw_base_dst = GDRIVE_IMAGES_GMAPS / "raw"
+    clean_base_dst = GDRIVE_IMAGES_GMAPS / "clean"
+    for old_sub in ["google_places_api", "google_places_api_ext", "google_places_api_hires", "survei_lapangan_swk", "rejected"]:
+        for base in [raw_base_dst, clean_base_dst]:
+            old_p = base / old_sub
+            if old_p.exists():
+                shutil.rmtree(old_p, ignore_errors=True)
+
+    raw_base_dst.mkdir(parents=True, exist_ok=True)
+    clean_base_dst.mkdir(parents=True, exist_ok=True)
+
+    clean_photos_root = (CLEAN_DIR / "photos").resolve()
     total_synced_bytes = 0
     total_synced_count = 0
+    raw_synced_bytes = 0
+    raw_synced_count = 0
+    valid_clean_rel: set[str] = set()
 
+    # 2.2 Sinkronisasi Data Bersih & Data Mentah Terkait per Kecamatan -> Nama Tempat UMKM
     for _, row in df_foto.iterrows():
         cpath = Path(str(row.get("clean_path", "")))
         if not cpath.is_absolute():
             cpath = ROOT_DIR / cpath
         if cpath.exists():
-            kec_folder = str(row.get("kecamatan", "Lainnya")).strip().replace(" ", "_")
-            sumber_folder = str(row.get("sumber", "google_places_api")).strip()
-            dst_dir = GDRIVE_IMAGES_GMAPS / "clean" / sumber_folder / kec_folder
-            dst_dir.mkdir(parents=True, exist_ok=True)
-            dst_file = dst_dir / cpath.name
-            if not dst_file.exists():
-                shutil.copy2(cpath, dst_file)
+            rel_path = cpath.resolve().relative_to(clean_photos_root)
+            valid_clean_rel.add(rel_path.as_posix())
+            dst_clean = clean_base_dst / rel_path
+            dst_clean.parent.mkdir(parents=True, exist_ok=True)
+            if not dst_clean.exists():
+                shutil.copy2(cpath, dst_clean)
             total_synced_bytes += cpath.stat().st_size
             total_synced_count += 1
             sync_stats["images_copied"] += 1
 
-    # 2.2 Salin Seluruh Dataset Foto Mentah Scraping Google Maps & Sampel Positif
-    raw_dirs_to_sync = [
-        (RAW_DIR / "google_maps", "raw_google_maps"),
-        (RAW_DIR / "google_maps_ext", "raw_google_maps_ext"),
-        (RAW_DIR / "google_maps_hires", "raw_google_maps_hires"),
-        (ROOT_DIR / "data" / "sample" / "keep", "sample_keep_anchors"),
-    ]
-    for rdir, subfolder in raw_dirs_to_sync:
-        if not rdir.exists():
-            continue
-        dst_raw_base = GDRIVE_IMAGES_GMAPS / subfolder
-        dst_raw_base.mkdir(parents=True, exist_ok=True)
-        for img_file in rdir.rglob("*"):
+        rpath = Path(str(row.get("raw_path", "")))
+        if not rpath.is_absolute() and str(row.get("raw_path", "")):
+            rpath = ROOT_DIR / rpath
+        if rpath.exists() and cpath.exists():
+            rel_path = cpath.resolve().relative_to(clean_photos_root)
+            raw_rel = rel_path.with_name(f"{rel_path.stem}_raw{rel_path.suffix}")
+            dst_raw = raw_base_dst / raw_rel
+            dst_raw.parent.mkdir(parents=True, exist_ok=True)
+            if not dst_raw.exists():
+                shutil.copy2(rpath, dst_raw)
+            raw_synced_bytes += rpath.stat().st_size
+            raw_synced_count += 1
+
+    # 2.3 Sinkronisasi Foto Mentah Ditolak ke raw/Ditolak_Non_Target/<Kategori>/<Kecamatan>/<Nama_Tempat>/
+    reject_src = ROOT_DIR / "data" / "sample" / "reject"
+    if reject_src.exists():
+        reject_dst = raw_base_dst / "Ditolak_Non_Target"
+        reject_dst.mkdir(parents=True, exist_ok=True)
+        for img_file in reject_src.rglob("*"):
             if img_file.is_file() and img_file.suffix.lower() in [".jpg", ".jpeg", ".png", ".webp"]:
-                rel_parts = img_file.relative_to(rdir).parts
-                target_file = dst_raw_base.joinpath(*rel_parts)
+                rel_parts = img_file.relative_to(reject_src).parts
+                target_file = reject_dst.joinpath(*rel_parts)
                 target_file.parent.mkdir(parents=True, exist_ok=True)
                 if not target_file.exists():
                     shutil.copy2(img_file, target_file)
-                total_synced_bytes += img_file.stat().st_size
-                total_synced_count += 1
-                sync_stats["images_copied"] += 1
+                raw_synced_bytes += img_file.stat().st_size
+                raw_synced_count += 1
 
-    # Audit total volume ukuran citra pada G:\My Drive\Images-GMAPS
+    # 2.4 Pastikan folder clean/ di Google Drive tidak menyimpan berkas kedaluwarsa
+    for existing_file in list(clean_base_dst.rglob("*")):
+        if existing_file.is_file():
+            rel_posix = existing_file.relative_to(clean_base_dst).as_posix()
+            if rel_posix not in valid_clean_rel:
+                existing_file.unlink(missing_ok=True)
+    for sub in sorted(clean_base_dst.rglob("*"), reverse=True):
+        if sub.is_dir() and not any(sub.iterdir()):
+            sub.rmdir()
+
+    # Audit total volume ukuran citra bersih pada G:\My Drive\Images-GMAPS\clean\
     total_mb = round(total_synced_bytes / (1024 * 1024), 2)
+    raw_mb = round(raw_synced_bytes / (1024 * 1024), 2)
     sync_stats["total_images_gmaps_count"] = total_synced_count
     sync_stats["total_images_gmaps_mb"] = total_mb
+    sync_stats["raw_images_gmaps_count"] = raw_synced_count
+    sync_stats["raw_images_gmaps_mb"] = raw_mb
     sync_stats["gate_200mb_passed"] = total_mb >= 200.0
 
     print(f"\n[Audit Images-GMAPS Storage]")
-    print(f"-> Total Berkas Citra GMAPS di Google Drive: {total_synced_count} file")
-    print(f"-> Total Ukuran Citra GMAPS di Google Drive: {total_mb} MB")
-    print(f"-> Status Target >= 200MB                  : {'TERPENUHI (PASS)' if sync_stats['gate_200mb_passed'] else 'BELUM TERPENUHI'}")
+    print(f"-> Data Mentah (Images-GMAPS/raw)   : {raw_synced_count} file ({raw_mb} MB)")
+    print(f"-> Data Bersih (Images-GMAPS/clean) : {total_synced_count} file ({total_mb} MB)")
+    print(f"-> Status Target Clean >= 200MB     : {'TERPENUHI (PASS)' if sync_stats['gate_200mb_passed'] else 'BELUM TERPENUHI'}")
 
     return sync_stats
 

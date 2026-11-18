@@ -1,18 +1,18 @@
 {
   "ml_clustering": {
     "algorithm": "KMeans(k=3)",
-    "silhouette_score": 0.358
+    "silhouette_score": 0.4756
   },
   "ml_classification": {
     "algorithm": "RandomForestClassifier",
-    "group_kfold_accuracy": 0.9553,
-    "group_kfold_macro_f1": 0.94,
-    "cohen_kappa": 0.9285
+    "group_kfold_accuracy": 0.974,
+    "group_kfold_macro_f1": 0.9402,
+    "cohen_kappa": 0.9388
   },
   "ml_regression": {
     "algorithm": "RandomForestRegressor",
-    "group_kfold_rmse": 3.0887,
-    "group_kfold_mae": 0.8578,
-    "group_kfold_r2": 0.9843
+    "group_kfold_rmse": 2.9352,
+    "group_kfold_mae": 0.5717,
+    "group_kfold_r2": 0.9768
   }
 }

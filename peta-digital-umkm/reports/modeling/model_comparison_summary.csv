@@ -1,7 +1,7 @@
 Kategori,Tugas,Model,Metrik_Utama
-Machine Learning (.pkl),Clustering,KMeans(k=3),Silhouette = 0.358
-Machine Learning (.pkl),Classification,RandomForestClassifier,Macro-F1 = 0.94 | Kappa = 0.9285
-Machine Learning (.pkl),Regression,RandomForestRegressor,R2 = 0.9843 | RMSE = 3.0887
-Deep Learning (.pt/.pth/.h5),Clustering,DeepClusteringAutoencoder(latent=6)+KMeans,Latent Silhouette = 0.4302
+Machine Learning (.pkl),Clustering,KMeans(k=3),Silhouette = 0.4756
+Machine Learning (.pkl),Classification,RandomForestClassifier,Macro-F1 = 0.9402 | Kappa = 0.9388
+Machine Learning (.pkl),Regression,RandomForestRegressor,R2 = 0.9768 | RMSE = 2.9352
+Deep Learning (.pt/.pth/.h5),Clustering,DeepClusteringAutoencoder(latent=6)+KMeans,Latent Silhouette = 0.4834
 Deep Learning (.pt/.pth/.h5),Classification,DeepMaturityClassifier(MLP),Macro-F1 = 1.0
-Deep Learning (.pt/.pth/.h5),Regression,DeepMaturityRegressor(MLP),R2 = 0.9999 | RMSE = 0.2637
+Deep Learning (.pt/.pth/.h5),Regression,DeepMaturityRegressor(MLP),R2 = 0.9993 | RMSE = 0.5039

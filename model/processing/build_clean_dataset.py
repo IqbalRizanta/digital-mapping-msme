@@ -10,6 +10,7 @@ Strictly ensures:
 from __future__ import annotations
 
 import json
+import shutil
 import sys
 from pathlib import Path
 
@@ -22,6 +23,12 @@ from typing import Any, Dict, List
 import pandas as pd
 import pypdf
 
+from model.ingestion.curate_clean_images import (
+    CATALOG_PATH,
+    extract_place_id,
+    resolve_east_surabaya_subdistrict,
+    sanitize_folder_name,
+)
 from model.processing.image_processor import ImageProcessor
 from model.processing.text_processor import TextProcessor
 
@@ -34,17 +41,27 @@ def build_clean_datasets():
     clean_dir = Path("data/clean")
     clean_dir.mkdir(parents=True, exist_ok=True)
     clean_photos_dir = clean_dir / "photos"
+    for old_sub in ["online", "offline", "Google_Maps", "Survei_Lapangan_SWK"]:
+        old_path = clean_photos_dir / old_sub
+        if old_path.exists():
+            shutil.rmtree(old_path, ignore_errors=True)
     clean_photos_dir.mkdir(parents=True, exist_ok=True)
 
     img_processor = ImageProcessor(clean_photo_dir=str(clean_photos_dir))
+    catalog = json.loads(CATALOG_PATH.read_text(encoding="utf-8")) if CATALOG_PATH.exists() else {}
 
     # ---------------------------------------------------------
-    # 1. PROSES TABEL UMKM (100% DARI GOOGLE PLACES API TERVERIFIKASI)
+    # 1. PROSES TABEL UMKM (100% GOOGLE PLACES API SURABAYA TIMUR)
     # ---------------------------------------------------------
     print("[1/4] Memproses data tabular UMKM terverifikasi...")
-    raw_maps_dirs = [Path("data/raw/google_maps"), Path("data/raw/google_maps_ext")]
+    raw_maps_dirs = [
+        Path("data/raw/google_maps"),
+        Path("data/raw/google_maps_ext"),
+        Path("data/raw/google_maps_hires"),
+    ]
     umkm_records: List[Dict[str, Any]] = []
     place_id_to_umkm_id: Dict[str, str] = {}
+    place_id_to_info: Dict[str, Dict[str, str]] = {}
 
     counter = 1
     for raw_dir in raw_maps_dirs:
@@ -59,11 +76,17 @@ def build_clean_datasets():
                 if not pid or pid in place_id_to_umkm_id:
                     continue
 
+                addr = p.get("formatted_address", "")
+                verified_kec = resolve_east_surabaya_subdistrict(addr) or catalog.get(pid, {}).get("kecamatan_verified")
+                if not verified_kec:
+                    continue
+
+                name = catalog.get(pid, {}).get("name") or p.get("name", "")
                 umkm_id = f"UMKM_SBY_{counter:04d}"
                 counter += 1
                 place_id_to_umkm_id[pid] = umkm_id
+                place_id_to_info[pid] = {"name": name, "kecamatan": verified_kec}
 
-                name = p.get("name", "")
                 name_lower = name.lower()
                 is_swk = (
                     "sentra wisata kuliner" in name_lower
@@ -88,8 +111,8 @@ def build_clean_datasets():
                     "umkm_id": umkm_id,
                     "place_id": pid,
                     "nama_umkm": name,
-                    "kecamatan": p.get("kecamatan"),
-                    "alamat": p.get("formatted_address"),
+                    "kecamatan": verified_kec,
+                    "alamat": addr or catalog.get(pid, {}).get("formatted_address", ""),
                     "lat": p.get("lat"),
                     "lon": p.get("lon"),
                     "rating": p.get("rating"),
@@ -98,6 +121,29 @@ def build_clean_datasets():
                     "swk_nama": swk_name,
                     "sumber": "google_places_api",
                 })
+
+    # Tambahkan tempat dari katalog verified yang fotonya sudah dikurasi bila belum tercatat di places_metadata
+    for pid, info in catalog.items():
+        if pid in place_id_to_umkm_id or not info.get("kecamatan_verified"):
+            continue
+        umkm_id = f"UMKM_SBY_{counter:04d}"
+        counter += 1
+        place_id_to_umkm_id[pid] = umkm_id
+        place_id_to_info[pid] = {"name": info.get("name", pid), "kecamatan": info["kecamatan_verified"]}
+        umkm_records.append({
+            "umkm_id": umkm_id,
+            "place_id": pid,
+            "nama_umkm": info.get("name", pid),
+            "kecamatan": info["kecamatan_verified"],
+            "alamat": info.get("formatted_address", ""),
+            "lat": info.get("lat"),
+            "lon": info.get("lon"),
+            "rating": info.get("rating"),
+            "user_ratings_total": info.get("user_ratings_total"),
+            "tipe_lokasi": "SWK" if "swk" in info.get("name", "").lower() else "Reguler",
+            "swk_nama": None,
+            "sumber": "google_places_api",
+        })
 
     df_umkm = pd.DataFrame(umkm_records)
     umkm_parquet = clean_dir / "umkm.parquet"
@@ -130,7 +176,10 @@ def build_clean_datasets():
 
             for r in reviews:
                 pid = r.get("place_id")
-                umkm_id = place_id_to_umkm_id.get(pid, "UNKNOWN")
+                if pid not in place_id_to_umkm_id:
+                    continue
+                umkm_id = place_id_to_umkm_id[pid]
+                kec_verified = place_id_to_info.get(pid, {}).get("kecamatan", r.get("kecamatan"))
                 raw_text = r.get("text", "")
                 if not raw_text.strip():
                     continue
@@ -149,7 +198,7 @@ def build_clean_datasets():
                     "ulasan_id": rev_id,
                     "umkm_id": umkm_id,
                     "place_id": pid,
-                    "kecamatan": r.get("kecamatan"),
+                    "kecamatan": kec_verified,
                     "rating_pengulas": r.get("rating"),
                     "bahasa": cleaned_info["bahasa"],
                     "teks_asli": cleaned_info["teks_asli"],
@@ -176,41 +225,48 @@ def build_clean_datasets():
     photo_counter = 1
     total_faces_blurred = 0
 
-    # 3.1 Foto Online Google Maps (dari seluruh folder scraping asli)
-    photo_sources = [
-        ("data/raw/google_maps", "google_places_api"),
-        ("data/raw/google_maps_ext", "google_places_api_ext"),
-        ("data/raw/google_maps_hires", "google_places_api_hires"),
-    ]
-
-    for p_dir_str, src_tag in photo_sources:
-        p_dir = Path(p_dir_str)
+    # 3.1 Foto Online Google Maps (terstruktur per Kecamatan & Nama Tempat UMKM)
+    place_photo_seq: Dict[str, int] = {}
+    for p_dir in raw_maps_dirs:
         if not p_dir.exists():
             continue
         print(f"-> Memproses foto dari {p_dir}...")
         for pfile in sorted(p_dir.rglob("*.jpg")):
-            # Extract place id from filename prefix
-            fname = pfile.name
-            pid = fname.split("_photo_")[0].split("_hires_")[0].split("_exp_")[0]
-            umkm_id = place_id_to_umkm_id.get(pid, "UNKNOWN")
-            kec_name = pfile.parent.parent.name if pfile.parent.name == "photos" else pfile.parent.name
+            pid = extract_place_id(pfile.name)
+            pinfo = place_id_to_info.get(pid)
+            if not pinfo:
+                continue
+
+            umkm_id = place_id_to_umkm_id[pid]
+            kec_display = pinfo["kecamatan"]
+            place_display = pinfo["name"] or pid
+            kec_folder = sanitize_folder_name(kec_display, 30)
+            place_folder = sanitize_folder_name(place_display, 50)
+
+            seq = place_photo_seq.get(pid, 0) + 1
+            place_photo_seq[pid] = seq
+            clean_fname = f"{place_folder}_{seq:02d}.jpg"
 
             proc_res = img_processor.process_and_save(
                 raw_path=pfile,
-                subfolder=f"online/{kec_name}",
+                subfolder=f"Google_Maps/{kec_folder}/{place_folder}",
+                output_filename=clean_fname,
             )
             if proc_res:
                 total_faces_blurred += proc_res["face_blurred_count"]
                 photo_records.append({
                     "foto_id": f"FOTO_ONL_{photo_counter:04d}",
                     "umkm_id": umkm_id,
-                    "sumber": src_tag,
-                    "kecamatan": kec_name.title().replace("_", " "),
+                    "place_id": pid,
+                    "nama_tempat": place_display,
+                    "sumber": "google_places_api",
+                    "kecamatan": kec_display,
                     "label_ground_truth": "Unlabeled",
                     "label_id": -1,
                     "width": proc_res["width"],
                     "height": proc_res["height"],
                     "face_blurred_count": proc_res["face_blurred_count"],
+                    "raw_path": proc_res["raw_path"],
                     "clean_path": proc_res["clean_path"],
                     "sha256": proc_res["clean_sha256"],
                 })
@@ -221,19 +277,28 @@ def build_clean_datasets():
     survey_inv_path = Path("data/raw/survei_offline/survey_images_inventory.csv")
     if survey_inv_path.exists():
         df_survey_inv = pd.read_csv(survey_inv_path)
+        class_seq: Dict[str, int] = {}
         for idx, row in df_survey_inv.iterrows():
             raw_path = Path(row["relative_path"])
             if not raw_path.exists():
                 continue
+            cls_label = sanitize_folder_name(str(row["label_ground_truth"]), 30)
+            seq = class_seq.get(cls_label, 0) + 1
+            class_seq[cls_label] = seq
+            swk_fname = f"Stan_{cls_label}_{seq:02d}.jpg"
+
             proc_res = img_processor.process_and_save(
                 raw_path=raw_path,
-                subfolder=f"offline/{row['folder_class']}",
+                subfolder=f"Survei_Lapangan_SWK/Sukolilo/Stan_{cls_label}",
+                output_filename=swk_fname,
             )
             if proc_res:
                 total_faces_blurred += proc_res["face_blurred_count"]
                 photo_records.append({
                     "foto_id": f"FOTO_OFF_{idx+1:03d}",
                     "umkm_id": swk_sukolilo_id,
+                    "place_id": "SWK_SURVEI_SUKOLILO",
+                    "nama_tempat": f"SWK Sukolilo ({row['label_ground_truth']})",
                     "sumber": "survei_lapangan_swk",
                     "kecamatan": "Sukolilo",
                     "label_ground_truth": row["label_ground_truth"],
@@ -241,6 +306,7 @@ def build_clean_datasets():
                     "width": proc_res["width"],
                     "height": proc_res["height"],
                     "face_blurred_count": proc_res["face_blurred_count"],
+                    "raw_path": proc_res["raw_path"],
                     "clean_path": proc_res["clean_path"],
                     "sha256": proc_res["clean_sha256"],
                 })

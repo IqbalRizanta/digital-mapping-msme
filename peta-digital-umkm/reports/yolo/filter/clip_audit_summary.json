@@ -1,0 +1,15 @@
+{
+  "audit_strict": {
+    "kept": 417,
+    "rejected_visual": 58,
+    "rejected_region": 65,
+    "kept_bytes": 116624900
+  },
+  "survey_bytes": 70085648,
+  "expansion": {
+    "downloaded_kept": 88,
+    "downloaded_rejected": 183,
+    "added_bytes": 35721426
+  },
+  "final_clean_mb": 212.13
+}

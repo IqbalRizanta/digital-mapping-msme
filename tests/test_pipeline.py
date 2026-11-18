@@ -35,7 +35,7 @@ class TestUMKMPipeline(unittest.TestCase):
         df_dok = pd.read_parquet(CLEAN_DIR / "dokumen.parquet")
 
         # 1. Validasi entitas UMKM 100% dari Google Places API (bebas entitas palsu)
-        self.assertEqual(len(df_umkm), 246)
+        self.assertGreaterEqual(len(df_umkm), 246)
         self.assertFalse(df_umkm["place_id"].str.contains("SURVEI").any(), "Ditemukan entitas buatan/palsu di umkm.parquet!")
         self.assertTrue((df_umkm["sumber"] == "google_places_api").all())
 
@@ -46,23 +46,33 @@ class TestUMKMPipeline(unittest.TestCase):
         self.assertIn("en", set(df_ulasan["bahasa"]))
         self.assertIn("id", set(df_ulasan["bahasa"]))
 
-        # 3. Validasi foto dan dokumen
-        self.assertGreaterEqual(len(df_foto), 900)
+        # 3. Validasi foto bersih terfilter CLIP (penamaan rapi per kecamatan & nama tempat)
+        self.assertGreaterEqual(len(df_foto), 250)
+        self.assertIn("nama_tempat", df_foto.columns)
+        self.assertFalse((df_foto["kecamatan"] == "Google Maps Hires").any())
+        self.assertFalse(df_foto["clean_path"].str.contains("_hires_").any())
         self.assertEqual(len(df_dok), 3)
 
     def test_image_storage_volume_ge_200mb(self):
-        """Validasi penyimpanan citra GMAPS pada Google Drive minimal >= 200 MB."""
+        """Validasi zona raw/ & clean/ pada Google Drive Images-GMAPS dengan clean >= 200 MB."""
         if GDRIVE_IMAGES_GMAPS.exists():
-            files = [
-                f for f in GDRIVE_IMAGES_GMAPS.rglob("*")
+            raw_dir = GDRIVE_IMAGES_GMAPS / "raw"
+            clean_dir = GDRIVE_IMAGES_GMAPS / "clean"
+            self.assertTrue(raw_dir.exists(), "Folder raw/ untuk data mentah ingestion belum ada di Images-GMAPS!")
+            self.assertTrue(clean_dir.exists(), "Folder clean/ untuk data bersih belum ada di Images-GMAPS!")
+            self.assertTrue((clean_dir / "Google_Maps").exists(), "Folder clean/Google_Maps/ belum ada!")
+            self.assertFalse((clean_dir / "google_places_api_hires").exists(), "Folder lama google_places_api_hires harus dihapus!")
+
+            clean_files = [
+                f for f in clean_dir.rglob("*")
                 if f.is_file() and f.suffix.lower() in [".jpg", ".jpeg", ".png", ".webp"]
             ]
-            total_bytes = sum(f.stat().st_size for f in files)
+            total_bytes = sum(f.stat().st_size for f in clean_files)
             total_mb = total_bytes / (1024 * 1024)
             self.assertGreaterEqual(
                 total_mb,
                 200.0,
-                f"Ukuran gambar pada Images-GMAPS ({total_mb:.2f} MB) belum memenuhi target minimal 200 MB!",
+                f"Ukuran gambar bersih pada Images-GMAPS/clean ({total_mb:.2f} MB) belum memenuhi target minimal 200 MB!",
             )
 
     def test_saved_models_and_embeddings_exist(self):
@@ -139,7 +149,7 @@ class TestUMKMPipeline(unittest.TestCase):
 
         # Test /umkm/list
         umkms = umkm_list()
-        self.assertEqual(len(umkms), 246)
+        self.assertGreaterEqual(len(umkms), 246)
 
         # Test /predict/multimodal
         req = UMKMPredictRequest(

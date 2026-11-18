@@ -57,6 +57,7 @@ class ImageProcessor:
         raw_path: Path,
         subfolder: str,
         target_size: Optional[Tuple[int, int]] = None,
+        output_filename: Optional[str] = None,
     ) -> Optional[Dict[str, Any]]:
         """Load raw image, blur faces, resize if requested, and save to clean storage."""
         if not raw_path.exists():
@@ -65,7 +66,7 @@ class ImageProcessor:
         # Output destination
         out_dir = self.clean_photo_dir / subfolder
         out_dir.mkdir(parents=True, exist_ok=True)
-        clean_filename = f"clean_{raw_path.name}"
+        clean_filename = output_filename or f"clean_{raw_path.name}"
         clean_path = out_dir / clean_filename
 
         # If already processed and exists, reuse to avoid slow re-computation

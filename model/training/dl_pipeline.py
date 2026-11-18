@@ -130,7 +130,7 @@ def train_and_save_dl_models() -> dict:
     y_reg_tensor = torch.from_numpy(y_reg)
 
     dataset = TensorDataset(x_tensor, y_cls_tensor, y_reg_tensor)
-    loader = DataLoader(dataset, batch_size=32, shuffle=True)
+    loader = DataLoader(dataset, batch_size=32, shuffle=True, drop_last=len(dataset) > 32)
 
     # 1. DL CLUSTERING (Deep Autoencoder + Latent K-Means)
     ae_model = DeepClusteringAutoencoder(input_dim=input_dim, latent_dim=6)
