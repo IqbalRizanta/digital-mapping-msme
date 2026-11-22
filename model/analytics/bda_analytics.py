@@ -8,6 +8,7 @@ Referensi Dokumentasi Resmi:
 """
 
 import shutil
+import sys
 from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
@@ -16,9 +17,14 @@ import seaborn as sns
 import pandas as pd
 
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from model.storage_config import GDRIVE_REPORTS_BDA_DIR
+
 GOLD_DIR = ROOT_DIR / "data" / "gold"
 BDA_DIR = ROOT_DIR / "peta-digital-umkm" / "reports" / "bda"
-GDRIVE_BDA_DIR = Path(r"G:\My Drive\Iqbal-BDA")
+GDRIVE_BDA_DIR = GDRIVE_REPORTS_BDA_DIR
 
 
 def compute_spatial_bda() -> pd.DataFrame:

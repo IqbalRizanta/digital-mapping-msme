@@ -10,6 +10,7 @@ Referensi Dokumentasi Resmi:
 
 import pickle
 import shutil
+import sys
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -19,10 +20,15 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from model.storage_config import GDRIVE_FEATURE_STORE_DIR, GDRIVE_PROJECT_ROOT
+
 CLEAN_DIR = ROOT_DIR / "data" / "clean"
 GOLD_DIR = ROOT_DIR / "data" / "gold"
 SAVED_DIR = ROOT_DIR / "model" / "saved"
-GDRIVE_ROOT = Path(r"G:\My Drive")
+GDRIVE_ROOT = GDRIVE_PROJECT_ROOT
 
 
 def build_and_save_embeddings() -> dict:
@@ -190,10 +196,9 @@ def build_and_save_embeddings() -> dict:
     shutil.copy2(pq_path, GOLD_DIR / pq_path.name)
 
     if GDRIVE_ROOT.exists():
-        g_emb = GDRIVE_ROOT / "embeddings"
-        g_emb.mkdir(parents=True, exist_ok=True)
+        GDRIVE_FEATURE_STORE_DIR.mkdir(parents=True, exist_ok=True)
         for p in [npy_path, npz_path, pq_path, GOLD_DIR / "feature_store.parquet"]:
-            shutil.copy2(p, g_emb / p.name)
+            shutil.copy2(p, GDRIVE_FEATURE_STORE_DIR / p.name)
 
     return {
         "n_samples": int(X_pca.shape[0]),

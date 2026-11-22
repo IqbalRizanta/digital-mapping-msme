@@ -26,11 +26,12 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import confusion_matrix
 
+from model.storage_config import GDRIVE_REPORTS_EVAL_DIR
 from model.training.ml_pipeline import FEATURE_COLS, LABEL_NAMES, derive_target_class, prepare_feature_frame
 GOLD_DIR = ROOT_DIR / "data" / "gold"
 SAVED_DIR = ROOT_DIR / "model" / "saved"
 EVAL_DIR = ROOT_DIR / "peta-digital-umkm" / "reports" / "modeling"
-GDRIVE_EVAL_DIR = Path(r"G:\My Drive\Iqbal-Model-Evaluation")
+GDRIVE_EVAL_DIR = GDRIVE_REPORTS_EVAL_DIR
 
 
 def run_model_evaluation() -> dict:

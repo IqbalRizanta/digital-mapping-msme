@@ -41,10 +41,12 @@ RAW_MAPS = BASE / "data" / "raw" / "google_maps"
 SURVEY_INV = BASE / "data" / "raw" / "survei_offline" / "survey_images_inventory.csv"
 CLEAN_DIR = BASE / "data" / "clean"
 CLEAN_PHOTOS = CLEAN_DIR / "photos"
+from model.storage_config import GDRIVE_CLEAN_DIR, GDRIVE_MODELS_DIR, GDRIVE_REPORTS_EVAL_DIR
+
 OUT = BASE / "peta-digital-umkm" / "reports" / "yolo"
 MODELS = BASE / "model" / "saved"
-GDRIVE_OUT = Path("G:/My Drive/Iqbal-Model-Evaluation/yolo_outputs")
-GDRIVE_CLEAN = Path("G:/My Drive/clean")
+GDRIVE_OUT = GDRIVE_REPORTS_EVAL_DIR / "yolo_outputs"
+GDRIVE_CLEAN = GDRIVE_CLEAN_DIR
 
 CLASS_NAMES = ["qris", "edc", "pos", "merchant_online", "stan"]
 IMGSZ = 416
@@ -495,7 +497,7 @@ def stage_parquet():
 # 9. SYNC ke Google Drive
 # -----------------------------------------------------------------------------
 def stage_sync():
-    for src, dst in [(OUT, GDRIVE_OUT), (CLEAN_PHOTOS, GDRIVE_CLEAN / "photos")]:
+    for src, dst in [(OUT, GDRIVE_OUT), (CLEAN_PHOTOS, GDRIVE_CLEAN / "images")]:
         if not dst.parent.exists():
             print(f"-> Lewati sync (tidak ada): {dst.parent}")
             continue
@@ -504,16 +506,19 @@ def stage_sync():
             print(f"-> [GDRIVE SYNC] {src} -> {dst}")
         except Exception as e:
             print(f"-> [GDRIVE SYNC WARNING] {src} -> {dst}: {e}")
-    if GDRIVE_CLEAN.exists():
+    tab_dir = GDRIVE_CLEAN / "tabular_text"
+    if tab_dir.parent.exists():
         try:
-            shutil.copy2(CLEAN_DIR / "foto.parquet", GDRIVE_CLEAN / "foto.parquet")
+            tab_dir.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(CLEAN_DIR / "foto.parquet", tab_dir / "foto.parquet")
             print("-> [GDRIVE SYNC] foto.parquet tersinkron")
         except Exception as e:
             print(f"-> [GDRIVE SYNC WARNING] foto.parquet: {e}")
     for w in MODELS.glob("yolov8n_*.pt"):
-        if GDRIVE_OUT.parent.exists():
+        if GDRIVE_MODELS_DIR.parent.exists():
             try:
-                shutil.copy2(w, GDRIVE_OUT.parent / w.name)
+                GDRIVE_MODELS_DIR.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(w, GDRIVE_MODELS_DIR / w.name)
                 print(f"-> [GDRIVE SYNC] model {w.name} tersinkron")
             except Exception as e:
                 print(f"-> [GDRIVE SYNC WARNING] {w.name}: {e}")

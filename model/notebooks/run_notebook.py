@@ -127,25 +127,34 @@ def execute_notebook(notebook_path: Path):
         json.dump(nb, f, indent=1, ensure_ascii=False)
     print(f"-> [SUKSES] Notebook berhasil dieksekusi dan disimpan: {notebook_path}")
 
-    # Copy executed notebook to Google Drive if G:\My Drive exists
-    gdrive_target = None
-    if "eda" in notebook_path.name.lower():
-        gdrive_target = Path("G:/My Drive/Iqbal-EDA")
-    elif "model" in notebook_path.name.lower():
-        gdrive_target = Path("G:/My Drive/Iqbal-Model-Evaluation")
-    elif "bda" in notebook_path.name.lower():
-        gdrive_target = Path("G:/My Drive/Iqbal-BDA")
+    # Copy executed notebook to structured Google Drive (BDA-2026-Iqbal)
+    from model.storage_config import (
+        GDRIVE_NOTEBOOKS_DIR,
+        GDRIVE_PROJECT_ROOT,
+        GDRIVE_REPORTS_BDA_DIR,
+        GDRIVE_REPORTS_EDA_DIR,
+        GDRIVE_REPORTS_EVAL_DIR,
+    )
 
-    if gdrive_target and gdrive_target.exists():
-        dest_nb = gdrive_target / notebook_path.name
+    gdrive_report_dir = None
+    if "eda" in notebook_path.name.lower():
+        gdrive_report_dir = GDRIVE_REPORTS_EDA_DIR
+    elif "model" in notebook_path.name.lower():
+        gdrive_report_dir = GDRIVE_REPORTS_EVAL_DIR
+    elif "bda" in notebook_path.name.lower():
+        gdrive_report_dir = GDRIVE_REPORTS_BDA_DIR
+
+    if GDRIVE_PROJECT_ROOT.exists():
+        GDRIVE_NOTEBOOKS_DIR.mkdir(parents=True, exist_ok=True)
+        dest_nb = GDRIVE_NOTEBOOKS_DIR / notebook_path.name
         shutil.copy2(notebook_path, dest_nb)
         print(f"-> [TERSIMPAN DI GDRIVE] Salinan notebook ter-upload ke: {dest_nb}")
 
-    # Also mirror files from GDrive folder to local reports/figures for local redundancy
+    # Also mirror files from GDrive report folder to local reports/figures for local redundancy
     local_reports = Path("peta-digital-umkm/reports/figures")
     local_reports.mkdir(parents=True, exist_ok=True)
-    if gdrive_target and gdrive_target.exists():
-        for png_file in gdrive_target.glob("*.png"):
+    if gdrive_report_dir and gdrive_report_dir.exists():
+        for png_file in gdrive_report_dir.glob("*.png"):
             shutil.copy2(png_file, local_reports / png_file.name)
         print(f"-> [MIRROR LOKAL] Seluruh grafik tersinkronisasi ke folder lokal {local_reports}")
 

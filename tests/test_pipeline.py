@@ -16,12 +16,17 @@ import pandas as pd
 from app.server.inference_service import UMKMInferenceService
 from app.server.main import health_check, bda_summary, umkm_list, predict_multimodal
 from app.server.schemas import UMKMPredictRequest
+from model.storage_config import (
+    GDRIVE_CLEAN_IMAGES_DIR,
+    GDRIVE_PROJECT_ROOT,
+    GDRIVE_RAW_IMAGES_DIR,
+)
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 CLEAN_DIR = ROOT_DIR / "data" / "clean"
 SAVED_DIR = ROOT_DIR / "model" / "saved"
 BDA_DIR = ROOT_DIR / "peta-digital-umkm" / "reports" / "bda"
-GDRIVE_IMAGES_GMAPS = Path(r"G:\My Drive\Images-GMAPS")
+GDRIVE_IMAGES_GMAPS = GDRIVE_PROJECT_ROOT
 
 
 class TestUMKMPipeline(unittest.TestCase):
@@ -54,17 +59,29 @@ class TestUMKMPipeline(unittest.TestCase):
         self.assertEqual(len(df_dok), 3)
 
     def test_image_storage_volume_ge_200mb(self):
-        """Validasi zona raw/ & clean/ pada Google Drive Images-GMAPS dengan clean >= 200 MB."""
-        if GDRIVE_IMAGES_GMAPS.exists():
-            raw_dir = GDRIVE_IMAGES_GMAPS / "raw"
-            clean_dir = GDRIVE_IMAGES_GMAPS / "clean"
-            self.assertTrue(raw_dir.exists(), "Folder raw/ untuk data mentah ingestion belum ada di Images-GMAPS!")
-            self.assertTrue(clean_dir.exists(), "Folder clean/ untuk data bersih belum ada di Images-GMAPS!")
-            self.assertTrue((clean_dir / "Google_Maps").exists(), "Folder clean/Google_Maps/ belum ada!")
-            self.assertFalse((clean_dir / "google_places_api_hires").exists(), "Folder lama google_places_api_hires harus dihapus!")
+        """Validasi struktur 7 zona BDA-2026-Iqbal (Search->Repeat->Adjust->Dataset) & clean images >= 200 MB."""
+        if GDRIVE_PROJECT_ROOT.exists():
+            for top_dir in [
+                "01_Search_Journal",
+                "02_Repeat_Journal",
+                "03_Adjust_Journal",
+                "04_Dataset_Multimodal_Saya",
+                "05_Models_Tersimpan",
+                "06_Notebooks_Lengkap_Proyek",
+                "07_Reports_Lengkap_Proyek",
+            ]:
+                self.assertTrue(
+                    (GDRIVE_PROJECT_ROOT / top_dir).exists(),
+                    f"Folder terstruktur {top_dir}/ belum ada di {GDRIVE_PROJECT_ROOT}!",
+                )
+
+            self.assertTrue(GDRIVE_RAW_IMAGES_DIR.exists(), "Folder 04_Dataset_Multimodal_Saya/01_raw/images belum ada!")
+            self.assertTrue(GDRIVE_CLEAN_IMAGES_DIR.exists(), "Folder 04_Dataset_Multimodal_Saya/02_clean/images belum ada!")
+            self.assertTrue((GDRIVE_CLEAN_IMAGES_DIR / "Google_Maps").exists(), "Folder 02_clean/images/Google_Maps belum ada!")
+            self.assertTrue((GDRIVE_CLEAN_IMAGES_DIR / "Survei_Lapangan_SWK").exists(), "Folder 02_clean/images/Survei_Lapangan_SWK belum ada!")
 
             clean_files = [
-                f for f in clean_dir.rglob("*")
+                f for f in GDRIVE_CLEAN_IMAGES_DIR.rglob("*")
                 if f.is_file() and f.suffix.lower() in [".jpg", ".jpeg", ".png", ".webp"]
             ]
             total_bytes = sum(f.stat().st_size for f in clean_files)
@@ -72,7 +89,7 @@ class TestUMKMPipeline(unittest.TestCase):
             self.assertGreaterEqual(
                 total_mb,
                 200.0,
-                f"Ukuran gambar bersih pada Images-GMAPS/clean ({total_mb:.2f} MB) belum memenuhi target minimal 200 MB!",
+                f"Ukuran gambar bersih pada 04_Dataset_Multimodal_Saya/02_clean/images ({total_mb:.2f} MB) belum memenuhi target minimal 200 MB!",
             )
 
     def test_saved_models_and_embeddings_exist(self):

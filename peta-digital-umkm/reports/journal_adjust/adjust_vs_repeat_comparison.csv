@@ -1,0 +1,5 @@
+Tahap,Modalitas,Model_Terbaik,Accuracy,Macro_F1,Fitur_Tambahan
+1. Repeat Journal (Review - BoW),Teks Tunggal (Flipkart),Random Forest,0.69,0.681,"Bag of Words (CountVectorizer), Split 80:20"
+2. Repeat Journal (Summary - BoW),Teks Tunggal (Flipkart),Random Forest,0.766,0.764,"Bag of Words (CountVectorizer), Split 80:20"
+3. Adjust Journal (RF Multimodal),Gambar + Teks/Numerik + Dokumen,Random Forest (GroupKFold),0.974,0.9402,PySpark + CLIP + OpenCV + YOLO + TF-IDF + PCA + BDA Spasial
+4. Adjust Journal (Gradient Boosting),Gambar + Teks/Numerik + Dokumen,Gradient Boosting (GroupKFold),0.9792,0.9533,PySpark + CLIP + OpenCV + YOLO + TF-IDF + PCA + BDA Spasial

@@ -1,0 +1,96 @@
+{
+  "dataset_multimodal": {
+    "umkm_rows": 385,
+    "ulasan_rows": 1164,
+    "foto_clean_count": 549,
+    "foto_clean_mb": 279.99,
+    "dokumen_pdf_count": 3
+  },
+  "clustering": {
+    "kmeans_silhouette": 0.4737,
+    "kmeans_davies_bouldin": 1.0683,
+    "dl_autoencoder_silhouette": 0.4834
+  },
+  "regression": {
+    "rf_groupkfold_rmse": 2.9326,
+    "rf_groupkfold_r2": 0.9768,
+    "dl_mlp_rmse": 0.5039,
+    "dl_mlp_r2": 0.9993
+  },
+  "classification_benchmark": [
+    {
+      "Model": "Naive Bayes (Baseline Jurnal)",
+      "Accuracy": 0.8857,
+      "Macro_Precision": 0.7906,
+      "Macro_Recall": 0.7177,
+      "Macro_F1": 0.6675,
+      "Cohens_Kappa": 0.733
+    },
+    {
+      "Model": "SVM (Baseline Jurnal)",
+      "Accuracy": 0.9766,
+      "Macro_Precision": 0.9418,
+      "Macro_Recall": 0.9418,
+      "Macro_F1": 0.9417,
+      "Cohens_Kappa": 0.9453
+    },
+    {
+      "Model": "Random Forest (Adjusted)",
+      "Accuracy": 0.974,
+      "Macro_Precision": 0.9509,
+      "Macro_Recall": 0.9356,
+      "Macro_F1": 0.9402,
+      "Cohens_Kappa": 0.9388
+    },
+    {
+      "Model": "Gradient Boosting (Metode Baru)",
+      "Accuracy": 0.9792,
+      "Macro_Precision": 0.9613,
+      "Macro_Recall": 0.9485,
+      "Macro_F1": 0.9533,
+      "Cohens_Kappa": 0.9511
+    },
+    {
+      "Model": "PyTorch MLP Classifier (DL Baru)",
+      "Accuracy": 1.0,
+      "Macro_Precision": 1.0,
+      "Macro_Recall": 1.0,
+      "Macro_F1": 1.0,
+      "Cohens_Kappa": 1.0
+    }
+  ],
+  "repeat_vs_adjust": [
+    {
+      "Tahap": "1. Repeat Journal (Review - BoW)",
+      "Modalitas": "Teks Tunggal (Flipkart)",
+      "Model_Terbaik": "Random Forest",
+      "Accuracy": 0.69,
+      "Macro_F1": 0.681,
+      "Fitur_Tambahan": "Bag of Words (CountVectorizer), Split 80:20"
+    },
+    {
+      "Tahap": "2. Repeat Journal (Summary - BoW)",
+      "Modalitas": "Teks Tunggal (Flipkart)",
+      "Model_Terbaik": "Random Forest",
+      "Accuracy": 0.766,
+      "Macro_F1": 0.764,
+      "Fitur_Tambahan": "Bag of Words (CountVectorizer), Split 80:20"
+    },
+    {
+      "Tahap": "3. Adjust Journal (RF Multimodal)",
+      "Modalitas": "Gambar + Teks/Numerik + Dokumen",
+      "Model_Terbaik": "Random Forest (GroupKFold)",
+      "Accuracy": 0.974,
+      "Macro_F1": 0.9402,
+      "Fitur_Tambahan": "PySpark + CLIP + OpenCV + YOLO + TF-IDF + PCA + BDA Spasial"
+    },
+    {
+      "Tahap": "4. Adjust Journal (Gradient Boosting)",
+      "Modalitas": "Gambar + Teks/Numerik + Dokumen",
+      "Model_Terbaik": "Gradient Boosting (GroupKFold)",
+      "Accuracy": 0.9792,
+      "Macro_F1": 0.9533,
+      "Fitur_Tambahan": "PySpark + CLIP + OpenCV + YOLO + TF-IDF + PCA + BDA Spasial"
+    }
+  ]
+}

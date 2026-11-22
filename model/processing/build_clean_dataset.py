@@ -322,7 +322,8 @@ def build_clean_datasets():
     df_photos["num_indicators"] = 0
     df_photos["max_conf"] = 0.0
 
-    gdrive_det_csv = Path("G:/My Drive/Iqbal-Model-Evaluation/yolo_outputs/detect/predictions_detect.csv")
+    from model.storage_config import GDRIVE_REPORTS_EVAL_DIR
+    gdrive_det_csv = GDRIVE_REPORTS_EVAL_DIR / "yolo_outputs" / "detect" / "predictions_detect.csv"
     local_det_csv = Path("peta-digital-umkm/reports/yolo/detect/predictions_detect.csv")
     det_csv = gdrive_det_csv if gdrive_det_csv.exists() else local_det_csv
     if det_csv.exists():

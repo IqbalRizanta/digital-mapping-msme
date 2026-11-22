@@ -59,8 +59,8 @@ def setup_cell(stage_folder: str) -> dict:
             "CLEAN_DIR = ROOT_DIR / 'data' / 'clean'",
             "GOLD_DIR = ROOT_DIR / 'data' / 'gold'",
             "REPORTS_DIR = ROOT_DIR / 'peta-digital-umkm' / 'reports'",
-            f"GDRIVE_OUT = Path('G:/My Drive/{stage_folder}')",
-            "OUT_DIR = GDRIVE_OUT if GDRIVE_OUT.parent.exists() else (REPORTS_DIR / '" + stage_folder.lower() + "')",
+            f"GDRIVE_OUT = Path('G:/My Drive/BDA-2026-Iqbal/07_Reports_Lengkap_Proyek/{stage_folder}')",
+            "OUT_DIR = GDRIVE_OUT if GDRIVE_OUT.parent.parent.exists() else (REPORTS_DIR / '" + stage_folder + "')",
             "OUT_DIR.mkdir(parents=True, exist_ok=True)",
             "",
             "sns.set_theme(style='whitegrid')",
@@ -94,7 +94,7 @@ def create_eda_notebook(output_path: Path) -> None:
                 "4. **Dokumen:** Berkas perizinan dan administrasi penelitian.",
             ],
         ),
-        setup_cell("Iqbal-EDA"),
+        setup_cell("eda"),
         make_cell(
             "code",
             [
@@ -228,7 +228,7 @@ def create_model_notebook(output_path: Path) -> None:
                 "Evaluasi pipeline Machine Learning (`.pkl`), Deep Learning (`.pt`, `.pth`, `.h5`), Multimodal Embedding (`.npy`, `.npz`, `.parquet`), validasi silang `GroupKFold`, dan kesepakatan Cohen's Kappa.",
             ],
         ),
-        setup_cell("Iqbal-Model-Evaluation"),
+        setup_cell("model_evaluation"),
         make_cell(
             "markdown",
             [
@@ -371,7 +371,7 @@ def create_bda_notebook(output_path: Path) -> None:
                 "Agregasi multimodal per kecamatan, perhitungan Digital Gap Index, dan pemetaan sebaran UMKM.",
             ],
         ),
-        setup_cell("Iqbal-BDA"),
+        setup_cell("bda"),
         make_cell(
             "markdown",
             [

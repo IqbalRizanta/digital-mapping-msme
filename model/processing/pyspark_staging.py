@@ -1,12 +1,14 @@
 """
-Staging data multimodal UMKM menggunakan PySpark dan sinkronisasi ke Google Drive:
-- G:\My Drive\Images-GMAPS (terpintas ke Kelompok 3 BDA H7D.5/Hasil-Scraping by API)
-- G:\My Drive\Text Numeric-GMAPS (terpintas ke Kelompok 3 BDA H7D.5/Hasil-Scraping by API)
+Staging data multimodal UMKM menggunakan PySpark dan sinkronisasi terstruktur ke Google Drive:
+- Root: G:\My Drive\BDA-2026-Iqbal (Folder ID: 12FkjUbkSLU3T8sycDNsIN4hbn1bDGz5c)
+  - 01_raw/           (images/, json_google_maps/, documents/, metadata/)
+  - 02_clean/         (images/ >= 200 MB, tabular_text/)
+  - 03_staging_spark/ (umkm_spark_staged.parquet & .csv)
 
 Menjamin:
 1. Data Ulasan mempertahankan bahasa default/asli pengulas tanpa pemaksaan translasi.
 2. 100% data ingestion dapat dibuktikan kebenarannya dari Google Places API & survei primer.
-3. Total volume penyimpanan citra pada Images-GMAPS tervalidasi minimal >= 200 MB.
+3. Total volume penyimpanan citra bersih pada 02_clean/images tervalidasi minimal >= 200 MB.
 
 Bagian: Kelompok / Individu (Non-AI)
 Referensi Dokumentasi Resmi:
@@ -15,17 +17,39 @@ Referensi Dokumentasi Resmi:
 """
 
 import shutil
+import sys
 from pathlib import Path
 import pandas as pd
 
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from model.storage_config import (
+    GDRIVE_CLEAN_IMAGES_DIR,
+    GDRIVE_CLEAN_TABULAR_DIR,
+    GDRIVE_PROJECT_ROOT,
+    GDRIVE_RAW_DOCS_DIR,
+    GDRIVE_RAW_IMAGES_DIR,
+    GDRIVE_RAW_JSON_DIR,
+    GDRIVE_RAW_META_DIR,
+    GDRIVE_STAGING_SPARK_DIR,
+    ensure_gdrive_structure,
+)
+
 RAW_DIR = ROOT_DIR / "data" / "raw"
 CLEAN_DIR = ROOT_DIR / "data" / "clean"
 SPARK_STAGING_DIR = ROOT_DIR / "data" / "staging_spark"
 
-GDRIVE_ROOT = Path(r"G:\My Drive")
-GDRIVE_IMAGES_GMAPS = GDRIVE_ROOT / "Images-GMAPS"
-GDRIVE_TEXT_NUMERIC_GMAPS = GDRIVE_ROOT / "Text Numeric-GMAPS"
+GDRIVE_ROOT = GDRIVE_PROJECT_ROOT
+GDRIVE_IMAGES_GMAPS = GDRIVE_CLEAN_IMAGES_DIR
+GDRIVE_TEXT_NUMERIC_GMAPS = GDRIVE_CLEAN_TABULAR_DIR
+
+
+def _copy_if_needed(src: Path, dst: Path) -> None:
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    if not dst.exists() or dst.stat().st_size != src.stat().st_size:
+        shutil.copy2(src, dst)
 
 
 def build_spark_session(app_name: str = "UMKM_SurabayaTimur_Staging"):
@@ -48,85 +72,76 @@ def sync_scraping_to_gdrive_gmaps(
     staged_file: Path,
 ) -> dict:
     sync_stats = {
-        "images_gmaps_dir": str(GDRIVE_IMAGES_GMAPS),
-        "text_numeric_gmaps_dir": str(GDRIVE_TEXT_NUMERIC_GMAPS),
+        "gdrive_project_root": str(GDRIVE_PROJECT_ROOT),
+        "raw_images_dir": str(GDRIVE_RAW_IMAGES_DIR),
+        "clean_images_dir": str(GDRIVE_CLEAN_IMAGES_DIR),
+        "clean_tabular_dir": str(GDRIVE_CLEAN_TABULAR_DIR),
         "images_copied": 0,
         "text_numeric_files": 0,
         "total_images_gmaps_mb": 0.0,
         "gate_200mb_passed": False,
     }
 
-    if not GDRIVE_ROOT.exists():
+    if not ensure_gdrive_structure():
         return sync_stats
 
     # ---------------------------------------------------------
-    # 1. Sinkronisasi ke G:\My Drive\Text Numeric-GMAPS
+    # 1. Sinkronisasi 01_raw/ (JSON, Metadata, Dokumen) & 02_clean/tabular_text & 03_staging_spark
     # ---------------------------------------------------------
-    GDRIVE_TEXT_NUMERIC_GMAPS.mkdir(parents=True, exist_ok=True)
-    raw_json_dst = GDRIVE_TEXT_NUMERIC_GMAPS / "raw_json_per_kecamatan"
-    spark_dst = GDRIVE_TEXT_NUMERIC_GMAPS / "pyspark_staged"
-    raw_json_dst.mkdir(parents=True, exist_ok=True)
-    spark_dst.mkdir(parents=True, exist_ok=True)
+    df_umkm.to_csv(GDRIVE_CLEAN_TABULAR_DIR / "umkm.csv", index=False)
+    df_umkm.to_parquet(GDRIVE_CLEAN_TABULAR_DIR / "umkm.parquet", index=False)
 
-    # Ekspor tabel numerik UMKM, teks ulasan asli, dan hasil gabung PySpark (CSV & Parquet)
-    df_umkm.to_csv(GDRIVE_TEXT_NUMERIC_GMAPS / "umkm_numeric_gmaps.csv", index=False)
-    df_umkm.to_parquet(GDRIVE_TEXT_NUMERIC_GMAPS / "umkm_numeric_gmaps.parquet", index=False)
+    df_ulasan.to_csv(GDRIVE_CLEAN_TABULAR_DIR / "ulasan.csv", index=False)
+    df_ulasan.to_parquet(GDRIVE_CLEAN_TABULAR_DIR / "ulasan.parquet", index=False)
 
-    df_ulasan.to_csv(GDRIVE_TEXT_NUMERIC_GMAPS / "ulasan_text_gmaps.csv", index=False)
-    df_ulasan.to_parquet(GDRIVE_TEXT_NUMERIC_GMAPS / "ulasan_text_gmaps.parquet", index=False)
+    df_foto.to_csv(GDRIVE_CLEAN_IMAGES_DIR / "foto_metadata.csv", index=False)
+    df_foto.to_parquet(GDRIVE_CLEAN_IMAGES_DIR / "foto_metadata.parquet", index=False)
 
-    pdf_staged.to_csv(spark_dst / "umkm_spark_staged.csv", index=False)
-    shutil.copy2(staged_file, spark_dst / staged_file.name)
+    for cname in ["foto.parquet", "dokumen.parquet"]:
+        csrc = CLEAN_DIR / cname
+        if csrc.exists():
+            _copy_if_needed(csrc, GDRIVE_CLEAN_TABULAR_DIR / cname)
 
-    schema_cat = RAW_DIR / "data_schema_catalog.csv"
-    if schema_cat.exists():
-        shutil.copy2(schema_cat, GDRIVE_TEXT_NUMERIC_GMAPS / schema_cat.name)
+    pdf_staged.to_csv(GDRIVE_STAGING_SPARK_DIR / "umkm_spark_staged.csv", index=False)
+    _copy_if_needed(staged_file, GDRIVE_STAGING_SPARK_DIR / staged_file.name)
 
-    # Salin JSON mentah hasil scraping Google Places API per kecamatan
+    # Metadata & katalog mentah ke 01_raw/metadata/
+    for mpath in [
+        RAW_DIR / "data_schema_catalog.csv",
+        RAW_DIR / "label_survei_sheets.csv",
+        RAW_DIR / "verified_places_catalog.json",
+        RAW_DIR / "survei_offline" / "survey_images_inventory.csv",
+    ]:
+        if mpath.exists():
+            _copy_if_needed(mpath, GDRIVE_RAW_META_DIR / mpath.name)
+            sync_stats["text_numeric_files"] += 1
+
+    # Dokumen PDF perizinan ke 01_raw/documents/
+    docs_src = RAW_DIR / "survei_offline" / "Surat izin penelitian"
+    if docs_src.exists():
+        for doc_file in docs_src.rglob("*"):
+            if doc_file.is_file():
+                _copy_if_needed(doc_file, GDRIVE_RAW_DOCS_DIR / doc_file.name)
+                sync_stats["text_numeric_files"] += 1
+
+    # Salin JSON mentah hasil scraping Google Places API per kecamatan ke 01_raw/json_google_maps/
     for raw_sub in ["google_maps", "google_maps_ext"]:
         src_base = RAW_DIR / raw_sub
         if not src_base.exists():
             continue
         for json_file in src_base.rglob("*.json"):
             kec_name = json_file.parent.name
-            target_kec_dir = raw_json_dst / f"{raw_sub}_{kec_name}"
-            target_kec_dir.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(json_file, target_kec_dir / json_file.name)
+            target_json = GDRIVE_RAW_JSON_DIR / f"{raw_sub}_{kec_name}" / json_file.name
+            _copy_if_needed(json_file, target_json)
             sync_stats["text_numeric_files"] += 1
 
-    sync_stats["text_numeric_files"] += 7
+    sync_stats["text_numeric_files"] += 8
 
     # ---------------------------------------------------------
-    # 2. Sinkronisasi ke G:\My Drive\Images-GMAPS (Zona raw/ & clean/ >= 200 MB)
+    # 2. Sinkronisasi Citra 01_raw/images/ & 02_clean/images/ (>= 200 MB)
     # ---------------------------------------------------------
-    GDRIVE_IMAGES_GMAPS.mkdir(parents=True, exist_ok=True)
-    df_foto.to_csv(GDRIVE_IMAGES_GMAPS / "foto_metadata_gmaps.csv", index=False)
-    df_foto.to_parquet(GDRIVE_IMAGES_GMAPS / "foto_metadata_gmaps.parquet", index=False)
-
-    # 2.1 Bersihkan folder berpenamaan teknis/lama agar tersisa struktur rapi per Kecamatan & Nama Tempat
-    legacy_root_dirs = [
-        "google_places_api",
-        "survei_lapangan_swk",
-        "raw_google_maps",
-        "raw_google_maps_ext",
-        "raw_google_maps_hires",
-        "sample_keep_anchors",
-    ]
-    for legacy_dir in legacy_root_dirs:
-        p = GDRIVE_IMAGES_GMAPS / legacy_dir
-        if p.exists():
-            shutil.rmtree(p, ignore_errors=True)
-
-    raw_base_dst = GDRIVE_IMAGES_GMAPS / "raw"
-    clean_base_dst = GDRIVE_IMAGES_GMAPS / "clean"
-    for old_sub in ["google_places_api", "google_places_api_ext", "google_places_api_hires", "survei_lapangan_swk", "rejected"]:
-        for base in [raw_base_dst, clean_base_dst]:
-            old_p = base / old_sub
-            if old_p.exists():
-                shutil.rmtree(old_p, ignore_errors=True)
-
-    raw_base_dst.mkdir(parents=True, exist_ok=True)
-    clean_base_dst.mkdir(parents=True, exist_ok=True)
+    raw_base_dst = GDRIVE_RAW_IMAGES_DIR
+    clean_base_dst = GDRIVE_CLEAN_IMAGES_DIR
 
     clean_photos_root = (CLEAN_DIR / "photos").resolve()
     total_synced_bytes = 0
@@ -135,7 +150,7 @@ def sync_scraping_to_gdrive_gmaps(
     raw_synced_count = 0
     valid_clean_rel: set[str] = set()
 
-    # 2.2 Sinkronisasi Data Bersih & Data Mentah Terkait per Kecamatan -> Nama Tempat UMKM
+    # 2.1 Sinkronisasi Data Bersih & Data Mentah Terkait per Kecamatan -> Nama Tempat UMKM
     for _, row in df_foto.iterrows():
         cpath = Path(str(row.get("clean_path", "")))
         if not cpath.is_absolute():
@@ -144,10 +159,8 @@ def sync_scraping_to_gdrive_gmaps(
             rel_path = cpath.resolve().relative_to(clean_photos_root)
             valid_clean_rel.add(rel_path.as_posix())
             dst_clean = clean_base_dst / rel_path
-            dst_clean.parent.mkdir(parents=True, exist_ok=True)
-            if not dst_clean.exists():
-                shutil.copy2(cpath, dst_clean)
-            total_synced_bytes += cpath.stat().st_size
+            _copy_if_needed(cpath, dst_clean)
+            total_synced_bytes += dst_clean.stat().st_size
             total_synced_count += 1
             sync_stats["images_copied"] += 1
 
@@ -158,13 +171,11 @@ def sync_scraping_to_gdrive_gmaps(
             rel_path = cpath.resolve().relative_to(clean_photos_root)
             raw_rel = rel_path.with_name(f"{rel_path.stem}_raw{rel_path.suffix}")
             dst_raw = raw_base_dst / raw_rel
-            dst_raw.parent.mkdir(parents=True, exist_ok=True)
-            if not dst_raw.exists():
-                shutil.copy2(rpath, dst_raw)
-            raw_synced_bytes += rpath.stat().st_size
+            _copy_if_needed(rpath, dst_raw)
+            raw_synced_bytes += dst_raw.stat().st_size
             raw_synced_count += 1
 
-    # 2.3 Sinkronisasi Foto Mentah Ditolak ke raw/Ditolak_Non_Target/<Kategori>/<Kecamatan>/<Nama_Tempat>/
+    # 2.2 Sinkronisasi Foto Mentah Ditolak ke 01_raw/images/Ditolak_Non_Target/<Kategori>/<Kecamatan>/<Nama_Tempat>/
     reject_src = ROOT_DIR / "data" / "sample" / "reject"
     if reject_src.exists():
         reject_dst = raw_base_dst / "Ditolak_Non_Target"
@@ -173,15 +184,13 @@ def sync_scraping_to_gdrive_gmaps(
             if img_file.is_file() and img_file.suffix.lower() in [".jpg", ".jpeg", ".png", ".webp"]:
                 rel_parts = img_file.relative_to(reject_src).parts
                 target_file = reject_dst.joinpath(*rel_parts)
-                target_file.parent.mkdir(parents=True, exist_ok=True)
-                if not target_file.exists():
-                    shutil.copy2(img_file, target_file)
-                raw_synced_bytes += img_file.stat().st_size
+                _copy_if_needed(img_file, target_file)
+                raw_synced_bytes += target_file.stat().st_size
                 raw_synced_count += 1
 
-    # 2.4 Pastikan folder clean/ di Google Drive tidak menyimpan berkas kedaluwarsa
+    # 2.3 Pastikan folder 02_clean/images/ tidak menyimpan berkas gambar kedaluwarsa
     for existing_file in list(clean_base_dst.rglob("*")):
-        if existing_file.is_file():
+        if existing_file.is_file() and existing_file.suffix.lower() in [".jpg", ".jpeg", ".png", ".webp"]:
             rel_posix = existing_file.relative_to(clean_base_dst).as_posix()
             if rel_posix not in valid_clean_rel:
                 existing_file.unlink(missing_ok=True)
@@ -189,7 +198,7 @@ def sync_scraping_to_gdrive_gmaps(
         if sub.is_dir() and not any(sub.iterdir()):
             sub.rmdir()
 
-    # Audit total volume ukuran citra bersih pada G:\My Drive\Images-GMAPS\clean\
+    # Audit total volume ukuran citra bersih pada BDA-2026-Iqbal/02_clean/images/
     total_mb = round(total_synced_bytes / (1024 * 1024), 2)
     raw_mb = round(raw_synced_bytes / (1024 * 1024), 2)
     sync_stats["total_images_gmaps_count"] = total_synced_count
@@ -198,10 +207,10 @@ def sync_scraping_to_gdrive_gmaps(
     sync_stats["raw_images_gmaps_mb"] = raw_mb
     sync_stats["gate_200mb_passed"] = total_mb >= 200.0
 
-    print(f"\n[Audit Images-GMAPS Storage]")
-    print(f"-> Data Mentah (Images-GMAPS/raw)   : {raw_synced_count} file ({raw_mb} MB)")
-    print(f"-> Data Bersih (Images-GMAPS/clean) : {total_synced_count} file ({total_mb} MB)")
-    print(f"-> Status Target Clean >= 200MB     : {'TERPENUHI (PASS)' if sync_stats['gate_200mb_passed'] else 'BELUM TERPENUHI'}")
+    print(f"\n[Audit BDA-2026-Iqbal Storage]")
+    print(f"-> Data Mentah (01_raw/images)   : {raw_synced_count} file ({raw_mb} MB)")
+    print(f"-> Data Bersih (02_clean/images) : {total_synced_count} file ({total_mb} MB)")
+    print(f"-> Status Target Clean >= 200MB  : {'TERPENUHI (PASS)' if sync_stats['gate_200mb_passed'] else 'BELUM TERPENUHI'}")
 
     return sync_stats
 
@@ -320,22 +329,6 @@ def run_pyspark_staging() -> dict:
         pdf_staged=pdf_staged,
         staged_file=staged_file,
     )
-
-    if GDRIVE_ROOT.exists():
-        try:
-            gdrive_spark_dir = GDRIVE_ROOT / "staging_spark"
-            gdrive_clean_dir = GDRIVE_ROOT / "clean"
-            gdrive_spark_dir.mkdir(parents=True, exist_ok=True)
-            gdrive_clean_dir.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(staged_file, gdrive_spark_dir / staged_file.name)
-            for p in [umkm_path, ulasan_path, foto_path, dok_path]:
-                if p.exists():
-                    try:
-                        shutil.copy2(p, gdrive_clean_dir / p.name)
-                    except Exception as ce:
-                        print(f"[Warning] GDrive copy {p.name}: {ce}")
-        except Exception as ge:
-            print(f"[Warning] GDrive clean/spark mirror: {ge}")
 
     return {
         "engine": used_engine,
