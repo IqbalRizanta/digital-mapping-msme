@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-11-25T12:00:00.000Z" agent="Antigravity" version="24.7.0" pages="4">
+  <diagram id="page1_arch_jurnal" name="Page-1 Architecture Jurnal">
+    <mxGraphModel dx="1420" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="760" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p1_title" value="Page 1 — Architecture Jurnal Utama: Segmentasi SWK Surabaya (Selayanti et al., 2024)" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="980" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="p1_note" value="Catatan: Setiap node hanya menampilkan Module proses sesuai ketentuan (tanpa daftar library)." style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#4A5568;" vertex="1" parent="1">
+          <mxGeometry x="40" y="56" width="800" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="g_ds" value="DATA SOURCE" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;spacingTop=6;strokeWidth=2;fillColor=#F8FAFC;strokeColor=#1F4E79;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="40" y="110" width="210" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="m_ds1" value="Satu Data Surabaya&lt;br&gt;(48 SWK, 11 Variabel)" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="60" y="165" width="170" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="g_st" value="DATA STORAGE" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;spacingTop=6;strokeWidth=2;fillColor=#F8FAFC;strokeColor=#1F4E79;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="290" y="110" width="210" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="m_st1" value="Raw Data&lt;br&gt;(Dataset SWK 48 Baris)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fontSize=11;fontStyle=1;fillColor=#EDF2F7;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="315" y="155" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="m_st2" value="Processed Data&lt;br&gt;(Dataset Z-Score)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fontSize=11;fontStyle=1;fillColor=#EDF2F7;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="315" y="245" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="m_st3" value="Output Data&lt;br&gt;(Label Cluster &amp; Grafik)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fontSize=11;fontStyle=1;fillColor=#EDF2F7;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="315" y="335" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="g_pre" value="PRE-PROCESSING" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;spacingTop=6;strokeWidth=2;fillColor=#F8FAFC;strokeColor=#1F4E79;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="550" y="110" width="250" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="m_pre1" value="Seleksi Variabel&lt;br&gt;(4 Fitur Utama SWK)" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="575" y="155" width="200" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="m_pre2" value="Missing Value&lt;br&gt;(Imputasi Mean)" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="575" y="225" width="200" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="m_pre3" value="Normalisasi Data&lt;br&gt;(Z-Score)" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="575" y="295" width="200" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="g_eda" value="EXPLORATORY DATA ANALYSIS (EDA)" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;spacingTop=6;strokeWidth=2;fillColor=#F8FAFC;strokeColor=#1F4E79;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="550" y="420" width="250" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="m_eda1" value="Statistika Deskriptif" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="575" y="465" width="200" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="m_eda2" value="Perbandingan Pelaku Usaha&lt;br&gt;&amp; Omzet &gt; 1 Juta" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="575" y="525" width="200" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="m_eda3" value="Histogram &amp; Kapasitas Sentra" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="575" y="590" width="200" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="g_mod" value="MODELING (HIERARCHICAL CLUSTERING)" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;spacingTop=6;strokeWidth=2;fillColor=#F8FAFC;strokeColor=#1F4E79;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="850" y="110" width="250" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="m_mod1" value="Single Linkage" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="875" y="155" width="200" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="m_mod2" value="Average Linkage" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="875" y="215" width="200" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="m_mod3" value="Complete Linkage (Terpilih)" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="875" y="275" width="200" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="m_mod4" value="Ward Linkage" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="875" y="335" width="200" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="g_ev" value="MODEL EVALUATION" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;spacingTop=6;strokeWidth=2;fillColor=#F8FAFC;strokeColor=#1F4E79;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="850" y="440" width="250" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="m_ev1" value="Korelasi Cophenetic&lt;br&gt;(Validasi Linkage Terbaik)" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="875" y="490" width="200" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="m_ev2" value="Silhouette Coefficient&lt;br&gt;(Validasi Jumlah Cluster k)" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="875" y="570" width="200" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="g_vis" value="ANALYSIS &amp; VISUALIZATION" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;spacingTop=6;strokeWidth=2;fillColor=#F8FAFC;strokeColor=#1F4E79;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="110" width="260" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="m_vis1" value="Dendrogram Cluster" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1175" y="160" width="210" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="m_vis2" value="Interpretasi Profil Cluster&lt;br&gt;(Rata-Rata 3 Cluster)" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1175" y="230" width="210" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="m_vis3" value="Strategi Optimalisasi Omzet&lt;br&gt;SWK Surabaya" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fontSize=11;fillColor=#FFFFFF;strokeColor=#2C5282;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1175" y="305" width="210" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="g_ds" target="g_st">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;startArrow=block;startFill=1;" edge="1" parent="1" source="g_st" target="g_pre">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="g_st" target="g_eda">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="g_pre" target="g_mod">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="g_mod" target="g_ev">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="g_ev" target="g_vis">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;dashed=1;dashPattern=6 4;exitX=0.5;exitY=1;entryX=0.5;entryY=1;" edge="1" parent="1" source="g_vis" target="g_st">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page2_flow_jurnal" name="Page-2 Flowchart Jurnal">
+    <mxGraphModel dx="1420" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="540" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p2_title" value="Page 2 — Flowchart Jurnal Utama: AHC 48 SWK Surabaya (Selaras Notebook Repeat/)" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="960" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="f_start" value="Start" style="ellipse;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;fillColor=#E6FFFA;strokeColor=#00695C;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="100" width="120" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="f_ds" value="Dataset SWK&lt;br&gt;(48 Baris, 11 Var)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fontSize=11;fontStyle=1;fillColor=#EDF2F7;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="220" y="92" width="145" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="f_eda" value="EDA Statistika Deskriptif&lt;br&gt;(Pelaku Usaha, Kapasitas,&lt;br&gt;Omzet &gt; 1 Juta)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="420" y="94" width="210" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="f_sel" value="Pre-processing:&lt;br&gt;Seleksi 4 Variabel Utama" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="685" y="94" width="195" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="f_miss" value="Ada Missing&lt;br&gt;Value?" style="rhombus;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#FFFBEB;strokeColor=#B7791F;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="940" y="86" width="145" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="f_imp" value="Imputasi Mean&lt;br&gt;(Luas Sentra)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="1145" y="94" width="170" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="f_norm" value="Normalisasi Data&lt;br&gt;Z-Score (StandardScaler)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="1125" y="250" width="210" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="f_ahc" value="Clustering AHC:&lt;br&gt;Single, Average,&lt;br&gt;Complete, Ward Linkage" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="840" y="250" width="220" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="f_coph" value="Evaluasi Korelasi&lt;br&gt;Cophenetic (4 Linkage)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="565" y="250" width="210" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="f_sil" value="Evaluasi Silhouette&lt;br&gt;Coefficient (k = 2..6)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="295" y="250" width="205" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="f_opt" value="Linkage &amp; Cluster&lt;br&gt;Optimal?" style="rhombus;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#FFFBEB;strokeColor=#B7791F;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="242" width="165" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="f_tune" value="Bandingkan Linkage &amp;&lt;br&gt;Proporsi Cluster (k)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="390" width="190" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="f_pick" value="Pilih Complete Linkage&lt;br&gt;(k = 3; Cophenetic 0.8566,&lt;br&gt;Silhouette 0.4893)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="340" y="390" width="230" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="f_prof" value="Dendrogram &amp; Profil&lt;br&gt;Rata-Rata 3 Cluster&lt;br&gt;(Tabel 3 &amp; 4)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="640" y="390" width="215" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="f_vis" value="Visualisasi &amp; Strategi&lt;br&gt;Optimalisasi Omzet SWK" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#FFFFFF;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="925" y="390" width="215" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="f_end" value="End" style="ellipse;whiteSpace=wrap;html=1;fontSize=12;fontStyle=1;fillColor=#E6FFFA;strokeColor=#00695C;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="398" width="120" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="fe1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="f_start" target="f_ds">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="f_ds" target="f_eda">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="f_eda" target="f_sel">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="f_sel" target="f_miss">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe5" value="Ya" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="f_miss" target="f_imp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="f_imp" target="f_norm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe7" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="f_miss" target="f_norm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="f_norm" target="f_ahc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="f_ahc" target="f_coph">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="f_coph" target="f_sil">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="f_sil" target="f_opt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe12" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="f_opt" target="f_tune">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;dashed=1;dashPattern=6 4;exitX=1;exitY=0.2;entryX=0.5;entryY=1;" edge="1" parent="1" source="f_tune" target="f_ahc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe14" value="Ya" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.75;entryX=0;entryY=0.5;" edge="1" parent="1" source="f_opt" target="f_pick">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="f_pick" target="f_prof">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="f_prof" target="f_vis">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fe17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="f_vis" target="f_end">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page3_arch_modifikasi" name="Page-3 Architecture Modifikasi">
+    <mxGraphModel dx="1420" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1740" pageHeight="840" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p3_title" value="Page 3 — Architecture Modifikasi Mahasiswa: Multimodal Big Data &amp; AI UMKM Kuliner Surabaya Timur" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1280" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="p3_note" value="Catatan: Struktur blok mengikuti Arsitektur Mahasiswa dengan isi node khusus Module (Dataset A Tabular/Teks, Dataset B Gambar, Dataset C Dokumen)." style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#4A5568;" vertex="1" parent="1">
+          <mxGeometry x="40" y="56" width="1180" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="m_ds" value="DATA SOURCES (3 MODALITAS)" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=6;strokeWidth=2;fillColor=#F8FAFC;strokeColor=#1A365D;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="40" y="110" width="230" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_a" value="Dataset A — Tabular &amp; Teks&lt;br&gt;(48 SWK + 385 UMKM +&lt;br&gt;1.164 Ulasan Surabaya Timur)" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="58" y="150" width="194" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_b" value="Dataset B — Gambar Indonesia&lt;br&gt;(549 Foto UMKM/SWK +&lt;br&gt;993 Foto Padang Cuisine / JuTISI)" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="58" y="242" width="194" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="ds_c" value="Dataset C — Dokumen&lt;br&gt;(MIDD 708 Invoice + CORD-v2&lt;br&gt;200 Struk Indonesia + 3 PDF)" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="58" y="334" width="194" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="m_etl" value="INGESTION &amp; STAGING" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=6;strokeWidth=2;fillColor=#F8FAFC;strokeColor=#1A365D;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="310" y="110" width="200" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="et_1" value="Pengambilan Data Multi-Sumber" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="328" y="155" width="164" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="et_2" value="Penggabungan Batch Multimodal" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="328" y="238" width="164" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="et_3" value="Katalog Skema &amp; Provenance" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="328" y="321" width="164" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="m_st" value="DATA STORAGE" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=6;strokeWidth=2;fillColor=#F8FAFC;strokeColor=#1A365D;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="550" y="110" width="195" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="st_1" value="Raw Data Zone&lt;br&gt;(Mentah A, B, C)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=11;fontSize=10;fontStyle=1;fillColor=#EDF2F7;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="570" y="150" width="155" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="st_2" value="Clean Data Zone&lt;br&gt;(Bersih Tervalidasi)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=11;fontSize=10;fontStyle=1;fillColor=#EDF2F7;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="570" y="240" width="155" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="st_3" value="Feature Store&lt;br&gt;(Matriks &amp; Embedding)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=11;fontSize=10;fontStyle=1;fillColor=#EDF2F7;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="570" y="330" width="155" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="st_4" value="Model Registry&lt;br&gt;(Artefak ML &amp; DL)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=11;fontSize=10;fontStyle=1;fillColor=#EDF2F7;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="570" y="420" width="155" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="m_dt" value="DATA TRANSFORMATION" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=6;strokeWidth=2;fillColor=#F8FAFC;strokeColor=#1A365D;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="790" y="110" width="620" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="dt_pre" value="Pre-processing" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=4;strokeWidth=1.4;fillColor=#FFFFFF;strokeColor=#4A5568;fontColor=#1A202C;" vertex="1" parent="1">
+          <mxGeometry x="808" y="145" width="584" height="112" as="geometry" />
+        </mxCell>
+        <mxCell id="pr_1" value="Seleksi Variabel &amp;&lt;br&gt;Imputasi Mean" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="820" y="178" width="132" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="pr_2" value="Pembersihan Teks &amp;&lt;br&gt;Sensor PII" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="964" y="178" width="132" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="pr_3" value="Filter Visual &amp;&lt;br&gt;Blur Wajah" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1108" y="178" width="132" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="pr_4" value="Parsing IOB, JSON&lt;br&gt;Struk &amp; PDF" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1252" y="178" width="132" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="dt_eda" value="Exploratory Data Analysis (EDA)" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=4;strokeWidth=1.4;fillColor=#FFFFFF;strokeColor=#4A5568;fontColor=#1A202C;" vertex="1" parent="1">
+          <mxGeometry x="808" y="272" width="584" height="108" as="geometry" />
+        </mxCell>
+        <mxCell id="ed_1" value="EDA Tabular &amp; Teks&lt;br&gt;(Dataset A)" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="820" y="305" width="178" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ed_2" value="EDA Citra &amp; Indikator&lt;br&gt;(Dataset B)" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1012" y="305" width="178" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ed_3" value="EDA Invoice &amp; Struk&lt;br&gt;(Dataset C)" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1204" y="305" width="178" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dt_fe" value="Feature Extraction &amp; Engineering" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=4;strokeWidth=1.4;fillColor=#FFFFFF;strokeColor=#4A5568;fontColor=#1A202C;" vertex="1" parent="1">
+          <mxGeometry x="808" y="395" width="584" height="118" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_1" value="Normalisasi Z-Score&lt;br&gt;&amp; Scaling" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="820" y="430" width="132" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_2" value="Ekstraksi Fitur Teks&lt;br&gt;&amp; Indikator Visual" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="964" y="430" width="132" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_3" value="Fusi Multimodal &amp;&lt;br&gt;Reduksi Dimensi" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1108" y="430" width="132" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_4" value="Ekstraksi Fitur Teks&lt;br&gt;&amp; Metadata Dokumen" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1252" y="430" width="132" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="m_aos" value="ANALYTICS &amp; MODELING (MULTI-BRANCH)" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=6;strokeWidth=2;fillColor=#F8FAFC;strokeColor=#1A365D;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="790" y="565" width="620" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="ao_1" value="Branch A — Clustering&lt;br&gt;(AHC Complete, K-Means,&lt;br&gt;Autoencoder)" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="810" y="610" width="184" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="ao_2" value="Branch B — Multimodal&lt;br&gt;(Klasifikasi 3 Kelas &amp;&lt;br&gt;Regresi Skor Kematangan)" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1008" y="610" width="184" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="ao_3" value="Branch C — Dokumen&lt;br&gt;(Klasifikasi 4 Layout MIDD &amp;&lt;br&gt;Pembayaran Non-Tunai CORD)" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1206" y="610" width="184" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="m_me" value="MODEL EVALUATION" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=6;strokeWidth=2;fillColor=#F8FAFC;strokeColor=#1A365D;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="1460" y="110" width="230" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="ev_1" value="Cophenetic &amp; Silhouette" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1478" y="150" width="194" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="ev_2" value="GroupKFold Accuracy,&lt;br&gt;Macro-F1 &amp; Cohen's Kappa" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1478" y="206" width="194" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="ev_3" value="Regression RMSE &amp; R2" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1478" y="264" width="194" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="ev_4" value="StratifiedKFold Layout &amp;&lt;br&gt;Receipt Metrics" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1478" y="316" width="194" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="m_bda" value="BIG DATA ANALYTICS &amp; VISUALIZATION" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=6;strokeWidth=2;fillColor=#F8FAFC;strokeColor=#1A365D;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="1460" y="400" width="230" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="bd_1" value="Agregasi Digital Gap&lt;br&gt;6 Kecamatan" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1478" y="440" width="194" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="bd_2" value="Peta Sebaran Spasial &amp;&lt;br&gt;Spider Chart" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1478" y="498" width="194" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="bd_3" value="Komparasi Repeat vs&lt;br&gt;Modifikasi" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1478" y="556" width="194" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="m_app" value="INFERENCING &amp; AI APPLICATION" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=11;spacingTop=6;strokeWidth=2;fillColor=#F8FAFC;strokeColor=#1A365D;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="1460" y="645" width="230" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="ap_1" value="Inference Service API &amp;&lt;br&gt;Dashboard Rekomendasi" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fontSize=10;fillColor=#FFFFFF;strokeColor=#2B6CB0;fontColor=#111111;" vertex="1" parent="1">
+          <mxGeometry x="1478" y="690" width="194" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="me1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="m_ds" target="m_etl">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="me2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="m_etl" target="m_st">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="me3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;startArrow=block;startFill=1;" edge="1" parent="1" source="m_st" target="m_dt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="me4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;startArrow=block;startFill=1;" edge="1" parent="1" source="m_dt" target="m_aos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="me5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="m_st" target="m_aos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="me6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="m_aos" target="m_me">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="me7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="m_me" target="m_bda">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="me8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="m_bda" target="m_app">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page4_flow_modifikasi" name="Page-4 Flowchart Modifikasi">
+    <mxGraphModel dx="1420" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1480" pageHeight="640" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p4_title" value="Page 4 — Flowchart Modifikasi Bercabang (Dataset A, Dataset B, Dataset C — Pola Figure (d))" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=#0B2E59;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1220" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="r_ds" value="Multi-Source&lt;br&gt;Dataset" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fontSize=11;fontStyle=1;fillColor=#EDF2F7;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="95" width="125" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="r_split" value="Data Splitting /&lt;br&gt;Routing per Modalitas" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=10.5;fontStyle=1;fillColor=#FFFFFF;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="215" y="100" width="175" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="cyl_b" value="Dataset B&lt;br&gt;(549 Foto UMKM +&lt;br&gt;993 Foto Masakan ID)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fontSize=11;fontStyle=1;fillColor=#EDF2F7;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="445" y="90" width="145" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="pre_b" value="Pre-processing &amp;&lt;br&gt;EDA B (Filter Visual,&lt;br&gt;Blur Wajah)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=10.5;fontStyle=1;fillColor=#F0FFF4;strokeColor=#2F855A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="635" y="96" width="170" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_b" value="Feature Extraction B&lt;br&gt;(Indikator Visual +&lt;br&gt;Fusi Multimodal)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=10.5;fontStyle=1;fillColor=#F0FFF4;strokeColor=#2F855A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="845" y="96" width="170" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_b" value="Modeling B&lt;br&gt;(RF, SVM, GB, MLP&lt;br&gt;+ Regressor)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=10.5;fontStyle=1;fillColor=#F0FFF4;strokeColor=#2F855A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="1055" y="96" width="165" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="ev_b" value="Evaluation B&lt;br&gt;(GroupKFold F1,&lt;br&gt;Kappa, R2/RMSE)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=10.5;fontStyle=1;fillColor=#F0FFF4;strokeColor=#2F855A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="96" width="160" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="inf_b" value="Inferences B&lt;br&gt;(Prediksi 6 Model)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=10.5;fontStyle=1;fillColor=#F0FFF4;strokeColor=#2F855A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="235" width="160" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="cyl_a" value="Dataset A&lt;br&gt;(48 SWK + 385 UMKM&lt;br&gt;+ 1.164 Ulasan)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fontSize=11;fontStyle=1;fillColor=#EDF2F7;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="160" y="250" width="155" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="pre_a" value="Pre-processing &amp;&lt;br&gt;EDA A (Imputasi,&lt;br&gt;Sensor PII, Z-Score)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=10.5;fontStyle=1;fillColor=#EBF8FF;strokeColor=#2B6CB0;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="152" y="375" width="170" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="cl_a" value="Clustering A&lt;br&gt;(AHC Complete,&lt;br&gt;K-Means, Autoencoder)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=10.5;fontStyle=1;fillColor=#EBF8FF;strokeColor=#2B6CB0;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="375" y="375" width="175" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_a" value="Modeling A&lt;br&gt;(Profil Klaster SWK&lt;br&gt;&amp; UMKM)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=10.5;fontStyle=1;fillColor=#EBF8FF;strokeColor=#2B6CB0;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="600" y="375" width="165" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="ev_a" value="Evaluation A&lt;br&gt;(Cophenetic &amp;&lt;br&gt;Silhouette Score)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=10.5;fontStyle=1;fillColor=#EBF8FF;strokeColor=#2B6CB0;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="600" y="235" width="165" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="cyl_c" value="Dataset C&lt;br&gt;(MIDD 708 Invoice +&lt;br&gt;CORD-v2 200 Struk)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fontSize=11;fontStyle=1;fillColor=#EDF2F7;strokeColor=#1A1A1A;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="160" y="505" width="155" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="pre_c" value="Pre-processing &amp;&lt;br&gt;EDA C (Parsing IOB,&lt;br&gt;JSON Struk, PDF)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=10.5;fontStyle=1;fillColor=#FFFBEB;strokeColor=#B7791F;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="375" y="511" width="175" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="fe_c" value="Feature Extraction C&lt;br&gt;(TF-IDF Invoice &amp;&lt;br&gt;Fitur Transaksi Struk)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=10.5;fontStyle=1;fillColor=#FFFBEB;strokeColor=#B7791F;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="600" y="511" width="170" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="mod_c" value="Modeling C&lt;br&gt;(Klasifikasi Layout&lt;br&gt;&amp; Pembayaran Struk)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=10.5;fontStyle=1;fillColor=#FFFBEB;strokeColor=#B7791F;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="820" y="511" width="170" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="ev_c" value="Evaluation C&lt;br&gt;(StratifiedKFold&lt;br&gt;Accuracy &amp; F1)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=10.5;fontStyle=1;fillColor=#FFFBEB;strokeColor=#B7791F;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="1035" y="511" width="160" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="inf_c" value="Inferences C&lt;br&gt;(Ekstraksi Entitas &amp;&lt;br&gt;Status Non-Tunai)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=10.5;fontStyle=1;fillColor=#FFFBEB;strokeColor=#B7791F;strokeWidth=1.8;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="511" width="160" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="ana" value="Analysis&lt;br&gt;(Spatial BDA Digital Gap&lt;br&gt;6 Kecamatan &amp; Komparasi&lt;br&gt;Repeat vs Modifikasi)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#E6FFFA;strokeColor=#00695C;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="840" y="225" width="235" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="vis" value="Visualization&lt;br&gt;(Dendrogram, Grouped Bar,&lt;br&gt;Point Map, Spider Chart,&lt;br&gt;Confusion Matrix)" style="rounded=1;arcSize=16;whiteSpace=wrap;html=1;fontSize=11;fontStyle=1;fillColor=#E6FFFA;strokeColor=#00695C;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="840" y="375" width="235" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="pe0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="r_ds" target="r_split">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pe_sb" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;dashed=1;dashPattern=6 4;" edge="1" parent="1" source="r_split" target="cyl_b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pe_sa" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;dashed=1;dashPattern=6 4;exitX=0.35;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="r_split" target="cyl_a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pe_sc" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;dashed=1;dashPattern=6 4;exitX=0.1;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="r_split" target="cyl_c">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="232" y="195" />
+              <mxPoint x="80" y="195" />
+              <mxPoint x="80" y="544" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pb1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="cyl_b" target="pre_b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pb2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="pre_b" target="fe_b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pb3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="fe_b" target="mod_b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pb4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="mod_b" target="ev_b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pb5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="ev_b" target="inf_b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pb6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.5;entryX=1;entryY=0.35;" edge="1" parent="1" source="inf_b" target="ana">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pa1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="cyl_a" target="pre_a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pa2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="pre_a" target="cl_a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pa3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="cl_a" target="mod_a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pa4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="mod_a" target="ev_a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pa5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="ev_a" target="ana">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pc1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="cyl_c" target="pre_c">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pc2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="pre_c" target="fe_c">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pc3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="fe_c" target="mod_c">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pc4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="mod_c" target="ev_c">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pc5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="ev_c" target="inf_c">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pc6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;exitX=0.2;exitY=0;entryX=1;entryY=0.78;" edge="1" parent="1" source="inf_c" target="ana">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p_fin" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.8;endArrow=block;endFill=1;strokeColor=#1A1A1A;fontColor=#1A1A1A;fontSize=11;fontStyle=1;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="ana" target="vis">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

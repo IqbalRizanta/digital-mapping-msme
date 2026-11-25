@@ -1,0 +1,117 @@
+{
+  "journal": {
+    "title": "Analisis Segmentasi Sentra Wisata Kuliner untuk Optimalisasi Omzet UMKM di Surabaya Menggunakan Metode Agglomerative Hierarchical Clustering",
+    "authors": "Nabilah Selayanti, Shafira Amanda Putri, Tresna Maulana Fahrudin (UPN Veteran Jawa Timur)",
+    "venue": "Jurnal Multi Media dan IT (JoMMiT), Vol. 08 No. 02 (2024), pp. 113-122",
+    "doi": "https://doi.org/10.46961/jommit.v8i2",
+    "dataset_source": "https://web.archive.org/web/20230322060020/https://opendata.surabaya.go.id/dataset/ee6acc0e-3a6b-4305-b229-124fde04deaf/resource/7a4c926d-0059-4eba-8344-7782e018517d/download/kode11500kode25245kode3135.csv"
+  },
+  "instances": 48,
+  "silhouette_by_k_complete": {
+    "2": 0.7559,
+    "3": 0.4893,
+    "4": 0.3779,
+    "5": 0.3846,
+    "6": 0.3092,
+    "7": 0.2613,
+    "8": 0.2638,
+    "9": 0.2492,
+    "10": 0.2582
+  },
+  "cluster_1_members": [
+    "SWK Ketabang",
+    "SWK Bratang Binangun",
+    "SWK RMI",
+    "SWK Taman Bungkul"
+  ],
+  "cluster_2_members": [
+    "SWK Kendung",
+    "SWK Babat Jerawat",
+    "SWK Balas Klumprik",
+    "SWK Bentul",
+    "SWK Convention Hall",
+    "SWK Deles Merr",
+    "SWK Dharmahusada",
+    "SWK Dharmawangsa",
+    "SWK Dukuh menanggal",
+    "SWK Embong Sawo",
+    "SWK Gayungan",
+    "SWK Gunung Anyar",
+    "SWK Indrapura",
+    "SWK Jajar Tunggal",
+    "SWK Jambangan",
+    "SWK Kandangan",
+    "SWK Kapas Krampung",
+    "SWK Karah",
+    "SWK Kasuari",
+    "SWK Kembang Kuning",
+    "SWK Klampis Ngasem",
+    "SWK Krembangan",
+    "SWK Lidah kulon",
+    "SWK Lidah Wetan",
+    "SWK Manukan lor",
+    "SWK Mulyorejo",
+    "SWK Penjaringan Sari",
+    "SWK Pondok Maritim",
+    "SWK Putro Agung",
+    "SWK Rungkut Kidul",
+    "SWK Sememi",
+    "SWK Semolowaru",
+    "SWK Siola",
+    "SWK Siwalankerto",
+    "SWK Studio",
+    "SWK Sukomanunggal",
+    "SWK Taman Prestasi",
+    "SWK Tanah Merah",
+    "SWK Tandes",
+    "SWK Terminal Manukan",
+    "SWK Urip Sumoharjo",
+    "SWK Wiyung",
+    "SWk Wonorejo"
+  ],
+  "cluster_3_members": [
+    "SWK Pegirian"
+  ],
+  "table3": [
+    {
+      "Algoritma": "Single Linkage",
+      "Paper_Cophenetic": 0.9111,
+      "Repeat_Cophenetic": 0.9118,
+      "Paper_Silhouette": 0.5461,
+      "Repeat_Silhouette": 0.5547,
+      "Paper_Proporsi_k3": "46 / 1 / 1",
+      "Repeat_Proporsi_k3": "46 / 1 / 1",
+      "Selisih_Silhouette": 0.0086
+    },
+    {
+      "Algoritma": "Average Linkage",
+      "Paper_Cophenetic": 0.9317,
+      "Repeat_Cophenetic": 0.9242,
+      "Paper_Silhouette": 0.5461,
+      "Repeat_Silhouette": 0.5547,
+      "Paper_Proporsi_k3": "46 / 1 / 1",
+      "Repeat_Proporsi_k3": "46 / 1 / 1",
+      "Selisih_Silhouette": 0.0086
+    },
+    {
+      "Algoritma": "Complete Linkage",
+      "Paper_Cophenetic": 0.8734,
+      "Repeat_Cophenetic": 0.8566,
+      "Paper_Silhouette": 0.4864,
+      "Repeat_Silhouette": 0.4893,
+      "Paper_Proporsi_k3": "4 / 43 / 1",
+      "Repeat_Proporsi_k3": "43 / 4 / 1",
+      "Selisih_Silhouette": 0.0029
+    },
+    {
+      "Algoritma": "Ward Linkage",
+      "Paper_Cophenetic": 0.6368,
+      "Repeat_Cophenetic": 0.6295,
+      "Paper_Silhouette": 0.3954,
+      "Repeat_Silhouette": 0.3946,
+      "Paper_Proporsi_k3": "31 / 16 / 1",
+      "Repeat_Proporsi_k3": "32 / 15 / 1",
+      "Selisih_Silhouette": -0.0008
+    }
+  ]
+}

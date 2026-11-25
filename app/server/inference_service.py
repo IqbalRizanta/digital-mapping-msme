@@ -23,7 +23,7 @@ from model.training.ml_pipeline import FEATURE_COLS, LABEL_NAMES
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 SAVED_DIR = ROOT_DIR / "model" / "saved"
 GOLD_DIR = ROOT_DIR / "data" / "gold"
-BDA_DIR = ROOT_DIR / "peta-digital-umkm" / "reports" / "bda"
+BDA_DIR = ROOT_DIR / "docs" / "reports" / "bda"
 
 
 class UMKMInferenceService:

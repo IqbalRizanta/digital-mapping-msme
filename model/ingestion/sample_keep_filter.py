@@ -39,7 +39,7 @@ SAMPLE_REJECT_DIR = BASE / "data" / "sample" / "reject"
 RAW_MAPS = BASE / "data" / "raw" / "google_maps"
 RAW_MAPS_EXT = BASE / "data" / "raw" / "google_maps_ext"
 SURVEY_DIR = BASE / "data" / "raw" / "survei_offline"
-OUT_FILTER = BASE / "peta-digital-umkm" / "reports" / "yolo" / "filter"
+OUT_FILTER = BASE / "docs" / "reports" / "yolo" / "filter"
 
 # Kueri diperluas untuk menambah kuota UMKM di 6 kecamatan Surabaya Timur
 EXPANDED_UMKM_QUERIES = [

@@ -6,13 +6,13 @@ Target Root Google Drive:
 - Local Mount: G:\\My Drive\\BDA-2026-Iqbal
   (Fallback: G:\\.shortcut-targets-by-id\\12FkjUbkSLU3T8sycDNsIN4hbn1bDGz5c\\BDA-2026-Iqbal)
 
-Struktur 7 Zona Utama (Search Journal -> Repeat Journal -> Adjust Journal -> Dataset & Output Proyek):
-  01_Search_Journal/            : PDF Jurnal Rujukan Resmi & Ringkasan Perbandingan
-  02_Repeat_Journal/            : Alur Repeat (PNG+Draw.io), Dataset Asli Jurnal, Code+Notebook, & Hasil Evaluasi
-  03_Adjust_Journal/            : Alur Adjust (PNG+Draw.io), Code+Notebook Multimodal, & Hasil Perbandingan
+Struktur 7 Zona Utama (Sesuai Bukti Penugasan Presentasi 25 November 2026):
+  01_Diagram_DrawIO/            : File draw.io 4 Halaman (Page 1-2 Jurnal, Page 3-4 Modifikasi) + 4 Preview PNG
+  02_Journal_Rujukan/           : PDF Jurnal Utama, Jurnal Gambar Indonesia (JuTISI 2025), & Ringkasan Bukti Dataset
+  Repeat/                       : Notebook Repeat (.ipynb), Script, Dataset Asli 48 SWK, & Hasil Repeat (Tabel 3 & 4)
+  Modifikasi/                   : Notebook Modifikasi (.ipynb), EDA/Model/BDA, Script, Dataset Dokumen (MIDD & CORD-v2), & Hasil
   04_Dataset_Multimodal_Saya/   : 01_raw/, 02_clean/ (>= 200 MB), 03_staging_spark/, 04_feature_store/
   05_Models_Tersimpan/          : Model ML (.pkl), DL (.pt/.pth/.h5), YOLOv8 (.pt), & Pipeline
-  06_Notebooks_Lengkap_Proyek/  : Seluruh Notebook Tereksekusi (Repeat, Adjust, EDA, Model, BDA)
   07_Reports_Lengkap_Proyek/    : Seluruh Grafik & Laporan Proyek (eda/, model_evaluation/, bda/)
 """
 
@@ -36,21 +36,20 @@ def get_gdrive_project_root() -> Path:
 
 GDRIVE_PROJECT_ROOT = get_gdrive_project_root()
 
-# Tahap 1–3: Search Journal -> Repeat Journal -> Adjust Journal
-GDRIVE_SEARCH_JOURNAL_DIR = GDRIVE_PROJECT_ROOT / "01_Search_Journal"
+# Zona 1-4: Diagram Draw.io, Jurnal Rujukan, Folder Coding Repeat/ & Modifikasi/
+GDRIVE_DIAGRAM_DIR = GDRIVE_PROJECT_ROOT / "01_Diagram_DrawIO"
+GDRIVE_JOURNAL_DIR = GDRIVE_PROJECT_ROOT / "02_Journal_Rujukan"
 
-GDRIVE_REPEAT_JOURNAL_DIR = GDRIVE_PROJECT_ROOT / "02_Repeat_Journal"
-GDRIVE_REPEAT_FLOW_DIR = GDRIVE_REPEAT_JOURNAL_DIR / "alur_flowchart"
-GDRIVE_REPEAT_DATA_DIR = GDRIVE_REPEAT_JOURNAL_DIR / "dataset_jurnal"
-GDRIVE_REPEAT_CODE_DIR = GDRIVE_REPEAT_JOURNAL_DIR / "code_dan_notebook"
-GDRIVE_REPEAT_RESULTS_DIR = GDRIVE_REPEAT_JOURNAL_DIR / "hasil_evaluasi"
+GDRIVE_REPEAT_DIR = GDRIVE_PROJECT_ROOT / "Repeat"
+GDRIVE_REPEAT_DATA_DIR = GDRIVE_REPEAT_DIR / "dataset_jurnal_utama"
+GDRIVE_REPEAT_RESULTS_DIR = GDRIVE_REPEAT_DIR / "hasil_repeat"
 
-GDRIVE_ADJUST_JOURNAL_DIR = GDRIVE_PROJECT_ROOT / "03_Adjust_Journal"
-GDRIVE_ADJUST_FLOW_DIR = GDRIVE_ADJUST_JOURNAL_DIR / "alur_flowchart"
-GDRIVE_ADJUST_CODE_DIR = GDRIVE_ADJUST_JOURNAL_DIR / "code_dan_notebook"
-GDRIVE_ADJUST_RESULTS_DIR = GDRIVE_ADJUST_JOURNAL_DIR / "hasil_evaluasi"
+GDRIVE_MODIFIKASI_DIR = GDRIVE_PROJECT_ROOT / "Modifikasi"
+GDRIVE_MODIFIKASI_IMG_DIR = GDRIVE_MODIFIKASI_DIR / "dataset_gambar_indonesia_serupa"
+GDRIVE_MODIFIKASI_DOCS_DIR = GDRIVE_MODIFIKASI_DIR / "dataset_dokumen_tambahan"
+GDRIVE_MODIFIKASI_RESULTS_DIR = GDRIVE_MODIFIKASI_DIR / "hasil_modifikasi"
 
-# Tahap 4–7: Dataset Multimodal Proyek, Model Registry, Notebooks, & Reports
+# Zona 5-7: Dataset Multimodal Proyek, Model Registry, & Reports
 GDRIVE_DATASET_ROOT = GDRIVE_PROJECT_ROOT / "04_Dataset_Multimodal_Saya"
 GDRIVE_RAW_DIR = GDRIVE_DATASET_ROOT / "01_raw"
 GDRIVE_RAW_IMAGES_DIR = GDRIVE_RAW_DIR / "images"
@@ -66,7 +65,6 @@ GDRIVE_STAGING_SPARK_DIR = GDRIVE_DATASET_ROOT / "03_staging_spark"
 GDRIVE_FEATURE_STORE_DIR = GDRIVE_DATASET_ROOT / "04_feature_store"
 
 GDRIVE_MODELS_DIR = GDRIVE_PROJECT_ROOT / "05_Models_Tersimpan"
-GDRIVE_NOTEBOOKS_DIR = GDRIVE_PROJECT_ROOT / "06_Notebooks_Lengkap_Proyek"
 
 GDRIVE_REPORTS_DIR = GDRIVE_PROJECT_ROOT / "07_Reports_Lengkap_Proyek"
 GDRIVE_REPORTS_EDA_DIR = GDRIVE_REPORTS_DIR / "eda"
@@ -74,14 +72,14 @@ GDRIVE_REPORTS_EVAL_DIR = GDRIVE_REPORTS_DIR / "model_evaluation"
 GDRIVE_REPORTS_BDA_DIR = GDRIVE_REPORTS_DIR / "bda"
 
 ALL_STRUCTURED_DIRS = [
-    GDRIVE_SEARCH_JOURNAL_DIR,
-    GDRIVE_REPEAT_FLOW_DIR,
+    GDRIVE_DIAGRAM_DIR,
+    GDRIVE_JOURNAL_DIR,
     GDRIVE_REPEAT_DATA_DIR,
-    GDRIVE_REPEAT_CODE_DIR,
     GDRIVE_REPEAT_RESULTS_DIR,
-    GDRIVE_ADJUST_FLOW_DIR,
-    GDRIVE_ADJUST_CODE_DIR,
-    GDRIVE_ADJUST_RESULTS_DIR,
+    GDRIVE_MODIFIKASI_IMG_DIR / "sample_27_images",
+    GDRIVE_MODIFIKASI_DOCS_DIR / "MIDD_Invoice_IOB",
+    GDRIVE_MODIFIKASI_DOCS_DIR / "CORD_v2_Receipts_Indonesia",
+    GDRIVE_MODIFIKASI_RESULTS_DIR,
     GDRIVE_RAW_IMAGES_DIR / "Google_Maps",
     GDRIVE_RAW_IMAGES_DIR / "Survei_Lapangan_SWK",
     GDRIVE_RAW_IMAGES_DIR / "Ditolak_Non_Target",
@@ -94,7 +92,6 @@ ALL_STRUCTURED_DIRS = [
     GDRIVE_STAGING_SPARK_DIR,
     GDRIVE_FEATURE_STORE_DIR,
     GDRIVE_MODELS_DIR,
-    GDRIVE_NOTEBOOKS_DIR,
     GDRIVE_REPORTS_EDA_DIR,
     GDRIVE_REPORTS_EVAL_DIR,
     GDRIVE_REPORTS_BDA_DIR,

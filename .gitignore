@@ -54,3 +54,10 @@ Desktop.ini
 *.log
 mlruns/
 runs/
+
+# Local duplicate workspace, sample scratch images, journal PDFs, and heavy legacy figure bundles
+BDA-2026-Iqbal/
+data/sample/
+docs/Journal/*.pdf
+docs/reports/figures/
+

@@ -30,7 +30,7 @@ from model.storage_config import GDRIVE_REPORTS_EVAL_DIR
 from model.training.ml_pipeline import FEATURE_COLS, LABEL_NAMES, derive_target_class, prepare_feature_frame
 GOLD_DIR = ROOT_DIR / "data" / "gold"
 SAVED_DIR = ROOT_DIR / "model" / "saved"
-EVAL_DIR = ROOT_DIR / "peta-digital-umkm" / "reports" / "modeling"
+EVAL_DIR = ROOT_DIR / "docs" / "reports" / "modeling"
 GDRIVE_EVAL_DIR = GDRIVE_REPORTS_EVAL_DIR
 
 

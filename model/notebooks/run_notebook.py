@@ -129,8 +129,9 @@ def execute_notebook(notebook_path: Path):
 
     # Copy executed notebook to structured Google Drive (BDA-2026-Iqbal)
     from model.storage_config import (
-        GDRIVE_NOTEBOOKS_DIR,
+        GDRIVE_MODIFIKASI_DIR,
         GDRIVE_PROJECT_ROOT,
+        GDRIVE_REPEAT_DIR,
         GDRIVE_REPORTS_BDA_DIR,
         GDRIVE_REPORTS_EDA_DIR,
         GDRIVE_REPORTS_EVAL_DIR,
@@ -145,13 +146,14 @@ def execute_notebook(notebook_path: Path):
         gdrive_report_dir = GDRIVE_REPORTS_BDA_DIR
 
     if GDRIVE_PROJECT_ROOT.exists():
-        GDRIVE_NOTEBOOKS_DIR.mkdir(parents=True, exist_ok=True)
-        dest_nb = GDRIVE_NOTEBOOKS_DIR / notebook_path.name
+        dest_dir = GDRIVE_REPEAT_DIR if "repeat" in notebook_path.name.lower() else GDRIVE_MODIFIKASI_DIR
+        dest_dir.mkdir(parents=True, exist_ok=True)
+        dest_nb = dest_dir / notebook_path.name
         shutil.copy2(notebook_path, dest_nb)
         print(f"-> [TERSIMPAN DI GDRIVE] Salinan notebook ter-upload ke: {dest_nb}")
 
     # Also mirror files from GDrive report folder to local reports/figures for local redundancy
-    local_reports = Path("peta-digital-umkm/reports/figures")
+    local_reports = Path("docs/reports/figures")
     local_reports.mkdir(parents=True, exist_ok=True)
     if gdrive_report_dir and gdrive_report_dir.exists():
         for png_file in gdrive_report_dir.glob("*.png"):

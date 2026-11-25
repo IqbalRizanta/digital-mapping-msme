@@ -324,7 +324,7 @@ def build_clean_datasets():
 
     from model.storage_config import GDRIVE_REPORTS_EVAL_DIR
     gdrive_det_csv = GDRIVE_REPORTS_EVAL_DIR / "yolo_outputs" / "detect" / "predictions_detect.csv"
-    local_det_csv = Path("peta-digital-umkm/reports/yolo/detect/predictions_detect.csv")
+    local_det_csv = Path("docs/reports/yolo/detect/predictions_detect.csv")
     det_csv = gdrive_det_csv if gdrive_det_csv.exists() else local_det_csv
     if det_csv.exists():
         df_det = pd.read_csv(det_csv)

@@ -1,0 +1,6 @@
+Modalitas_Tahap,Sumber_Dataset,Metode_Utama,Metrik_Utama
+1. Repeat Jurnal Utama (Tabular 48 SWK),"Satu Data Surabaya (Selayanti et al., 2024)",AHC Complete Linkage (k=3),Cophenetic = 0.8566 | Silhouette = 0.4893 (Paper: 0.4864)
+2A. Modifikasi Gambar + Teks/Numerik UMKM,549 Foto (279.99 MB) + 385 UMKM + 1.164 Ulasan Surabaya Timur,"K-Means, Autoencoder, RF, Gradient Boosting, PyTorch MLP","GB Acc = 0.9792, F1 = 0.9533 | K-Means Sil = 0.4737 | Reg R2 = 0.9768"
+2B. Gambar Masakan Indonesia Serupa (Padang Cuisine),"HF fahmindra/padang-cuisine (ODbL, 993 foto, 9 kelas — pengganti Mendeley 403 JuTISI 2025)",HSV/Lab Spatial Pyramid + Sobel Texture + Random Forest,"Test Acc = 0.6333, Macro-F1 = 0.6191 (9 Kelas Seimbang)"
+3A. Dokumen Invoice (MIDD - 708 CSV IOB),"MIDD Zenodo 10.5281/zenodo.5113009 (Baviskar et al., 2021)",TF-IDF + LinearSVC & Random Forest (4-Layout Classification),"SVM Acc = 0.9986, F1 = 0.9991 | RF Acc = 0.9986"
+3B. Dokumen Struk Indonesia (CORD-v2),"CORD-v2 (Park et al., 2019; HF iqbal-rizanta/cord-v2-bucket)",Receipt Metadata Feature Extraction + RF Payment Classifier,"Acc = 0.6350, F1 = 0.4961 | Median Struk Rp 48,000"

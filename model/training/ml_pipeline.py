@@ -38,7 +38,7 @@ except ImportError:
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 GOLD_DIR = ROOT_DIR / "data" / "gold"
 SAVED_DIR = ROOT_DIR / "model" / "saved"
-REPORTS_DIR = ROOT_DIR / "peta-digital-umkm" / "reports" / "modeling"
+REPORTS_DIR = ROOT_DIR / "docs" / "reports" / "modeling"
 
 FEATURE_COLS = [
     "rating",

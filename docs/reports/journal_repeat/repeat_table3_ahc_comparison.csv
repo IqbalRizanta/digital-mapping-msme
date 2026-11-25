@@ -1,0 +1,5 @@
+Algoritma,Paper_Cophenetic,Repeat_Cophenetic,Paper_Silhouette,Repeat_Silhouette,Paper_Proporsi_k3,Repeat_Proporsi_k3,Selisih_Silhouette
+Single Linkage,0.9111,0.9118,0.5461,0.5547,46 / 1 / 1,46 / 1 / 1,0.0086
+Average Linkage,0.9317,0.9242,0.5461,0.5547,46 / 1 / 1,46 / 1 / 1,0.0086
+Complete Linkage,0.8734,0.8566,0.4864,0.4893,4 / 43 / 1,43 / 4 / 1,0.0029
+Ward Linkage,0.6368,0.6295,0.3954,0.3946,31 / 16 / 1,32 / 15 / 1,-0.0008

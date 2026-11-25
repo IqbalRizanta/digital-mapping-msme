@@ -51,7 +51,7 @@ SURVEY_DIR = RAW_DIR / "survei_offline"
 SAMPLE_KEEP_DIR = ROOT_DIR / "data" / "sample" / "keep"
 REJECT_DIR = ROOT_DIR / "data" / "sample" / "reject"
 CATALOG_PATH = RAW_DIR / "verified_places_catalog.json"
-FILTER_REPORT_PATH = ROOT_DIR / "peta-digital-umkm" / "reports" / "yolo" / "filter" / "clip_audit_summary.json"
+FILTER_REPORT_PATH = ROOT_DIR / "docs" / "reports" / "yolo" / "filter" / "clip_audit_summary.json"
 
 SEARCH_TEXT_URL = "https://places.googleapis.com/v1/places:searchText"
 PLACE_DETAILS_URL = "https://places.googleapis.com/v1/places"

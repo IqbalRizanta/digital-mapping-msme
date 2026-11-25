@@ -23,7 +23,7 @@ if str(ROOT_DIR) not in sys.path:
 from model.storage_config import GDRIVE_REPORTS_BDA_DIR
 
 GOLD_DIR = ROOT_DIR / "data" / "gold"
-BDA_DIR = ROOT_DIR / "peta-digital-umkm" / "reports" / "bda"
+BDA_DIR = ROOT_DIR / "docs" / "reports" / "bda"
 GDRIVE_BDA_DIR = GDRIVE_REPORTS_BDA_DIR
 
 

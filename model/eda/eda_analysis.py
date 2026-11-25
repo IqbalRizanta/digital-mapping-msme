@@ -24,7 +24,7 @@ if str(ROOT_DIR) not in sys.path:
 from model.storage_config import GDRIVE_REPORTS_EDA_DIR
 
 CLEAN_DIR = ROOT_DIR / "data" / "clean"
-EDA_REPORT_DIR = ROOT_DIR / "peta-digital-umkm" / "reports" / "eda"
+EDA_REPORT_DIR = ROOT_DIR / "docs" / "reports" / "eda"
 GDRIVE_EDA_DIR = GDRIVE_REPORTS_EDA_DIR
 
 

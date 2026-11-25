@@ -43,7 +43,7 @@ CLEAN_DIR = BASE / "data" / "clean"
 CLEAN_PHOTOS = CLEAN_DIR / "photos"
 from model.storage_config import GDRIVE_CLEAN_DIR, GDRIVE_MODELS_DIR, GDRIVE_REPORTS_EVAL_DIR
 
-OUT = BASE / "peta-digital-umkm" / "reports" / "yolo"
+OUT = BASE / "docs" / "reports" / "yolo"
 MODELS = BASE / "model" / "saved"
 GDRIVE_OUT = GDRIVE_REPORTS_EVAL_DIR / "yolo_outputs"
 GDRIVE_CLEAN = GDRIVE_CLEAN_DIR

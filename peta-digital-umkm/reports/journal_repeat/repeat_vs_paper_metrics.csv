@@ -1,7 +1,0 @@
-Experiment,Samples_Per_Class,Model,Paper_Accuracy,Repeat_Accuracy,Paper_Precision,Repeat_Precision,Paper_Recall,Repeat_Recall,Paper_F1,Repeat_F1,Diff_Accuracy,Diff_F1
-Review,8807,Random Forest,0.68,0.69,0.677,0.685,0.68,0.69,0.672,0.681,0.01,0.009
-Review,8807,Naive Bayes,0.449,0.457,0.471,0.525,0.446,0.457,0.347,0.356,0.008,0.009
-Review,8807,SVM,0.682,0.69,0.678,0.685,0.682,0.69,0.673,0.681,0.008,0.008
-Summary,3000,Random Forest,0.767,0.766,0.766,0.765,0.768,0.766,0.766,0.764,-0.001,-0.002
-Summary,3000,Naive Bayes,0.426,0.452,0.508,0.539,0.421,0.452,0.38,0.416,0.026,0.036
-Summary,3000,SVM,0.768,0.754,0.768,0.755,0.769,0.754,0.768,0.753,-0.014,-0.015

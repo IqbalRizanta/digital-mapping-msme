@@ -1,0 +1,137 @@
+{
+  "multimodal_umkm": {
+    "umkm_rows": 385,
+    "ulasan_rows": 1164,
+    "foto_clean_count": 549,
+    "foto_clean_mb": 279.99,
+    "dokumen_pdf_count": 3,
+    "kmeans_silhouette": 0.4737,
+    "kmeans_davies_bouldin": 1.0683,
+    "rf_reg_rmse": 2.9326,
+    "rf_reg_r2": 0.9768,
+    "dl_metrics": {
+      "dl_clustering": {
+        "architecture": "DeepClusteringAutoencoder(latent=6)+KMeans",
+        "latent_silhouette_score": 0.4834
+      },
+      "dl_classification": {
+        "architecture": "DeepMaturityClassifier(MLP)",
+        "accuracy": 1.0,
+        "macro_f1": 1.0
+      },
+      "dl_regression": {
+        "architecture": "DeepMaturityRegressor(MLP)",
+        "rmse": 0.5039,
+        "r2": 0.9993
+      }
+    },
+    "classification": [
+      {
+        "Model": "Naive Bayes",
+        "Accuracy": 0.8857,
+        "Macro_F1": 0.6675,
+        "Cohens_Kappa": 0.733
+      },
+      {
+        "Model": "SVM (LinearSVC)",
+        "Accuracy": 0.9766,
+        "Macro_F1": 0.9417,
+        "Cohens_Kappa": 0.9453
+      },
+      {
+        "Model": "Random Forest",
+        "Accuracy": 0.974,
+        "Macro_F1": 0.9402,
+        "Cohens_Kappa": 0.9388
+      },
+      {
+        "Model": "Gradient Boosting",
+        "Accuracy": 0.9792,
+        "Macro_F1": 0.9533,
+        "Cohens_Kappa": 0.9511
+      }
+    ]
+  },
+  "padang_food_images": {
+    "source": "HuggingFace fahmindra/padang-cuisine (ODbL, mirror Kaggle faldoae/padangfood)",
+    "rationale": "Dataset gambar masakan Indonesia publik serupa untuk JuTISI 2025 (Mendeley 10.17632/vtjd68bmwt.1 HTTP 403)",
+    "total_images": 993,
+    "train_images": 813,
+    "test_images": 180,
+    "num_classes": 9,
+    "feature_dims": 216,
+    "class_counts": {
+      "ayam_goreng": 107,
+      "ayam_pop": 113,
+      "daging_rendang": 104,
+      "dendeng_batokok": 109,
+      "gulai_ikan": 111,
+      "gulai_tambusu": 103,
+      "gulai_tunjang": 119,
+      "telur_balado": 111,
+      "telur_dadar": 116
+    },
+    "avg_width": 730.1,
+    "avg_height": 518.4,
+    "best_model": "Random Forest",
+    "best_test_acc": 0.6333,
+    "benchmark": [
+      {
+        "Model": "Random Forest",
+        "Test_Accuracy": 0.6333,
+        "Test_Macro_F1": 0.6191
+      },
+      {
+        "Model": "LinearSVC",
+        "Test_Accuracy": 0.5889,
+        "Test_Macro_F1": 0.5832
+      },
+      {
+        "Model": "MLP (Neural Net)",
+        "Test_Accuracy": 0.5889,
+        "Test_Macro_F1": 0.5928
+      }
+    ]
+  },
+  "midd_documents": {
+    "total_invoices": 699,
+    "layout_counts": {
+      "Layout4": 455,
+      "Layout1": 197,
+      "Layout2": 31,
+      "Layout3": 16
+    },
+    "avg_tokens_per_invoice": 437.8,
+    "avg_entity_tokens": 22.9,
+    "top_iob_tags": {
+      "I-GSTL": 2662,
+      "I-INV_NO": 1539,
+      "B-GSTL": 1363,
+      "I-INV_L": 1352,
+      "I-BUY_N": 1284,
+      "I-SUPP_N": 710,
+      "B-SUPP_N": 701,
+      "B-BUY_N": 698,
+      "B-INV_L": 696,
+      "B-INV_DT": 695
+    },
+    "layout_clf_svm_acc": 0.9986,
+    "layout_clf_svm_f1": 0.9991,
+    "layout_clf_rf_acc": 0.9986,
+    "layout_clf_rf_f1": 0.9991
+  },
+  "cord_receipts": {
+    "total_receipts": 200,
+    "payment_distribution": {
+      "Tunai (Cash)": 130,
+      "Non-Tunai (Card/E-Money)": 35,
+      "Tidak Tercatat": 35
+    },
+    "avg_menu_items": 2.36,
+    "avg_ocr_words": 22.71,
+    "median_total_idr": 48000,
+    "mean_total_idr": 213116,
+    "digital_payment_rf_acc": 0.635,
+    "digital_payment_rf_f1": 0.4961
+  }
+}

@@ -25,7 +25,7 @@ from model.storage_config import (
 ROOT_DIR = Path(__file__).resolve().parent.parent
 CLEAN_DIR = ROOT_DIR / "data" / "clean"
 SAVED_DIR = ROOT_DIR / "model" / "saved"
-BDA_DIR = ROOT_DIR / "peta-digital-umkm" / "reports" / "bda"
+BDA_DIR = ROOT_DIR / "docs" / "reports" / "bda"
 GDRIVE_IMAGES_GMAPS = GDRIVE_PROJECT_ROOT
 
 
@@ -59,15 +59,25 @@ class TestUMKMPipeline(unittest.TestCase):
         self.assertEqual(len(df_dok), 3)
 
     def test_image_storage_volume_ge_200mb(self):
-        """Validasi struktur 7 zona BDA-2026-Iqbal (Search->Repeat->Adjust->Dataset) & clean images >= 200 MB."""
+        """Validasi struktur 7 zona BDA-2026-Iqbal (Diagram, Journal, Repeat/, Modifikasi/, Dataset) & clean images >= 200 MB."""
+        import xml.etree.ElementTree as ET
+
+        drawio_path = ROOT_DIR / "docs" / "diagrams" / "BDA_Journal_Repeat_dan_Modifikasi_4Pages.drawio"
+        self.assertTrue(drawio_path.exists(), "File draw.io 4 halaman belum ada!")
+        tree = ET.parse(drawio_path)
+        self.assertEqual(len(tree.getroot().findall("diagram")), 4, "File draw.io harus memiliki tepat 4 halaman!")
+
+        self.assertTrue((ROOT_DIR / "model" / "notebooks" / "Repeat" / "01_repeat_jurnal_utama_swk_09040624091.ipynb").exists())
+        self.assertTrue((ROOT_DIR / "model" / "notebooks" / "Modifikasi" / "02_modifikasi_multimodal_umkm_09040624091.ipynb").exists())
+
         if GDRIVE_PROJECT_ROOT.exists():
             for top_dir in [
-                "01_Search_Journal",
-                "02_Repeat_Journal",
-                "03_Adjust_Journal",
+                "01_Diagram_DrawIO",
+                "02_Journal_Rujukan",
+                "Repeat",
+                "Modifikasi",
                 "04_Dataset_Multimodal_Saya",
                 "05_Models_Tersimpan",
-                "06_Notebooks_Lengkap_Proyek",
                 "07_Reports_Lengkap_Proyek",
             ]:
                 self.assertTrue(

@@ -28,7 +28,7 @@ from sklearn.preprocessing import StandardScaler
 from model.training.ml_pipeline import FEATURE_COLS, derive_target_class, prepare_feature_frame
 GOLD_DIR = ROOT_DIR / "data" / "gold"
 SAVED_DIR = ROOT_DIR / "model" / "saved"
-REPORTS_DIR = ROOT_DIR / "peta-digital-umkm" / "reports" / "modeling"
+REPORTS_DIR = ROOT_DIR / "docs" / "reports" / "modeling"
 
 
 class DeepClusteringAutoencoder(nn.Module):
